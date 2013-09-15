@@ -1,0 +1,24 @@
+
+Interrupciones
+
+Registros:
+	RCON
+	INTCON
+	INTCON2
+	INTCON3
+	PIR1
+	PIR2
+	PIE1
+	PIE2
+	IPR1
+	IPR2
+
+Interrupciones:
+	Interrupción Timer0
+	Interrupción Timer1
+	Interrupción externa 0
+	Interrupción externa 1
+	Interrupción externa 2
+	Interrupción USB
+	Interrupción puerto B
+	

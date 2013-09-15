@@ -1,0 +1,45 @@
+C:\Users\Carlos\Proyectos\Embedded-GUI\Embedded-GUI\Embedded-GUI\bin\Debug\Embedded-GUI.exe
+C:\Users\Carlos\Proyectos\Embedded-GUI\Embedded-GUI\Embedded-GUI\bin\Debug\Embedded-GUI.pdb
+C:\Users\Carlos\Proyectos\Embedded-GUI\Embedded-GUI\Embedded-GUI\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Carlos\Proyectos\Embedded-GUI\Embedded-GUI\Embedded-GUI\obj\x86\Debug\WindowsFormsApplication1.Form1.resources
+C:\Users\Carlos\Proyectos\Embedded-GUI\Embedded-GUI\Embedded-GUI\obj\x86\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\Carlos\Proyectos\Embedded-GUI\Embedded-GUI\Embedded-GUI\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Carlos\Proyectos\Embedded-GUI\Embedded-GUI\Embedded-GUI\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Carlos\Proyectos\Embedded-GUI\Embedded-GUI\Embedded-GUI\obj\x86\Debug\Embedded-GUI.exe
+C:\Users\Carlos\Proyectos\Embedded-GUI\Embedded-GUI\Embedded-GUI\obj\x86\Debug\Embedded-GUI.pdb
+C:\Documents and Settings\uids7105\Desktop\glucommeter-gui\Embedded-GUI\Embedded-GUI\obj\x86\Debug\Embedded-GUI.exe
+C:\Documents and Settings\uids7105\Desktop\glucommeter-gui\Embedded-GUI\Embedded-GUI\obj\x86\Debug\Embedded-GUI.pdb
+C:\Documents and Settings\uids7105\Desktop\glucommeter-gui\Embedded-GUI\Embedded-GUI\bin\Debug\Embedded-GUI.exe
+C:\Documents and Settings\uids7105\Desktop\glucommeter-gui\Embedded-GUI\Embedded-GUI\bin\Debug\Embedded-GUI.pdb
+C:\Documents and Settings\uids7105\Desktop\glucommeter-gui\Embedded-GUI\Embedded-GUI\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\uids7105\Desktop\glucommeter-gui\Embedded-GUI\Embedded-GUI\obj\x86\Debug\WindowsFormsApplication1.Form1.resources
+C:\Documents and Settings\uids7105\Desktop\glucommeter-gui\Embedded-GUI\Embedded-GUI\obj\x86\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Documents and Settings\uids7105\Desktop\glucommeter-gui\Embedded-GUI\Embedded-GUI\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Documents and Settings\uids7105\Desktop\glucommeter-gui\Embedded-GUI\Embedded-GUI\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Carlos\Desktop\glucommeter-gui\Embedded-GUI\Embedded-GUI\obj\x86\Debug\Embedded-GUI.exe
+C:\Users\Carlos\Desktop\glucommeter-gui\Embedded-GUI\Embedded-GUI\obj\x86\Debug\Embedded-GUI.pdb
+C:\Users\Carlos\Desktop\glucommeter-gui\Embedded-GUI\Embedded-GUI\bin\Debug\Embedded-GUI.exe
+C:\Users\Carlos\Desktop\glucommeter-gui\Embedded-GUI\Embedded-GUI\bin\Debug\Embedded-GUI.pdb
+C:\Users\Carlos\Desktop\glucommeter-gui\Embedded-GUI\Embedded-GUI\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Carlos\Desktop\glucommeter-gui\Embedded-GUI\Embedded-GUI\obj\x86\Debug\WindowsFormsApplication1.Form1.resources
+C:\Users\Carlos\Desktop\glucommeter-gui\Embedded-GUI\Embedded-GUI\obj\x86\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\Carlos\Desktop\glucommeter-gui\Embedded-GUI\Embedded-GUI\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Carlos\Desktop\glucommeter-gui\Embedded-GUI\Embedded-GUI\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Alejandro\Documents\Archivos\documentos\IngBim\Tesis\Archivos\glucommeter-gui\Embedded-GUI\Embedded-GUI\obj\x86\Debug\Embedded-GUI.exe
+C:\Users\Alejandro\Documents\Archivos\documentos\IngBim\Tesis\Archivos\glucommeter-gui\Embedded-GUI\Embedded-GUI\obj\x86\Debug\Embedded-GUI.pdb
+C:\Users\Alejandro\Documents\Archivos\documentos\IngBim\Tesis\Archivos\glucommeter-gui\Embedded-GUI\Embedded-GUI\bin\Debug\Embedded-GUI.exe
+C:\Users\Alejandro\Documents\Archivos\documentos\IngBim\Tesis\Archivos\glucommeter-gui\Embedded-GUI\Embedded-GUI\bin\Debug\Embedded-GUI.pdb
+C:\Users\Alejandro\Documents\Archivos\documentos\IngBim\Tesis\Archivos\glucommeter-gui\Embedded-GUI\Embedded-GUI\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Alejandro\Documents\Archivos\documentos\IngBim\Tesis\Archivos\glucommeter-gui\Embedded-GUI\Embedded-GUI\obj\x86\Debug\WindowsFormsApplication1.Form1.resources
+C:\Users\Alejandro\Documents\Archivos\documentos\IngBim\Tesis\Archivos\glucommeter-gui\Embedded-GUI\Embedded-GUI\obj\x86\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\Alejandro\Documents\Archivos\documentos\IngBim\Tesis\Archivos\glucommeter-gui\Embedded-GUI\Embedded-GUI\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Alejandro\Documents\Archivos\documentos\IngBim\Tesis\Archivos\glucommeter-gui\Embedded-GUI\Embedded-GUI\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Alejandro\Documents\Archivos\documentos\IngBim\Tesis\Sistema\glucommeter-gui\Embedded-GUI\Embedded-GUI\obj\x86\Debug\Embedded-GUI.exe
+C:\Users\Alejandro\Documents\Archivos\documentos\IngBim\Tesis\Sistema\glucommeter-gui\Embedded-GUI\Embedded-GUI\obj\x86\Debug\Embedded-GUI.pdb
+C:\Users\Alejandro\Documents\Archivos\documentos\IngBim\Tesis\Sistema\glucommeter-gui\Embedded-GUI\Embedded-GUI\bin\Debug\Embedded-GUI.exe
+C:\Users\Alejandro\Documents\Archivos\documentos\IngBim\Tesis\Sistema\glucommeter-gui\Embedded-GUI\Embedded-GUI\bin\Debug\Embedded-GUI.pdb
+C:\Users\Alejandro\Documents\Archivos\documentos\IngBim\Tesis\Sistema\glucommeter-gui\Embedded-GUI\Embedded-GUI\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Alejandro\Documents\Archivos\documentos\IngBim\Tesis\Sistema\glucommeter-gui\Embedded-GUI\Embedded-GUI\obj\x86\Debug\WindowsFormsApplication1.Form1.resources
+C:\Users\Alejandro\Documents\Archivos\documentos\IngBim\Tesis\Sistema\glucommeter-gui\Embedded-GUI\Embedded-GUI\obj\x86\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\Alejandro\Documents\Archivos\documentos\IngBim\Tesis\Sistema\glucommeter-gui\Embedded-GUI\Embedded-GUI\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Alejandro\Documents\Archivos\documentos\IngBim\Tesis\Sistema\glucommeter-gui\Embedded-GUI\Embedded-GUI\obj\x86\Debug\GenerateResource.write.1.tlog

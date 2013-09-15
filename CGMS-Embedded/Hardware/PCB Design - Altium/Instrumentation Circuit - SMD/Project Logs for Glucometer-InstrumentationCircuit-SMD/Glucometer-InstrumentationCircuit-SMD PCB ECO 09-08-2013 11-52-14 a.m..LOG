@@ -1,0 +1,3 @@
+Added Component: Designator=U?(SOIC-SO28_N)
+Added Member To Class: ClassName=Glucometer-InstrumentationCircuit-SMD Member=Component U? PIC24FJ64GA102-I/SO
+Added Room: Name=Glucometer-InstrumentationCircuit-SMD

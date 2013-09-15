@@ -1,0 +1,89 @@
+Added Component: Designator=C3(RAD-0.3)
+Added Component: Designator=C4(RAD-0.3)
+Added Component: Designator=C5(RAD-0.3)
+Added Component: Designator=C6(RAD-0.3)
+Added Component: Designator=C7(RAD-0.3)
+Added Component: Designator=CON2(HDR1X6)
+Added Component: Designator=U3(KTP02)
+Added Component: Designator=U4(KTP02)
+Added Component: Designator=U5(R-14_N)
+Added Component: Designator=X1(R38)
+Added Pin To Net: NetName=GND Pin=C3-1
+Added Pin To Net: NetName=GND Pin=C4-1
+Added Pin To Net: NetName=GND Pin=C5-1
+Added Pin To Net: NetName=VCC Pin=C5-2
+Added Pin To Net: NetName=GND Pin=C6-1
+Added Pin To Net: NetName=VCC Pin=C6-2
+Added Pin To Net: NetName=GND Pin=C7-1
+Added Pin To Net: NetName=VCC Pin=C7-2
+Added Pin To Net: NetName=VCC Pin=CON2-2
+Added Pin To Net: NetName=GND Pin=CON2-3
+Added Pin To Net: NetName=GND Pin=uC-8
+Added Pin To Net: NetName=VCC Pin=uC-13
+Added Pin To Net: NetName=GND Pin=uC-27
+Added Pin To Net: NetName=VCC Pin=uC-28
+Added Pin To Net: NetName=NetC3_2 Pin=C3-2
+Added Pin To Net: NetName=NetC3_2 Pin=uC-9
+Added Pin To Net: NetName=NetC3_2 Pin=X1-1
+Added Net: Name=NetC3_2
+Added Pin To Net: NetName=NetC4_2 Pin=C4-2
+Added Pin To Net: NetName=NetC4_2 Pin=uC-10
+Added Pin To Net: NetName=NetC4_2 Pin=X1-2
+Added Net: Name=NetC4_2
+Added Pin To Net: NetName=NetCON2_1 Pin=CON2-1
+Added Pin To Net: NetName=NetCON2_1 Pin=uC-1
+Added Net: Name=NetCON2_1
+Added Pin To Net: NetName=NetCON2_4 Pin=CON2-4
+Added Pin To Net: NetName=NetCON2_4 Pin=uC-14
+Added Net: Name=NetCON2_4
+Added Pin To Net: NetName=NetCON2_5 Pin=CON2-5
+Added Pin To Net: NetName=NetCON2_5 Pin=uC-15
+Added Net: Name=NetCON2_5
+Added Pin To Net: NetName=NetuC_2 Pin=uC-2
+Added Net: Name=NetuC_2
+Added Pin To Net: NetName=NetuC_3 Pin=uC-3
+Added Net: Name=NetuC_3
+Added Pin To Net: NetName=NetuC_4 Pin=uC-4
+Added Net: Name=NetuC_4
+Added Pin To Net: NetName=NetuC_5 Pin=uC-5
+Added Net: Name=NetuC_5
+Added Pin To Net: NetName=NetuC_6 Pin=uC-6
+Added Net: Name=NetuC_6
+Added Pin To Net: NetName=NetuC_7 Pin=uC-7
+Added Net: Name=NetuC_7
+Added Pin To Net: NetName=NetuC_11 Pin=uC-11
+Added Net: Name=NetuC_11
+Added Pin To Net: NetName=NetuC_12 Pin=uC-12
+Added Net: Name=NetuC_12
+Added Pin To Net: NetName=NetuC_16 Pin=uC-16
+Added Net: Name=NetuC_16
+Added Pin To Net: NetName=NetuC_17 Pin=uC-17
+Added Net: Name=NetuC_17
+Added Pin To Net: NetName=NetuC_18 Pin=uC-18
+Added Net: Name=NetuC_18
+Added Pin To Net: NetName=NetuC_19 Pin=uC-19
+Added Net: Name=NetuC_19
+Added Pin To Net: NetName=NetuC_20 Pin=uC-20
+Added Net: Name=NetuC_20
+Added Pin To Net: NetName=NetuC_21 Pin=uC-21
+Added Net: Name=NetuC_21
+Added Pin To Net: NetName=NetuC_22 Pin=uC-22
+Added Net: Name=NetuC_22
+Added Pin To Net: NetName=NetuC_23 Pin=uC-23
+Added Net: Name=NetuC_23
+Added Pin To Net: NetName=NetuC_24 Pin=uC-24
+Added Net: Name=NetuC_24
+Added Pin To Net: NetName=NetuC_25 Pin=uC-25
+Added Net: Name=NetuC_25
+Added Pin To Net: NetName=NetuC_26 Pin=uC-26
+Added Net: Name=NetuC_26
+Added Member To Class: ClassName=Glucometer-InstrumentationCircuit-SMD Member=Component C3 Cap
+Added Member To Class: ClassName=Glucometer-InstrumentationCircuit-SMD Member=Component C4 Cap
+Added Member To Class: ClassName=Glucometer-InstrumentationCircuit-SMD Member=Component C5 Cap
+Added Member To Class: ClassName=Glucometer-InstrumentationCircuit-SMD Member=Component C6 Cap
+Added Member To Class: ClassName=Glucometer-InstrumentationCircuit-SMD Member=Component C7 Cap
+Added Member To Class: ClassName=Glucometer-InstrumentationCircuit-SMD Member=Component CON2 Header 6
+Added Member To Class: ClassName=Glucometer-InstrumentationCircuit-SMD Member=Component U3 µA78M05CKTPR
+Added Member To Class: ClassName=Glucometer-InstrumentationCircuit-SMD Member=Component U4 µA78M33CKVURG3
+Added Member To Class: ClassName=Glucometer-InstrumentationCircuit-SMD Member=Component U5 AD5241
+Added Member To Class: ClassName=Glucometer-InstrumentationCircuit-SMD Member=Component X1 XTAL

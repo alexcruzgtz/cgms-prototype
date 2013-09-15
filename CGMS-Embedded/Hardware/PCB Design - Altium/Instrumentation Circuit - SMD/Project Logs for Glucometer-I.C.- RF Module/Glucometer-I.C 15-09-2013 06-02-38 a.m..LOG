@@ -1,0 +1,19 @@
+Removed Pin From Net: NetName=GND Pin=CON1-9
+Removed Pin From Net: NetName=3.3V Pin=CON1-10
+Removed Pin From Net: NetName=NetCON1_5 Pin=U7-2
+Removed Pin From Net: NetName=NetCON1_3 Pin=U7-3
+Removed Pin From Net: NetName=NetCON1_1 Pin=U7-4
+Removed Pin From Net: NetName=NetCON1_2 Pin=U7-5
+Removed Pin From Net: NetName=NetCON1_4 Pin=U7-6
+Removed Pin From Net: NetName=NetCON1_6 Pin=U7-7
+Added Pin To Net: NetName=3.3V Pin=CON1-9
+Added Pin To Net: NetName=GND Pin=CON1-10
+Added Pin To Net: NetName=NetCON1_6 Pin=U7-2
+Added Pin To Net: NetName=NetCON1_4 Pin=U7-3
+Added Pin To Net: NetName=NetCON1_2 Pin=U7-4
+Added Pin To Net: NetName=NetCON1_1 Pin=U7-5
+Added Pin To Net: NetName=NetCON1_3 Pin=U7-6
+Added Pin To Net: NetName=NetCON1_5 Pin=U7-7
+Added Pin To Net: NetName=NetCON1_7 Pin=CON1-7
+Added Pin To Net: NetName=NetCON1_7 Pin=U7-8
+Added Net: Name=NetCON1_7
