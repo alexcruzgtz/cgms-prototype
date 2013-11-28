@@ -2,19 +2,20 @@
 /**/
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-#include <p24fj64ga102.h>
+#include "p24fxxxx.h"
 #include "GenericTypeDefs.h"
 #include "ADC_Handler.h"
+#include "HardwareConfig.h"
 
 /*-----------------------------------------------------------------------------------------*/
 extern void ADC_Init(void);
-extern void ADC_ReadMeasurements(uint16_t *ADCBufAddress);
+extern void ADC_ReadMeasurements(UINT16 *ADCBufAddress);
 
 
 /*-----------------------------------------------------------------------------------------*/
-void ADC_ReadAllMeasurements(uint16_t *ADCBufAddress)
+void ADC_ReadAllMeasurements(UINT16 *ADCBufAddress)
 {
-	uint16_t i=0;
+	UINT16 i=0;
 	if(!ADC_Buf_Status)
 	{
 		ptr_ADCBuffer=&(ADC1BUF0+ADC_BUF_OFFSET);
@@ -30,7 +31,7 @@ void ADC_ReadAllMeasurements(uint16_t *ADCBufAddress)
 }
 
 /*.........................................................................................*/
-uint16_t ADC_MakeOneMeasurement(uint16_t ADCAnalogInput)
+UINT16 ADC_MakeOneMeasurement(UINT16 ADCAnalogInput)
 {
 	_ADC_OFF
 	_ADC_INTERRUPT_OFF
@@ -86,11 +87,11 @@ void ADC_Init(void)
 	_ADC_BAND_GAP_REF_DISABLED
 	_ADC_HALF_BAND_REF_DISABLED
 	_ADC_INT_VREG_CH_DISABLED
-	ADC_Analog_Pins_Cfg=0b1111111000001;
+	ADC_Analog_Pins_Cfg=ANALOGPINS_CFG;
 	_ADC_BAND_GAP_DISABLED
 	_ADC_HALF_BAND_GAP_DISABLED
 	_ADC_INT_VREG_DISABLED
-	ADC_Scan_Pins_Enabled=0b1111111000001;
+	ADC_Scan_Pins_Enabled=ANALOG_SCANCHANNELS;
 	ptr_ADCBuffer=&ADC1BUF0;
 	ADC_Interrupt_Priority=5;
 }
