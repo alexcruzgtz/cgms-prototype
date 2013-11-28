@@ -2,17 +2,18 @@
 /**/
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-#include <p24fj64ga102.h>
+#include "p24fxxxx.h"
 #include "GenericTypeDefs.h"
+#include "HardwareConfig.h"
 
 #ifndef __ADC_HANDLER_H
 #define __ADC_HANDLER_H
 
 /*-----------------------------------------------------------------------------------------*/
 extern void ADC_Init(void);
-extern uint16_t ADC_Read(void);
+extern UINT16 ADC_Read(void);
 
-extern uint16_t *ptr_ADC8Buffer
+extern UINT16 *ptr_ADC8Buffer
 
 /*-----------------------------------------------------------------------------------------*/
 #define _31_TAD		31
@@ -33,6 +34,7 @@ extern uint16_t *ptr_ADC8Buffer
 #define _64_TCY		63
 
 #define ADC_NUM_INPUTS			4;
+#define ANALOG_SCANCHANNELS		ANALOGPINS_CFG
 #define ADC_BUF2_OFFSET			0x0008
 #define ADC_Buf_Status 			AD1CON2bits.BUFS /*If 1: AD filling upper buffer. If 0: AD filling lower buffer*/
 #define ADC_Conv_Done			AD1CON1bits.DONE

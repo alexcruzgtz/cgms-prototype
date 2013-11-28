@@ -2,22 +2,19 @@
 /**/
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-#include "p24fxxxx.h"
+
+#include <p24fj64ga102.h>
 #include "GenericTypeDefs.h"
-#include "SPI_Handler.h"
+#include "PPS.h"
+
+#ifndef __CONFIG_MCU
+#define __CONFIG_MCU
 
 /*-----------------------------------------------------------------------------------------*/
-UINT16 SPI1_Tx(UINT16 *Data)
-{     
-    SPI1BUF = *Data;
-    while (SPI1_TBF_Status);
-    return SPI1BUF;
-}
+void ConfigMCU_Init();
 
-UINT16 SPI1_Rx(void)
-{
-    UINT16 Data=0;
-    Data = SPI1BUF;
-    while (SPI1_RBF_Status);
-    return Data;
-}
+/*-----------------------------------------------------------------------------------------*/
+
+
+
+#endif

@@ -2,7 +2,7 @@
 /**/
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-#include <p24fj64ga102.h>
+#include "p24fxxxx.h"
 #include "GenericTypeDefs.h"
 
 #ifndef __SPI_HANDLER_H
