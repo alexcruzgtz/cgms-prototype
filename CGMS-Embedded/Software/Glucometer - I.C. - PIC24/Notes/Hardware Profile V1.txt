@@ -212,7 +212,7 @@ Bit		Function																   	 Macros			Application Selection
 
 14-11 	Unimplemented: Read as ‘1’
 
-10-8	FNOSC<2:0>: Initial Oscillator Select bits													LPRC
+10-8	FNOSC<2:0>: Initial Oscillator Select bits													FRC
 			111 = Fast RC Oscillator with Postscaler (FRCDIV)						FNOSC_FRCDIV
 			110 = Reserved
 			101 = Low-Power RC Oscillator (LPRC)									FNOSC_LPRC
@@ -222,7 +222,7 @@ Bit		Function																   	 Macros			Application Selection
 			001 = Fast RC Oscillator with Postscaler and PLL module (FRCPLL)		FNOSC_FRCPLL
 			000 = Fast RC Oscillator (FRC)											FNOSC_FRC
 
-7-6		FCKSM<1:0>: Clock Switching and Fail-Safe Clock Monitor Configuration bits					All Enabled
+7-6		FCKSM<1:0>: Clock Switching and Fail-Safe Clock Monitor Configuration bits					Clock Switching Enabled
 			1x = Clock switching and Fail-Safe Clock Monitor are disabled			FCKSM_CSDCMD
 			01 = Clock switching is enabled, Fail-Safe Clock Monitor is disabled	FCKSM_CSECMD
 			00 = Clock switching is enabled, Fail-Safe Clock Monitor is enabled		FCKSM_CSECME
@@ -254,7 +254,7 @@ Bit		Function																   	 Macros			Application Selection
 			00 = EC Oscillator mode is selected										POSCMOD_EC
 
 Macro Definition
-	_CONFIG2 (IESO_OFF & FNOSC_LPRC & FCKSM_CSECME & OSCIOFCN_ON & IOL1WAY_ON & I2C1SEL_PRI & POSCMOD_NONE)
+	_CONFIG2 (IESO_OFF & FNOSC_FRC & FCKSM_CSECMD & OSCIOFCN_ON & IOL1WAY_ON & I2C1SEL_PRI & POSCMOD_NONE)
 
 ...CW3...
 Bit		Function																   	 Macros				Application Selection
@@ -345,5 +345,16 @@ Bit		Function																   	 Macros				Application Selection
 
 Macro Definition
 	_CONFIG4 (DSWDTEN_OFF & DSBOREN_ON & RTCOSC_LPRC & DSWDTOSC_LPRC & DSWDTPS_DSWDTPS9 )
+
+
+************************************************************************************************
+	*** Oscillator Configuration ***
+-Internal RC Oscillator
+-8Mhz Frecuency
+-Switch clock enable. Fail Save Clock Disable
+-LPRC reference clock for WDT, BOR, RTCC
+-POSC disable
+-Ref Oscillator Disable
+
 
 */

@@ -36,50 +36,51 @@ FSCK= Fcy / Primary Prescaler * Secundary Prescaler */
 #define _IRQ_RXBUF_EMPTY		0	/*Interrupt when the last data in the receive buffer is read; as a result, the buffer is empty(SRXMPT bit set)*/
 
 /*............. SPI1STAT Status and Control Register Macros ...............................*/
-#define _SPI1_ON             		SPI1STATbits.SPIEN=SET;		/* Enable module */
-#define _SPI1_OFF            		SPI1STATbits.SPIEN=CLEAR; 	/* Disable module */
-#define _SPI1_IDLE_DISCONTINUE 	    SPI1STATbits.SPISIDL=SET; 	/* Discontinue module operation in idle mode */
-#define _SPI1_IDLE_CONTINUE       	SPI1STATbits.SPISIDL=CLEAR 	/* Continue module operation in idle mode */
+#define SPI1_ON             		SPI1STATbits.SPIEN=SET;		/* Enable module */
+#define SPI1_OFF            		SPI1STATbits.SPIEN=CLEAR; 	/* Disable module */
+#define SPI1_IDLE_DISCONTINUE 	    SPI1STATbits.SPISIDL=SET; 	/* Discontinue module operation in idle mode */
+#define SPI1_IDLE_CONTINUE       	SPI1STATbits.SPISIDL=CLEAR 	/* Continue module operation in idle mode */
 #define SPI1_BufCounter_Status		SPI1STATbits.SPIBEC			/*2:0. Num transfers pending (Master). Num transfers unread (Slave)*/
 #define SPI1_ShiftReg_Status		SPI1STATbits.SRMPT			/*1=Empty, 0=Not empty*/
 #define SPI1_Rx_Overflow_Flag		SPI1STATbits.SPIROV 		/*If set: Rx buffer overflow. User software has not read previus data in SPI1BUF*/
-#define _SPI1_CLEAR_RX_OVERFLOW   	SPI1STATbits.SPIROV=CLEAR;	/* Clear receive overflow bit */
-#define _SPI1_Rx_FIFOEmpty_Status	SPI1STATbits.SRXMPT			/*1=Empty. 0=Not empty*/
+#define SPI1_CLEAR_RX_OVERFLOW   	SPI1STATbits.SPIROV=CLEAR;	/* Clear receive overflow bit */
+#define SPI1_Rx_FIFOEmpty_Status	SPI1STATbits.SRXMPT			/*1=Empty. 0=Not empty*/
 #define SPI1_BufIRQ_Mode			SPI1STATbits.SISEL			/*Buffer interrupt mode selection*/
 #define SPI1_TBF_Status				SPI1STATbits.SPITBF
 #define SPI1_RBF_Status				SPI1STATbits.SPIRBF
 
 /*............. SPI1CON1 Control Register 1 Macros ........................................*/
-#define _SPI1_DISABLE_SCK        	SPI1CON1bits.DISSCK=SET; 	/* SCK pin is not used by module */
-#define _SPI1_ENABLE_SCK         	SPI1CON1bits.DISSCK=CLEAR; 	/* SCK pin is  used by module */
-#define _SPI1_DISABLE_SDO        	SPI1CON1bits.DISSDO=SET; 	/* SDO pin is not used by module */
-#define _SPI1_ENABLE_SDO       		SPI1CON1bits.DISSDO=CLEAR; 	/* SDO pin is  used by module */
-#define _SPI1_WORD_COMM          	SPI1CON1bits.MODE16=SET;	/* Communication is word wide */
-#define _SPI1_BYTE_COMM         	SPI1CON1bits.MODE16=CLEAR;	/* Communication is byte wide */
-#define _SPI1_SMPDATA_END           SPI1CON1bits.SMP=SET;	 	/* Input data sampled at end of data output time */
-#define _SPI1_SMPDATA_MIDDLE        SPI1CON1bits.SMP=CLEAR;		/* Input data sampled at middle of data output time */
-#define _SPI1_CLK_ACTIVETOIDDLE     SPI1CON1bits.CKE=SET;		/* Transmit happens from active clock state to idle clock state*/
-#define _SPI1_CLK_IDLETOACTIVE      SPI1CON1bits.CKE=CLEAR;		/* Transmit happens on transition from idle clock state to active clock state */
-#define _SPI1_SLAVESELECT_ENABLE    SPI1CON1bits.SSEN=SET;		/* Slave Select enbale */
-#define _SPI1_SLAVESELECT_DISABLE   SPI1CON1bits.SSEN=CLEAR;	/* Slave Select not used by module */
-#define _SPI1_CLKPOL_ACTIVE_LOW     SPI1CON1bits.CKP=SET; 		/* Idle state for clock is high, active is low */
-#define _SPI1_CLKPOL_ACTIVE_HIGH    SPI1CON1bits.CKP=CLEAR;		/* Idle state for clock is low, active is high */
-#define _SPI1_MASTER_MODE       	SPI1CON1bits.MSTEN=SET;		/* Master Mode */
-#define _SPI1_SLAVE_MODE      		SPI1CON1bits.MSTEN=CLEAR;	/* Slave Mode */
+#define SPI1_DISABLE_SCK        	SPI1CON1bits.DISSCK=SET; 	/* SCK pin is not used by module */
+#define SPI1_ENABLE_SCK         	SPI1CON1bits.DISSCK=CLEAR; 	/* SCK pin is  used by module */
+#define SPI1_DISABLE_SDO        	SPI1CON1bits.DISSDO=SET; 	/* SDO pin is not used by module */
+#define SPI1_ENABLE_SDO       		SPI1CON1bits.DISSDO=CLEAR; 	/* SDO pin is  used by module */
+#define SPI1_WORD_COMM          	SPI1CON1bits.MODE16=SET;	/* Communication is word wide */
+#define SPI1_BYTE_COMM         		SPI1CON1bits.MODE16=CLEAR;	/* Communication is byte wide */
+#define SPI1_SMPDATA_END           	SPI1CON1bits.SMP=SET;	 	/* Input data sampled at end of data output time */
+#define SPI1_SMPDATA_MIDDLE        	SPI1CON1bits.SMP=CLEAR;		/* Input data sampled at middle of data output time */
+#define SPI1_CLK_ACTIVETOIDDLE     	SPI1CON1bits.CKE=SET;		/* Transmit happens from active clock state to idle clock state*/
+#define SPI1_CLK_IDLETOACTIVE      	SPI1CON1bits.CKE=CLEAR;		/* Transmit happens on transition from idle clock state to active clock state */
+#define SPI1_SLAVESELECT_ENABLE    	SPI1CON1bits.SSEN=SET;		/* Slave Select enbale */
+#define SPI1_SLAVESELECT_DISABLE   	SPI1CON1bits.SSEN=CLEAR;	/* Slave Select not used by module */
+#define SPI1_CLKPOL_ACTIVE_LOW     	SPI1CON1bits.CKP=SET; 		/* Idle state for clock is high, active is low */
+#define SPI1_CLKPOL_ACTIVE_HIGH    	SPI1CON1bits.CKP=CLEAR;		/* Idle state for clock is low, active is high */
+#define SPI1_MASTER_MODE       		SPI1CON1bits.MSTEN=SET;		/* Master Mode */
+#define SPI1_SLAVE_MODE      		SPI1CON1bits.MSTEN=CLEAR;	/* Slave Mode */
 #define SPI1_SecPrescaler_Mode		SPI1CON1bits.SPRE			/*1=Transmit not started, SPI1TXB full. 0=Transmit started, SPI1TXB empty*/
 #define SPI1_PriPRescaler_Mode		SPI1CON1bits.PPRE			/*1=Receive is complete, SPI1RXB full. 0=Receive not complete, SPI1RXB empty*/
 
 /*............. SPI1CON2 Control Register 2 Macros ........................................*/
-#define _SPI1_FRAME_ENABLE        	SPICON2bits.FRMEN=SET;	 	/* Frame SPI support enable */
-#define _SPI1_FRAME_DISABLE       	SPICON2bits.FRMEN=CLEAR;	/* Frame SPI support Disable */
-#define _SPI1_SYNC_SLAVE       		SPICON2bits.SPIFSD=SET; 	/* Frame sync pulse Input (slave)  */
-#define _SPI1_SYNC_MASTER      		SPICON2bits.SPIFSD=CLEAR; 	/* Frame sync pulse Output (master)*/
-#define _SPI1_SYNCPOL_ACTIVE_HIGH 	SPICON2bits.SPIFPOL=SET; 	/* Frame sync pulse Input (slave)  */
-#define _SPI1_SYNCPOL_ACTIVE_LOW  	SPICON2bits.SPIFPOL=CLEAR; 	/* Frame sync pulse Output (master)*/
-#define _SPI1_SYNCEDGE_COINCIDES 	SPICON2bits.SPIFE=SET; 		/* frame pulse coincides with the first bit clock */
-#define _SPI1_SYNCEDGE_PRECEDES  	SPICON2bits.SPIFE=CLEAR; 	/* frame pulse precedes the first bit clock */
-#define _SPI1_ENH_BUFF_ENABLE    	SPICON2bits.SPIBEN=SET; 	/* enable enhanced buffer */
-#define _SPI1_ENH_BUFF_DISABLE   	SPICON2bits.SPIBEN=CLEAR; 	/* disable enhanced buffer */
+#define SPI1_FRAME_ENABLE        	SPI1CON2bits.FRMEN=SET;	 	/* Frame SPI support enable */
+#define SPI1_FRAME_DISABLE       	SPI1CON2bits.FRMEN=CLEAR;	/* Frame SPI support Disable */
+#define SPI1_SYNC_SLAVE       		SPI1CON2bits.SPIFSD=SET; 	/* Frame sync pulse Input (slave)  */
+#define SPI1_SYNC_MASTER      		SPI1CON2bits.SPIFSD=CLEAR; 	/* Frame sync pulse Output (master)*/
+#define SPI1_SYNCPOL_ACTIVE_HIGH 	SPI1CON2bits.SPIFPOL=SET; 	/* Frame sync pulse Input (slave)  */
+#define SPI1_SYNCPOL_ACTIVE_LOW  	SPI1CON2bits.SPIFPOL=CLEAR; /* Frame sync pulse Output (master)*/
+#define SPI1_SYNCEDGE_COINCIDES 	SPI1CON2bits.SPIFE=SET; 	/* frame pulse coincides with the first bit clock */
+#define SPI1_SYNCEDGE_PRECEDES  	SPI1CON2bits.SPIFE=CLEAR; 	/* frame pulse precedes the first bit clock */
+#define SPI1_ENH_BUFF_ENABLE    	SPI1CON2bits.SPIBEN=SET; 	/* enable enhanced buffer */
+#define SPI1_ENH_BUFF_DISABLE   	SPI1CON2bits.SPIBEN=CLEAR; 	/* disable enhanced buffer */
 
 
+/*-----------------------------------------------------------------------------------------*/
 #endif
