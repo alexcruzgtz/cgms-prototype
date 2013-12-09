@@ -46,21 +46,18 @@
 ********************************************************************/
 
 #ifndef __CONFIGURE_MIWI_H
-
-    #define __CONFIGURE_MIWI_H
+#define __CONFIGURE_MIWI_H
     
-    #include "ConfigApp.h"
-    
-    #if defined(PROTOCOL_MIWI)
-        #include "WirelessProtocols/SymbolTime.h"
-    
+/*-----------------------------------------------------------------------------------------*/
+	#include "MiWi_ConfigApp.h"
+	#if defined(PROTOCOL_MIWI)
+		#include "SymbolTime.h"
         /*********************************************************************/
         // ENABLE_DUMP will enable the stack to be able to print out the 
         // content of the P2P connection entry. It is useful in the debugging
         // process
         /*********************************************************************/
         #define ENABLE_DUMP
-        
         
         /*********************************************************************/
         // RFD_DATA_WAIT is the timeout defined for sleeping device to receive 
@@ -70,7 +67,6 @@
         /*********************************************************************/
         #define RFD_DATA_WAIT                   0x00003FFF
         
-        
         /*********************************************************************/
         // CONNECTION_RETRY_TIMES is the maximum time that the wireless node
         // can try to establish a connection. Once the retry times are exhausted
@@ -78,14 +74,12 @@
         /*********************************************************************/
         #define CONNECTION_RETRY_TIMES          3
     
-    
         /*********************************************************************/
         // OPEN_SOCKET_TIMEOUT is the timeout period in symbols for a node to
         // abandon attempt to establish a socket connection, or in MiApp term,
         // an indrect connection
         /*********************************************************************/
         #define OPEN_SOCKET_TIMEOUT             (ONE_SECOND * 3)
-    
     
         /*********************************************************************/
         // For a sleeping device, when establishing an indirect connection 
@@ -99,13 +93,11 @@
         /*********************************************************************/
         #define OPEN_SOCKET_POLL_INTERVAL       (ONE_SECOND)
         
-        
         /*********************************************************************/
         // ENABLE_MIWI_ACKNOWLEDGEMENT enables the MiWi stack to acknowledge
         // the data packet from the application layer.
         /*********************************************************************/
         //#define ENABLE_MIWI_ACKNOWLEDGEMENT
-
 
         /*********************************************************************/
         // MIWI_ACK_TIMEOUT is the timeout period in symbols for a node to
@@ -115,13 +107,11 @@
         /*********************************************************************/
         #define MIWI_ACK_TIMEOUT                (ONE_SECOND)
     
-    
         /*********************************************************************/
         // ENABLE_BROADCAST_TO_SLEEP_DEVICE enables messages broadcast to a 
         // sleeping device.
         /*********************************************************************/
         #define ENABLE_BROADCAST_TO_SLEEP_DEVICE
-        
         
         /*********************************************************************/
         // BROADCAST_RECORD_SIZE is the parameter that specifies the maximum
@@ -131,7 +121,6 @@
         /*********************************************************************/
         #define BROADCAST_RECORD_SIZE   4
         
-        
         /*********************************************************************/
         // BROADCAST_RECORD_TIMEOUT defines the timeout in symbols for a
         // node to expire its broadcast record. The broadcast record is used
@@ -140,7 +129,6 @@
         // a non-sleeping device.
         /*********************************************************************/
         #define BROADCAST_RECORD_TIMEOUT    (ONE_SECOND)
-        
         
         /*********************************************************************/
         // When broadcasting to a sleeping device is enabled, it is hard for 
@@ -155,7 +143,6 @@
         /*********************************************************************/
         #define INDIRECT_MESSAGE_TIMEOUT_CYCLE  2
         
-        
         /*********************************************************************/
         // MAX_ROUTING_FAILURE is the number of failures of routing between
         // coordinators before such route is disabled in the decision of 
@@ -165,13 +152,11 @@
         /*********************************************************************/
         #define MAX_ROUTING_FAILURE 3
         
-        
         /*********************************************************************/
         // ACTIVE_SCAN_RESULT_SIZE defines the maximum number of active scan
         // results that can be received and recorded within one active scan.
         /*********************************************************************/
         #define ACTIVE_SCAN_RESULT_SIZE 4
-            
             
         /*********************************************************************/
         // INDIRECT_MESSAGE_SIZE defines the maximum number of packets that
@@ -179,22 +164,19 @@
         /*********************************************************************/
         #define INDIRECT_MESSAGE_SIZE   2
     
-    
         /*********************************************************************/
         // INDIRECT_MESSAGE_TIMEOUT defines the timeout interval in seconds
         // for the stored packets for sleeping devices
         /*********************************************************************/
         #define INDIRECT_MESSAGE_TIMEOUT (ONE_SECOND * RFD_WAKEUP_INTERVAL * INDIRECT_MESSAGE_TIMEOUT_CYCLE)
-    
-    
+
         /*********************************************************************/
         // FA_BROADCAST_TIME defines the total number of times to broadcast
         // the channel hopping message to the rest of PAN, before the 
         // Frequency Agility initiator jump to the new channel
         /*********************************************************************/
         #define FA_BROADCAST_TIME           0x03
-    
-    
+
         /*********************************************************************/
         // RESYNC_TIMES defines the maximum number of times to try resynchronization
         // in all available channels before hand over the control to the application
@@ -202,7 +184,6 @@
         /*********************************************************************/
         #define RESYNC_TIMES                0x03
 
-        
         /*********************************************************************/
         // ENABLE_ENHANCED_DATA_REQUEST enables the Enhanced Data Request 
         // feature of P2P stack. It combines the message that is send from
@@ -211,8 +192,7 @@
         // life.
         /*********************************************************************/
         //#define ENABLE_ENHANCED_DATA_REQUEST
-        
-        
+
         /*********************************************************************/
         // ENABLE_TIME_SYNC enables the Time Synchronizaiton feature of P2P
         // stack. It allows the FFD to coordinate the check-in interval of
@@ -223,8 +203,7 @@
         //      COUNTER_CRYSTAL_FREQ
         /*********************************************************************/
         //#define ENABLE_TIME_SYNC
-        
-        
+
         /*********************************************************************/
         // TIME_SYNC_SLOTS defines the total number of time slot available 
         // within one duty cycle. As a rule, the number of time slot must be
@@ -240,15 +219,16 @@
         // is defined
         /*********************************************************************/
         #define TIME_SYNC_SLOTS             10
-    
-    
+
         /*********************************************************************/
         // COUNTER_CRYSTAL_FREQ defines the frequency of the crystal that 
         // is connected to the MCU counter to perform timing functionality
         // when MCU is in sleep. 
         /*********************************************************************/
         #define COUNTER_CRYSTAL_FREQ        32768
-        
-    #endif
+	#endif
+
+
+/*-----------------------------------------------------------------------------------------*/
 #endif
 

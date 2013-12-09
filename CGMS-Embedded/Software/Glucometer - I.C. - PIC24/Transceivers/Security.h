@@ -46,15 +46,37 @@
 ********************************************************************/
 
 #ifndef __SECURITY_H
-    #define __SECURITY_H
+#define __SECURITY_H
 
-    #include "Transceivers/Transceivers.h"
 
+/*-----------------------------------------------------------------------------------------*/   
+	#include "MiWi_ConfigApp.h"
+	#if defined(PROTOCOL_P2P)
+	   	#include "WirelessProtocols/P2P/MiWi_P2P.h"
+	#elif defined(PROTOCOL_MIWI)
+   		#include "WirelessProtocols/MiWi/MiWi.h"
+	#elif defined(PROTOCOL_MIWI_PRO)
+   		#include "WirelessProtocols/MiWiPRO/MiWiPRO.h"
+	#endif
+	#if defined(MRF24J40)
+    	#define IEEE_802_15_4
+    	#include "Transceivers/MRF24J40/MRF24J40.h"
+	#endif
+	#if defined(MRF49XA)
+    	#define SOFTWARE_CRC
+    	#define SOFTWARE_SECURITY
+    	#include "Transceivers/MRF49XA/MRF49XA.h"
+	#endif
+	#if defined(MRF89XA)
+		#define SOFTWARE_SECURITY
+		#include "Transceivers/MRF89XA/MRF89XA.h"
+	#endif
+
+
+/*-----------------------------------------------------------------------------------------*/   
     #if defined(SOFTWARE_SECURITY)
-    
         //#define XTEA_128
         #define XTEA_64
-        
         #define XTEA_ROUND  32
 
         #define SEC_LEVEL_CTR           0
@@ -91,15 +113,15 @@
             #define SEC_MIC_LEN     8
         #endif
         
-        
         extern ROM const unsigned char mySecurityKey[];
 
         void CTR(BYTE *text, BYTE len, BYTE *key, BYTE *nounce);
         void CBC_MAC(BYTE *text, BYTE len, BYTE *key, BYTE *MIC);
         void CCM_Enc(BYTE *text, BYTE headerLen, BYTE payloadLen, BYTE *key);
         BOOL CCM_Dec(BYTE *text, BYTE headerLen, BYTE payloadLen, BYTE *key);
-    
     #endif
 
+
+/*-----------------------------------------------------------------------------------------*/   
 #endif
 

@@ -46,25 +46,33 @@
 *  4.1   6/3/2011     yfy       MAL v2011-06
 ********************************************************************/
 
-/************************ HEADERS **********************************/
-
-#include "ConfigApp.h"
-
+#include "MiWi_ConfigApp.h"
 #if defined(PROTOCOL_MIWI)
-    #include "WirelessProtocols/MSPI.h"
-    #include "WirelessProtocols/MiWi/MiWi.h"
+    #include "SPI_Handler.h"
     #include "Compiler.h"
     #include "GenericTypeDefs.h"
-    #include "WirelessProtocols/Console.h"
-    #include "WirelessProtocols/NVM.h"
-    #include "WirelessProtocols/SymbolTime.h"
-    #include "Transceivers/MCHP_MAC.h"
-    #include "Transceivers/Transceivers.h"
-    #include "WirelessProtocols/MCHP_API.h"
-    #include "WirelessProtocols/EEPROM.h"
+	#include "SymbolTime.h"
+    #include "WirelessProtocols/MiWi/MiWi.h"
+    #include "WirelessProtocols/MiWi_NVM.h"
+    #include "WirelessProtocols/MiWi_MCHP_API.h"
+    #include "WirelessProtocols/MiWi_UART_Handler.h"    
+    #include "Transceivers/MiWi_MCHP_MAC.h"
+	#if defined(MRF24J40)
+    	#define IEEE_802_15_4
+    	#include "Transceivers/MRF24J40/MRF24J40.h"
+	#endif
+	#if defined(MRF49XA)
+    	#define SOFTWARE_CRC
+    	#define SOFTWARE_SECURITY
+    	#include "Transceivers/MRF49XA/MRF49XA.h"
+	#endif
+	#if defined(MRF89XA)
+		#define SOFTWARE_SECURITY
+		#include "Transceivers/MRF89XA/MRF89XA.h"
+	#endif
 
-    /************************ VARIABLES ********************************/
 
+/*-----------------------------------------------------------------------------------------*/
     // Scan Duration formula 
     //  60 * (2 ^ n + 1) symbols, where one symbol equals 16us
     #define SCAN_DURATION_0 SYMBOLS_TO_TICKS(120)
@@ -220,8 +228,9 @@
             MIWI_TICK   TimeSlotTick;
         #endif
     #endif
-    /************************ FUNCTIONS ********************************/
-    
+  
+
+/*-----------------------------------------------------------------------------------------*/
     #if defined(IEEE_802_15_4)
         BOOL SendMACPacket(BYTE *PANID, BYTE *Address, BYTE PacketType, BYTE ModeMask);
     #else
@@ -5357,9 +5366,13 @@ GetOutOfLoop:
         }
     #endif
 
-    
+
+/*.........................................................................................*/    
 #else
     // define a bogus variable to bypass limitation of C18 compiler not able to compile an empty file
     extern char bogusVar;
+
+
+/*-----------------------------------------------------------------------------------------*/
 #endif
 

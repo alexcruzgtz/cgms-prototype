@@ -43,9 +43,10 @@
 ********************************************************************/
 
 #ifndef __CONFIG_MRF89XA_H
+#define __CONFIG_MRF89XA_H
 
-    #define __CONFIG_MRF89XA_H
-    
+
+/*-----------------------------------------------------------------------------------------*/    
     #include "Transceivers/MRF89XA/MRF89XA.h"
 
     /*********************************************************************/
@@ -76,42 +77,35 @@
     //#define DATA_RATE_100
     //#define DATA_RATE_200
 	
-    
-    
     /*********************************************************************/
     // LNA_GAIN defines the internal IF gain for
     // MRF89XA transceiver.
     /*********************************************************************/
     #define LNA_GAIN        LNA_GAIN_0_DB
-    
-    
+
     /*********************************************************************/
     // TX_POWER defines the output power for MRF89XA
     /*********************************************************************/
     #define TX_POWER        TX_POWER_1_DB
-    
-    
+
     /*********************************************************************/
     // RSSI_THRESHOLD defines the threshold for the RSSI digital output
     /*********************************************************************/
    	// #define RSSI_THRESHOLD  RSSI_THRESHOLD_79
-    
-    
+
     /*********************************************************************/
     // ENABLE_CCA enables MRF89XA to perform Clear Channel Assessement
     // before transmitting data in MiMAC layer. 
     /*********************************************************************/            
     #define ENABLE_CCA
-    
-    
+
     /*********************************************************************/
     // ENABLE_ACK enables MRF89XA to automatically send back an 
     // acknowledgement packet in MiMAC layer after receiving a packet, 
     // when such acknowledgement is requested by the packet sender.
     /*********************************************************************/
 	#define ENABLE_ACK
-    
-    
+
     /*********************************************************************/
     // ENABLE_RETRANSMISSION enables MRF89XA to retransmit the packet
     // up to RETRANSMISSION_TIMES, if ENABLE_ACK is defined, and a proper
@@ -119,7 +113,6 @@
     // time period.
     /*********************************************************************/
     #define ENABLE_RETRANSMISSION
-
 
     /*********************************************************************/
     // SOURCE_ADDRESS_ABSENT disable the stack to transmit the source address
@@ -129,7 +122,6 @@
     /*********************************************************************/
     #define SOURCE_ADDRESS_ABSENT
 
-
     /*********************************************************************/
     // MAX_ALLOWED_TX_FAILURE defines the maximum number of tries to
     // transmit a packet before a transmission failure can be issued to
@@ -138,14 +130,12 @@
     /*********************************************************************/ 
     #define MAX_ALLOWED_TX_FAILURE  20
     
-    
     /*********************************************************************/
     // RETRANSMISSION_TIMES defines the maximum retries that can be performed
     // if a proper acknowledgement packet is not received in predefined 
     // time period, if ENABLE_RETRANSMISSION is defined.
     /*********************************************************************/
     #define RETRANSMISSION_TIMES    3
-    
     
     /*********************************************************************/
     // CCA_TIMES defines the total number of Clear Channel Assessment
@@ -157,7 +147,6 @@
     /*********************************************************************/
     #define CCA_TIMES               5
     
-    
     /*********************************************************************/
     // CCA_THRESHOLD defines the threshold times of Clear Channel Assessment
     // failure in the CCA procedure. CCA procedure perform CCA for CCA_TIMES
@@ -168,8 +157,7 @@
     /*********************************************************************/
     #define CCA_THRESHOLD           65 	//-65dB limit for CCA threshold values (as sampling at data/preamble)
 										//can use higher values for preamble (refer 802.11 standard)
-    
-    
+
     /*********************************************************************/
     // CCA_RETRIES defines the maximum retries can be performed in the case 
     // of Clear Channel Assessment failure in the CCA procedure. CCA 
@@ -181,14 +169,12 @@
     /*********************************************************************/
     #define CCA_RETRIES             4
     
-    
     /*********************************************************************/
     // BANK_SIZE defines the number of packet can be received and stored
     // to wait for handling in MiMAC layer.
     /*********************************************************************/
     #define BANK_SIZE               2
-    
-    
+
     /*********************************************************************/
     // ACK_INFO_SIZE defines the number of acknowledgement information
     // structure can be stored to avoid duplicate packet to the protocol
@@ -231,28 +217,24 @@
     #define SECURITY_KEY_13 0x0d
     #define SECURITY_KEY_14 0x0e
     #define SECURITY_KEY_15 0x0f
-    
-    
+
     /*********************************************************************/
     // KEY_SEQUENCE_NUMBER defines the sequence number that is used to
     // identify the key. Different key should have different sequence
     // number, if multiple security keys are used in the application.
     /*********************************************************************/
     #define KEY_SEQUENCE_NUMBER 0x00
-    
-    
+
     /*********************************************************************/
     // SECURITY_LEVEL defines the security mode used in the application.
     /*********************************************************************/
     #define SECURITY_LEVEL SEC_LEVEL_CCM_16
 
-
     /*********************************************************************/
     // The interval to update the frame counter in the NVM
     /*********************************************************************/
     #define FRAME_COUNTER_UPDATE_INTERVAL 1024
-    
-    
+
     /*********************************************************************/
     // MRF89XA configuration verification
     /*********************************************************************/
@@ -322,6 +304,8 @@
     #endif
     #undef DATA_RATE_DEFINED
 
+
+/*-----------------------------------------------------------------------------------------*/
 #endif
 
 

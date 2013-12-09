@@ -48,12 +48,29 @@
 #ifndef __MIWI_H_
 #define __MIWI_H_
 
-/************************ HEADERS **********************************/
-#include "ConfigApp.h"
-#include "WirelessProtocols/SymbolTime.h"
-#include "Transceivers/Transceivers.h"
+
+/*-----------------------------------------------------------------------------------------*/
+
+
+#include "SymbolTime.h"
+#include "MiWi_ConfigApp.h"
+#if defined(MRF24J40)
+    #define IEEE_802_15_4
+    #include "Transceivers/MRF24J40/MRF24J40.h"
+#endif
+#if defined(MRF49XA)
+    #define SOFTWARE_CRC
+    #define SOFTWARE_SECURITY
+    #include "Transceivers/MRF49XA/MRF49XA.h"
+#endif
+#if defined(MRF89XA)
+	#define SOFTWARE_SECURITY
+	#include "Transceivers/MRF89XA/MRF89XA.h"
+#endif
 #include "WirelessProtocols/MiWi/ConfigMiWi.h"
 
+
+/*-----------------------------------------------------------------------------------------*/
 #define INPUT
 #define OUTPUT
 #define IOPUT
@@ -93,15 +110,12 @@ void DumpConnection(BYTE index);
 #define MAC_COMMAND_BEACON_REQUEST                  0x07
 #define MAC_COMMAND_COORDINATOR_REALIGNMENT         0x08
 
-
 #define MAC_COMMAND_TIME_SYNC_DATA_PACKET               0x8A
 #define MAC_COMMAND_TIME_SYNC_COMMAND_PACKET            0x8B
-
 
 #define MIWI_PROTOCOL_ID 0x4D
 #define MIWI_PRO_PROTOCOL_ID 0x5D
 #define MIWI_VERSION_NUM 0x41                       //v4.1
-
 
 #define MIWI_ACK_REQ 0x04
 
@@ -111,7 +125,6 @@ void DumpConnection(BYTE index);
 #define FAMILY_PARENT       0x01
 #define FAMILY_CHILD        0x02
 #define FAMILY_SIBLING      0x03
-
 
 #define ROLE_FFD_END_DEVICE 0x00
 #define ROLE_COORDINATOR 0x01
@@ -135,7 +148,6 @@ void DumpConnection(BYTE index);
     #define EUI_ADDRESS_SEARCH_REQUEST 0x20
     #define EUI_ADDRESS_SEARCH_RESPONSE 0x21
     #define ACK_REPORT_TYPE 0x30
-    
     #define CHANNEL_HOPPING_REQUEST     0x40
     #define RESYNCHRONIZATION_REQUEST   0x41
     #define RESYNCHRONIZATION_RESPONSE  0x42
@@ -242,7 +254,9 @@ extern OPEN_SOCKET openSocketInfo;
 #define PACKET_TYPE_BEACON      0x03
 
 #define MICRO_SECOND_PER_COUNTER_TICK   (1000000ul / ( COUNTER_CRYSTAL_FREQ / 8 ))
-    
+
+
+/*-----------------------------------------------------------------------------------------*/
 #endif
 
     

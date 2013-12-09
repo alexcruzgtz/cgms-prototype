@@ -63,8 +63,6 @@ void Cfg_Ports(void)
 	PORTB=0;
 	LATB=0;
 	TRISA=IOPORTB_CFG
-
-	
 }
 
 

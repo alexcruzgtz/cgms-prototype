@@ -44,13 +44,13 @@
 ********************************************************************/
 
 #ifndef __CONFIGURE_MIWI_PRO_H
+#define __CONFIGURE_MIWI_PRO_H
 
-    #define __CONFIGURE_MIWI_PRO_H
-    
-    #include "ConfigApp.h"
 
+/*-----------------------------------------------------------------------------------------*/    
+    #include "MiWi_ConfigApp.h"
     #if defined(PROTOCOL_MIWI_PRO)
-        #include "WirelessProtocols/SymbolTime.h"
+        #include "SymbolTime.h"
     
         /*********************************************************************/
         // ENABLE_DUMP will enable the stack to be able to print out the 
@@ -352,7 +352,9 @@
         // recommended to set this timeout higher than a half second.
         /*********************************************************************/
         #define FA_COMM_INTERVAL            (ONE_SECOND)
-        
     #endif
+
+
+/*-----------------------------------------------------------------------------------------*/
 #endif
 

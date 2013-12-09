@@ -46,16 +46,37 @@
 ********************************************************************/
 
 #ifndef __CRC_H
-    #define __CRC_H
+#define __CRC_H
 
-    #include "Transceivers/Transceivers.h"
-    
-    #if defined(SOFTWARE_CRC)
-        #include "GenericTypeDefs.h"
-            
-        //#define CRC_LOOKUP_TABLE
-        WORD CRC16(BYTE *ptr, signed char count, WORD initCRC);
-        
-    #endif
+/*-----------------------------------------------------------------------------------------*/
+#include "MiWi_ConfigApp.h"
+#if defined(PROTOCOL_P2P)
+   	#include "WirelessProtocols/P2P/MiWi_P2P.h"
+#elif defined(PROTOCOL_MIWI)
+   	#include "WirelessProtocols/MiWi/MiWi.h"
+#elif defined(PROTOCOL_MIWI_PRO)
+   	#include "WirelessProtocols/MiWiPRO/MiWiPRO.h"
+#endif
+#if defined(MRF24J40)
+    #define IEEE_802_15_4
+    #include "Transceivers/MRF24J40/MRF24J40.h"
+#endif
+#if defined(MRF49XA)
+    #define SOFTWARE_CRC
+    #define SOFTWARE_SECURITY
+    #include "Transceivers/MRF49XA/MRF49XA.h"
+#endif
+#if defined(MRF89XA)
+	#define SOFTWARE_SECURITY
+	#include "Transceivers/MRF89XA/MRF89XA.h"
+#endif
+#if defined(SOFTWARE_CRC)
+    #include "GenericTypeDefs.h"
+    //#define CRC_LOOKUP_TABLE
+    WORD CRC16(BYTE *ptr, signed char count, WORD initCRC);
+#endif
+
+
+/*-----------------------------------------------------------------------------------------*/
 #endif
 

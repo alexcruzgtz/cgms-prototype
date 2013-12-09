@@ -47,46 +47,38 @@
 *  4.1   6/3/2011     SM        MAL v2011-06
 ********************************************************************/
 
-#include "SystemProfile.h"
-
+#include "MiWi_ConfigApp.h"
+#if defined(PROTOCOL_P2P)
+ 	#include "WirelessProtocols/P2P/MiWi_P2P.h"
+#elif defined(PROTOCOL_MIWI)
+   	#include "WirelessProtocols/MiWi/MiWi.h"
+#elif defined(PROTOCOL_MIWI_PRO)
+   	#include "WirelessProtocols/MiWiPRO/MiWiPRO.h"
+#endif
 
 #if defined(MRF89XA)
-    #include "Transceivers/MRF89XA/MRF89XA.h"
-    #include "WirelessProtocols/SymbolTime.h"
-    #include "Transceivers/MCHP_MAC.h"
-    #include "WirelessProtocols/Console.h"
+    #include "SymbolTime.h"
     #include "TimeDelay.h"
-    #include "WirelessProtocols/NVM.h"
+    #include "Transceivers/MRF89XA/MRF89XA.h"
+    #include "Transceivers/MiWi_MCHP_MAC.h"
     #include "Transceivers/Security.h"
-    #include "WirelessProtocols/MCHP_API.h"
+    #include "WirelessProtocols/MiWi_UART_Handler.h"
+    #include "WirelessProtocols/MiWi_NVM.h"
+    #include "WirelessProtocols/MiWi_MCHP_API.h"
 
     //==============================================================
     // Global variables:
     //==============================================================
    
-    /**********************************************************************
-     * "#pragma udata" is used to specify the starting address of a 
-     * global variable. The address may be MCU dependent on RAM available
-     * If the size of the global variable is small, such manual assignment
-     * may not be necessary. Developer can comment out the address
-     * assignment.
-     **********************************************************************/
-    #if defined(__18CXX)
-        #pragma udata MAC_RX_BUFFER
-    #endif
-        volatile RX_PACKET          RxPacket[BANK_SIZE];
-    #if defined(__18CXX)
-        #pragma udata
-    #endif
-  
-    volatile BOOL IRQ1_Received = 0;
-    MACINIT_PARAM               MACInitParams;
-    BYTE                        TxMACSeq;
-    BYTE                        MACSeq;
-    BYTE                        ReceivedBankIndex;
-    BYTE RF_Mode;
-    BYTE RSSIVal;
-    BYTE RSSILock;
+    volatile RX_PACKET  RxPacket[BANK_SIZE];
+    volatile BOOL 		IRQ1_Received = 0;
+    MACINIT_PARAM		MACInitParams;
+    BYTE    TxMACSeq;
+    BYTE    MACSeq;
+    BYTE	ReceivedBankIndex;
+    BYTE 	RF_Mode;
+    BYTE 	RSSIVal;
+    BYTE 	RSSILock;
     ROM BYTE PVALUE[]    = {CHANNEL1_PVALUE, CHANNEL2_PVALUE, CHANNEL3_PVALUE, CHANNEL4_PVALUE, CHANNEL5_PVALUE, CHANNEL6_PVALUE,
                             CHANNEL7_PVALUE, CHANNEL8_PVALUE, CHANNEL9_PVALUE, CHANNEL10_PVALUE, CHANNEL11_PVALUE, CHANNEL12_PVALUE,
                             CHANNEL13_PVALUE, CHANNEL14_PVALUE, CHANNEL15_PVALUE, CHANNEL16_PVALUE, CHANNEL17_PVALUE, CHANNEL18_PVALUE,
@@ -111,14 +103,8 @@
         BYTE key[KEY_SIZE];
     #endif
     
-    #if defined(__18CXX)
-        #pragma udata MAC_TX_BUFFER
-    #endif
     volatile BYTE        MACTxBuffer[TX_PACKET_SIZE];     
-    #if defined(__18CXX)
-        #pragma udata
-    #endif
-
+    
     //First time configuration settings for MRF89XA
     ROM WORD InitConfigRegs[] = {
         /* 0 */                     GCONREG | GCONREG_SET, 
@@ -161,24 +147,18 @@
     BYTE RegisterRead(BYTE);
     /*********************************************************************
      * WORD getReceiverBW(void)
-     *
      * Overview:        
      *              This function get the receiver band width setting
      *              based on RF deviation configuration
-     *
      * PreCondition:    
      *              RF deviation configuration has been done in the 
      *              C preprocessor
-     *
      * Input:       None
-     *
      * Output:      
      *          WORD    The configuration setting for receiver band width.
      *                  This output needs to be ORed with receiver 
      *                  configuration command
-     *
      * Side Effects:    None
-     *
      ********************************************************************/
     WORD getReceiverBW(void)
     {
@@ -190,23 +170,17 @@
     
     /*********************************************************************
      * void RegisterSet(INPUT WORD setting)
-     *
      * Overview:        
      *              This function access the control register of MRF89XA.
      *              The register address and the register settings are
      *              the input
-     *
      * PreCondition:    
      *              None
-     *
      * Input:       
      *          WORD    setting     The address of the register and its
      *                              corresponding settings
-     *
      * Output:  None    
-     *
      * Side Effects:    Register settings have been modified
-     *
      ********************************************************************/
     void RegisterSet(WORD setting)
     {
@@ -230,19 +204,13 @@
     
     /*********************************************************************
      * BYTE RegisterRead(BYTE)
-     *
      * Overview:        
      *              This function reads back the register values
-     *
      * PreCondition:    
      *              SPI needs to be intialised
-     *
      * Input:       None   
-     *
      * Output:      Returns the register readback value to the calling function       
-     *
      * Side Effects: None
-     *
      ********************************************************************/
     BYTE RegisterRead(BYTE address)
     {
@@ -268,25 +236,18 @@
         
         return value;
     }
-    
 
     /*********************************************************************
      * void WriteFIFO(BYTE Data)
-     *
      * Overview:        
      *              This function fills the FIFO
-     *
      * PreCondition:    
      *              MRF89XA transceiver has to be properly initialized
-     *
      * Input:       
      *              BYTE   Data - Data to be sent to FIFO.
-     *
      * Output:      None
-     *
      * Side Effects:    
      *              Fills the fifo
-     *
      ********************************************************************/
     void WriteFIFO(BYTE Data)
     {
@@ -307,30 +268,23 @@
             PHY_IRQ0_En = IRQ0select;
         #endif
     }
-
     
     /*********************************************************************
      * BOOL TxPacket(INPUT BYTE TxPacketLen, INPUT BOOL CCA)
-     *
      * Overview:        
      *              This function send the packet in the buffer MACTxBuffer
-     *
      * PreCondition:    
      *              MRF89XA transceiver has been properly initialized
-     *
      * Input:       
      *              BYTE    TxPacketLen     The length of the packet to be
      *                                      sent.
      *              BOOL    CCA             The boolean to indicate if a 
      *                                      CCA operation needs to be done
      *                                      before sending the packet   
-     *
      * Output:      
      *              BOOL    The boolean to indicate if packet sent successful
-     *
      * Side Effects:    
      *              The packet has been sent out
-     *
      ********************************************************************/
     BOOL TxPacket(INPUT BYTE TxPacketLen, INPUT BOOL CCA)
     {
@@ -445,42 +399,33 @@ TX_END_HERE:
         return status;
     }
     
-    
     /************************************************************************************
      * Function:
      *      BOOL MiMAC_SetAltAddress(BYTE *Address, BYTE *PANID)
-     *
      * Summary:
      *      This function set the alternative network address and PAN identifier if
      *      applicable
-     *
      * Description:        
      *      This is the primary MiMAC interface for the protocol layer to 
      *      set alternative network address and/or PAN identifier. This function
      *      call applies to only IEEE 802.15.4 compliant RF transceivers. In case
      *      alternative network address is not supported, this function will return
      *      FALSE.
-     *
      * PreCondition:    
      *      MiMAC initialization has been done. 
-     *
      * Parameters: 
      *      BYTE * Address -    The alternative network address of the host device.
      *      BYTE * PANID -      The PAN identifier of the host device
-     *
      * Returns: 
      *      A boolean to indicates if setting alternative network address is successful.
-     *
      * Example:
      *      <code>
      *      WORD NetworkAddress = 0x0000;
      *      WORD PANID = 0x1234;
      *      MiMAC_SetAltAddress(&NetworkAddress, &PANID);
      *      </code>
-     *
      * Remarks:    
      *      None
-     *
      *****************************************************************************************/ 
     BOOL MiMAC_SetAltAddress(INPUT BYTE *Address, INPUT BYTE *PANID)
     {
@@ -490,10 +435,8 @@ TX_END_HERE:
     /************************************************************************************
      * Function:
      *      BOOL MiMAC_SetChannel(BYTE channel, BYTE offsetFreq)
-     *
      * Summary:
      *      This function set the operating channel for the RF transceiver
-     *
      * Description:        
      *      This is the primary MiMAC interface for the protocol layer to 
      *      set the operating frequency of the RF transceiver. Valid channel
@@ -504,28 +447,22 @@ TX_END_HERE:
      *      strict definition of channels, this parameter may be discarded.
      *      The center frequency is calculated as 
      *      (LowestFrequency + Channel * ChannelGap + offsetFreq)
-     *
      * PreCondition:    
      *      Hardware initialization on MCU has been done. 
-     *
      * Parameters: 
      *      BYTE channel -  Channel number. Range from 0 to 31. Not all channels
      *                      are available under all conditions.
      *      BYTE offsetFreq -   Offset frequency used to fine tune the center 
      *                          frequency. May not apply to all RF transceivers
-     *
      * Returns: 
      *      A boolean to indicates if channel setting is successful.
-     *
      * Example:
      *      <code>
      *      // Set center frequency to be exactly channel 12
      *      MiMAC_SetChannel(12, 0);
      *      </code>
-     *
      * Remarks:    
      *      None
-     *
      *****************************************************************************************/       
     BOOL MiMAC_SetChannel(INPUT BYTE channel, INPUT BYTE offsetFreq)
     {
@@ -552,34 +489,26 @@ TX_END_HERE:
     /************************************************************************************
      * Function:
      *      BOOL MiMAC_SetPower(BYTE outputPower)
-     *
      * Summary:
      *      This function set the output power for the RF transceiver
-     *
      * Description:        
      *      This is the primary MiMAC interface for the protocol layer to 
      *      set the output power for the RF transceiver. Whether the RF
      *      transceiver can adjust output power depends on the hardware
      *      implementation.
-     *
      * PreCondition:    
      *      MiMAC initialization has been done. 
-     *
      * Parameters: 
      *      BYTE outputPower -  RF transceiver output power. 
-     *
      * Returns: 
      *      A boolean to indicates if setting output power is successful.
-     *
      * Example:
      *      <code>
      *      // Set output power to be 0dBm
      *      MiMAC_SetPower(TX_POWER_0_DB);
      *      </code>
-     *
      * Remarks:    
      *      None
-     *
      *****************************************************************************************/ 
     BOOL MiMAC_SetPower(INPUT BYTE outputPower)
     {
@@ -591,36 +520,27 @@ TX_END_HERE:
         return TRUE;
     }
     
-    
     /************************************************************************************
      * Function:
      *      BOOL MiMAC_Init(MACINIT_PARAM initValue)
-     *
      * Summary:
      *      This function initialize MiMAC layer
-     *
      * Description:        
      *      This is the primary MiMAC interface for the protocol layer to 
      *      initialize the MiMAC layer. The initialization parameter is 
      *      assigned in the format of structure MACINIT_PARAM.
-     *
      * PreCondition:    
      *      MCU initialization has been done. 
-     *
      * Parameters: 
      *      MACINIT_PARAM initValue -   Initialization value for MiMAC layer
-     *
      * Returns: 
      *      A boolean to indicates if initialization is successful.
-     *
      * Example:
      *      <code>
      *      MiMAC_Init(initParameter);
      *      </code>
-     *
      * Remarks:    
      *      None
-     *
      *****************************************************************************************/ 
     BOOL MiMAC_Init(INPUT MACINIT_PARAM initValue)
     {
@@ -696,18 +616,12 @@ TX_END_HERE:
     
 /*********************************************************************
  * void SetRFMode(BYTE mode)
- *
  * Overview:        
  *              This functions sets the MRF89XA transceiver operating mode to sleep, transmit, receive or standby
- *
  * PreCondition:    None
- *
  * Input:           None
- *
  * Output:          None
- *
  * Side Effects:    None
- *
  ********************************************************************/     
 void SetRFMode(BYTE mode)
 {
@@ -735,40 +649,31 @@ void SetRFMode(BYTE mode)
     } /* end switch (mode) */
 
 }
-
     
     /************************************************************************************
      * Function:
      *      BOOL MiMAC_SendPacket(  MAC_TRANS_PARAM transParam, 
      *                              BYTE *MACPayload, BYTE MACPayloadLen)
-     *
      * Summary:
      *      This function transmit a packet
-     *
      * Description:        
      *      This is the primary MiMAC interface for the protocol layer to 
      *      send a packet. Input parameter transParam configure the way
      *      to transmit the packet.
-     *
      * PreCondition:    
      *      MiMAC initialization has been done. 
-     *
      * Parameters: 
      *      MAC_TRANS_PARAM transParam -    The struture to configure the transmission way
      *      BYTE * MACPaylaod -             Pointer to the buffer of MAC payload
      *      BYTE MACPayloadLen -            The size of the MAC payload
-     *
      * Returns: 
      *      A boolean to indicate if a packet has been received by the RF transceiver.
-     *
      * Example:
      *      <code>
      *      MiMAC_SendPacket(transParam, MACPayload, MACPayloadLen);
      *      </code>
-     *
      * Remarks:    
      *      None
-     *
      *****************************************************************************************/   
     BOOL MiMAC_SendPacket( INPUT MAC_TRANS_PARAM transParam, 
                         INPUT BYTE *MACPayload, 
@@ -1060,23 +965,17 @@ void SetRFMode(BYTE mode)
     /************************************************************************************
      * Function:
      *      void MiMAC_DiscardPacket(void)
-     *
      * Summary:
      *      This function discard the current packet received from the RF transceiver
-     *
      * Description:        
      *      This is the primary MiMAC interface for the protocol layer to 
      *      discard the current packet received from the RF transceiver.
-     *
      * PreCondition:    
      *      MiMAC initialization has been done. 
-     *
      * Parameters: 
      *      None
-     *
      * Returns: 
      *      None
-     *
      * Example:
      *      <code>
      *      if( TRUE == MiMAC_ReceivedPacket() )
@@ -1087,10 +986,8 @@ void SetRFMode(BYTE mode)
      *          MiMAC_DiscardPacket();
      *      }
      *      </code>
-     *
      * Remarks:    
      *      None
-     *
      *****************************************************************************************/  
     void MiMAC_DiscardPacket(void)
     {
@@ -1101,40 +998,31 @@ void SetRFMode(BYTE mode)
         }
     }
     
-    
     #if defined(ENABLE_ED_SCAN)
         /************************************************************************************
          * Function:
          *      BYTE MiMAC_ChannelAssessment(BYTE AssessmentMode)
-         *
          * Summary:
          *      This function perform the noise detection on current operating channel
-         *
          * Description:        
          *      This is the primary MiMAC interface for the protocol layer to 
          *      perform the noise detection scan. Not all assessment modes are supported
          *      for all RF transceivers.
-         *
          * PreCondition:    
          *      MiMAC initialization has been done.  
-         *
          * Parameters: 
          *      BYTE AssessmentMode -   The mode to perform noise assessment. The possible 
          *                              assessment modes are
          *                              * CHANNEL_ASSESSMENT_CARRIER_SENSE Carrier sense detection mode
          *                              * CHANNEL_ASSESSMENT_ENERGY_DETECT Energy detection mode
-         *
          * Returns: 
          *      A byte to indicate the noise level at current channel.
-         *
          * Example:
          *      <code>
          *      NoiseLevel = MiMAC_ChannelAssessment(CHANNEL_ASSESSMENT_CARRIER_SENSE);
          *      </code>
-         *
          * Remarks:    
          *      None
-         *
          *****************************************************************************************/          
         BYTE MiMAC_ChannelAssessment(BYTE AssessmentMode)
         {
@@ -1166,25 +1054,20 @@ void SetRFMode(BYTE mode)
         }
     #endif
     
-    
     #if defined(ENABLE_SLEEP)
         /************************************************************************************
          * Function:
          *      BOOL MiMAC_PowerState(BYTE PowerState)
-         *
          * Summary:
          *      This function puts the RF transceiver into sleep or wake it up
-         *
          * Description:        
          *      This is the primary MiMAC interface for the protocol layer to 
          *      set different power state for the RF transceiver. There are minimal 
          *      power states defined as deep sleep and operating mode. Additional
          *      power states can be defined for individual RF transceiver depends
          *      on hardware design.
-         *
          * PreCondition:    
          *      MiMAC initialization has been done. 
-         *
          * Parameters: 
          *      BYTE PowerState -   The power state of the RF transceiver to be set to. 
          *                          The minimum definitions for all RF transceivers are
@@ -1192,7 +1075,6 @@ void SetRFMode(BYTE mode)
          *                          * POWER_STATE_OPERATE RF transceiver operating mode.
          * Returns: 
          *      A boolean to indicate if chaning power state of RF transceiver is successful.
-         *
          * Example:
          *      <code>
          *      // Put RF transceiver into sleep
@@ -1204,10 +1086,8 @@ void SetRFMode(BYTE mode)
          *      // Wake up the RF transceiver
          *      MiMAC_PowerState(POWER_STATE_OPERATE); 
          *      </code>
-         *
          * Remarks:    
          *      None
-         *
          *****************************************************************************************/ 
         BOOL MiMAC_PowerState(INPUT BYTE PowerState)
         {
@@ -1564,6 +1444,8 @@ RETURN_HERE:
         #pragma code /* return to default code section */
     #endif
 
+
+
 #else
     /*******************************************************************
      * C18 compiler cannot compile an empty C file. define following 
@@ -1571,6 +1453,8 @@ RETURN_HERE:
      * a different transceiver is chosen.
      ******************************************************************/
     extern char bogusVariable;
+
+
 #endif
 
 

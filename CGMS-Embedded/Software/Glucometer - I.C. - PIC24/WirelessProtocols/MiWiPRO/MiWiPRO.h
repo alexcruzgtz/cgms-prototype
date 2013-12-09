@@ -44,13 +44,34 @@
 #ifndef __MIWI_PRO_H_
 #define __MIWI_PRO_H_
 
-/************************ HEADERS **********************************/
-#include "ConfigApp.h"
-#include "WirelessProtocols/SymbolTime.h"
-#include "Transceivers/Transceivers.h"
+
+/*-----------------------------------------------------------------------------------------*/
+#include "SymbolTime.h"
+#include "MiWi_ConfigApp.h"
+#if defined(PROTOCOL_P2P)
+   	#include "WirelessProtocols/P2P/MiWi_P2P.h"
+#elif defined(PROTOCOL_MIWI)
+   	#include "WirelessProtocols/MiWi/MiWi.h"
+#elif defined(PROTOCOL_MIWI_PRO)
+   	#include "WirelessProtocols/MiWiPRO/MiWiPRO.h"
+#endif
+#if defined(MRF24J40)
+    #define IEEE_802_15_4
+    #include "Transceivers/MRF24J40/MRF24J40.h"
+#endif
+#if defined(MRF49XA)
+    #define SOFTWARE_CRC
+    #define SOFTWARE_SECURITY
+    #include "Transceivers/MRF49XA/MRF49XA.h"
+#endif
+#if defined(MRF89XA)
+	#define SOFTWARE_SECURITY
+	#include "Transceivers/MRF89XA/MRF89XA.h"
+#endif
 #include "WirelessProtocols/MiWiPRO/ConfigMiWiPRO.h"
 
 
+/*-----------------------------------------------------------------------------------------*/
 #define INPUT
 #define OUTPUT
 #define IOPUT
@@ -74,7 +95,6 @@ void OpenSocket(void);
 BOOL isSameAddress(INPUT BYTE *Address1, INPUT BYTE *Address2);
 void DumpConnection(BYTE index);
 
-
 /************************ DEFINITIONS ******************************/
 #define FRAME_TYPE_BEACON   0x00
 #define FRAME_TYPE_DATA     0x01
@@ -93,10 +113,8 @@ void DumpConnection(BYTE index);
 #define MAC_COMMAND_BEACON_REQUEST                  0x07
 #define MAC_COMMAND_COORDINATOR_REALIGNMENT         0x08
 
-
 #define MAC_COMMAND_TIME_SYNC_DATA_PACKET               0x8A
 #define MAC_COMMAND_TIME_SYNC_COMMAND_PACKET            0x8B
-
 
 #define MIWI_PRO_PROTOCOL_ID 0x5D
 #define MIWI_PROTOCOL_ID 0x4D
@@ -110,14 +128,12 @@ void DumpConnection(BYTE index);
 #define FAMILY_CHILD        0x02
 #define FAMILY_SIBLING      0x03
 
-
 #define ROLE_FFD_END_DEVICE 0x00
 #define ROLE_COORDINATOR    0x01
 #define ROLE_PAN_COORDINATOR 0x02
 
 #define DATA_REQUEST_ASSOCIATION_RESPONSE 0x00
 #define DATA_REQUEST_SHORT_ADDRESSES 0x01
-
 
 #define MIWI_PRO_HEADER_LEN     11
 /* Report type and ID definitions */
@@ -175,7 +191,6 @@ typedef union _MIWI_PRO_STATUS
     } bits;
 } MIWI_PRO_STATUS;
 
-
 typedef struct _OPEN_SOCKET
 {
     union _OPEN_SOCKET_STATUS
@@ -200,7 +215,6 @@ typedef struct _OPEN_SOCKET
     #endif
     MIWI_TICK socketStart;
 } OPEN_SOCKET;
-
 
 
 /******************************************************************
@@ -235,7 +249,6 @@ typedef struct
     #endif
 } INDIRECT_MESSAGE;
 
-
 /************************ EXTERNAL VARIABLES **********************/
 
 extern MIWI_PRO_STATE_MACHINE MiWiPROStateMachine;
@@ -260,6 +273,8 @@ extern OPEN_SOCKET openSocketInfo;
 
 #define MICRO_SECOND_PER_COUNTER_TICK   (1000000ul / ( COUNTER_CRYSTAL_FREQ / 8 ))
     
+
+/*-----------------------------------------------------------------------------------------*/
 #endif
 
     
