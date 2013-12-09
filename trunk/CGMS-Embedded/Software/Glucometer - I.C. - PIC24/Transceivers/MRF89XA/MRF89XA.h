@@ -44,21 +44,27 @@
 *  3.1   5/28/2010    SM        MiWi DE 3.1
 ********************************************************************/
 
+#include "MiWi_ConfigApp.h"
 #if !defined(__MRF89XA_H) && defined(MRF89XA)
-    #define __MRF89XA_H
-    
-//	#define	APPLICATION_CIRCUIT_950				//enable this if Application circuit is built for supporting 950-960 MHz instead of 860-870
-												//but the band selection must still indicate 863 (BAND_863)
+#define __MRF89XA_H
 
-    #include "SystemProfile.h"
+	#if defined(PROTOCOL_P2P)
+    	#include "WirelessProtocols/P2P/MiWi_P2P.h"
+	#elif defined(PROTOCOL_MIWI)
+    	#include "WirelessProtocols/MiWi/MiWi.h"
+	#elif defined(PROTOCOL_MIWI_PRO)
+    	#include "WirelessProtocols/MiWiPRO/MiWiPRO.h"
+	#endif
     #include "GenericTypeDefs.h"
     #include "Compiler.h"
-    #include "WirelessProtocols/SymbolTime.h"
+    #include "SymbolTime.h"
+    #include "TimeDelay.h"
     #include "Transceivers/MRF89XA/ConfigMRF89XA.h"
     #include "Transceivers/Security.h"
-    #include "Transceivers/MCHP_MAC.h"
-    #include "TimeDelay.h"
-    
+    #include "Transceivers/MiWi_MCHP_MAC.h"
+
+
+/*-----------------------------------------------------------------------------------------*/       
     /********************************************************************
     MRF89XA Operating modes
     **********************************************************************/
@@ -493,5 +499,7 @@
         MIWI_TICK   startTick;
     } ACK_INFO;
     
-    
+
+
+/*-----------------------------------------------------------------------------------------*/   
 #endif

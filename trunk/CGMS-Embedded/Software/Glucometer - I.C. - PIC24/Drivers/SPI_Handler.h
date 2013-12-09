@@ -3,7 +3,6 @@
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 #include "p24fxxxx.h"
-#include "GenericTypeDefs.h"
 
 #ifndef __SPI_HANDLER_H
 #define __SPI_HANDLER_H
@@ -80,6 +79,10 @@ FSCK= Fcy / Primary Prescaler * Secundary Prescaler */
 #define SPI1_SYNCEDGE_PRECEDES  	SPI1CON2bits.SPIFE=CLEAR; 	/* frame pulse precedes the first bit clock */
 #define SPI1_ENH_BUFF_ENABLE    	SPI1CON2bits.SPIBEN=SET; 	/* enable enhanced buffer */
 #define SPI1_ENH_BUFF_DISABLE   	SPI1CON2bits.SPIBEN=CLEAR; 	/* disable enhanced buffer */
+
+
+/*-----------------------------------------------------------------------------------------*/
+extern void SPI_Init(Void);
 
 
 /*-----------------------------------------------------------------------------------------*/

@@ -53,14 +53,34 @@
 *  4.1   6/3/2011     yfy       MAL v2011-06
 ********************************************************************/
 
-#include "SystemProfile.h"
-#include "Transceivers/Transceivers.h"
+#include "MiWi_ConfigApp.h"
+#if defined(PROTOCOL_P2P)
+   	#include "WirelessProtocols/P2P/MiWi_P2P.h"
+#elif defined(PROTOCOL_MIWI)
+   	#include "WirelessProtocols/MiWi/MiWi.h"
+#elif defined(PROTOCOL_MIWI_PRO)
+   	#include "WirelessProtocols/MiWiPRO/MiWiPRO.h"
+#endif
+
+#if defined(MRF24J40)
+    #define IEEE_802_15_4
+    #include "Transceivers/MRF24J40/MRF24J40.h"
+#endif
+#if defined(MRF49XA)
+    #define SOFTWARE_CRC
+    #define SOFTWARE_SECURITY
+    #include "Transceivers/MRF49XA/MRF49XA.h"
+#endif
+#if defined(MRF89XA)
+	#define SOFTWARE_SECURITY
+	#include "Transceivers/MRF89XA/MRF89XA.h"
+#endif
 
 #if defined(SOFTWARE_SECURITY) && defined(ENABLE_SECURITY)
 
     #include "GenericTypeDefs.h"
     #include "Transceivers/Security.h"                                
-    #include "WirelessProtocols/Console.h"
+    #include "WirelessProtocols/MiWi_UART_Handler.h"
     
     BYTE tmpBlock[BLOCK_SIZE];
         

@@ -47,14 +47,13 @@
 ********************************************************************/
 
 #ifndef __CONFIGURE_P2P_H
+#define __CONFIGURE_P2P_H
 
-    #define __CONFIGURE_P2P_H
-    
-    #include "ConfigApp.h"
 
+/*-----------------------------------------------------------------------------------------*/    
+    #include "MiWi_ConfigApp.h"
     #if defined(PROTOCOL_P2P)
-
-        #include "WirelessProtocols/SymbolTime.h"
+        #include "SymbolTime.h"
     
         /*********************************************************************/
         // ENABLE_DUMP will enable the stack to be able to print out the 
@@ -62,8 +61,7 @@
         // process
         /*********************************************************************/
         #define ENABLE_DUMP
-        
-        
+
         /*********************************************************************/
         // RFD_DATA_WAIT is the timeout defined for sleeping device to receive 
         // a message from the associate device after Data Request. After this
@@ -72,21 +70,18 @@
         /*********************************************************************/
         #define RFD_DATA_WAIT                   0x00003FFF
         
-        
         /*********************************************************************/
         // CONNECTION_RETRY_TIMES is the maximum time that the wireless node
         // can try to establish a connection. Once the retry times are exhausted
         // control will be return to application layer to decide what to do next
         /*********************************************************************/
         #define CONNECTION_RETRY_TIMES          3
-    
-    
+
         /*********************************************************************/
         // CONNECTION_INTERVAL defines the interval in second between two 
         // connection request. 
         /*********************************************************************/
         #define CONNECTION_INTERVAL             2
-
 
         /*********************************************************************/
         // FA_BROADCAST_TIME defines the total number of times to broadcast
@@ -94,15 +89,13 @@
         // Frequency Agility initiator jump to the new channel
         /*********************************************************************/
         #define FA_BROADCAST_TIME           0x03
-    
-    
+
         /*********************************************************************/
         // RESYNC_TIMES defines the maximum number of times to try resynchronization
         // in all available channels before hand over the control to the application
         // layer
         /*********************************************************************/
         #define RESYNC_TIMES                0x03
-
 
         /*********************************************************************/
         // ACTIVE_SCAN_RESULT_SIZE defines the maximum active scan result
@@ -111,22 +104,19 @@
         // responses will be discarded
         /*********************************************************************/
         #define ACTIVE_SCAN_RESULT_SIZE     4
-    
-    
+
         /*********************************************************************/
         // INDIRECT_MESSAGE_SIZE defines the maximum number of packets that
         // the device can store for the sleeping device(s)
         /*********************************************************************/
         #define INDIRECT_MESSAGE_SIZE   2
-            
-            
+  
         /*********************************************************************/
         // INDIRECT_MESSAGE_TIMEOUT defines the timeout interval in seconds
         // for the stored packets for sleeping devices
         /*********************************************************************/
         #define INDIRECT_MESSAGE_TIMEOUT (ONE_SECOND * RFD_WAKEUP_INTERVAL * (INDIRECT_MESSAGE_SIZE + 1))
-        
-        
+
         /*********************************************************************/
         // ENABLE_ENHANCED_DATA_REQUEST enables the Enhanced Data Request 
         // feature of P2P stack. It combines the message that is send from
@@ -135,8 +125,7 @@
         // life.
         /*********************************************************************/
         //#define ENABLE_ENHANCED_DATA_REQUEST
-        
-        
+
         /*********************************************************************/
         // ENABLE_TIME_SYNC enables the Time Synchronizaiton feature of P2P
         // stack. It allows the FFD to coordinate the check-in interval of
@@ -147,8 +136,7 @@
         //      COUNTER_CRYSTAL_FREQ
         /*********************************************************************/
         //#define ENABLE_TIME_SYNC
-        
-        
+
         /*********************************************************************/
         // TIME_SYNC_SLOTS defines the total number of time slot available 
         // within one duty cycle. As a rule, the number of time slot must be
@@ -165,15 +153,15 @@
         /*********************************************************************/
         #define TIME_SYNC_SLOTS         10
 
-
         /*********************************************************************/
         // COUNTER_CRYSTAL_FREQ defines the frequency of the crystal that 
         // is connected to the MCU counter to perform timing functionality
         // when MCU is in sleep. 
         /*********************************************************************/
-        #define COUNTER_CRYSTAL_FREQ    32768
-    
-    
+        #define COUNTER_CRYSTAL_FREQ    32768 
     #endif
+
+
+/*-----------------------------------------------------------------------------------------*/
 #endif
 

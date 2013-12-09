@@ -3,7 +3,6 @@
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 #include "p24fxxxx.h"
-#include "GenericTypeDefs.h"
 
 #ifndef __INTERRUPTS_H
 #define __INTERRUPTS_H

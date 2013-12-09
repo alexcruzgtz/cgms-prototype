@@ -46,12 +46,35 @@
 *  3.1   5/28/2010    yfy       MiWi DE 3.1
 *  4.1   6/3/2011     yfy       MAL v2011-06
 ********************************************************************/
-#include "Transceivers/Transceivers.h"
+
+#include "MiWi_ConfigApp.h"
+#if defined(PROTOCOL_P2P)
+ 	#include "WirelessProtocols/P2P/MiWi_P2P.h"
+#elif defined(PROTOCOL_MIWI)
+   	#include "WirelessProtocols/MiWi/MiWi.h"
+#elif defined(PROTOCOL_MIWI_PRO)
+   	#include "WirelessProtocols/MiWiPRO/MiWiPRO.h"
+#endif
+
+#if defined(MRF24J40)
+    #define IEEE_802_15_4
+    #include "Transceivers/MRF24J40/MRF24J40.h"
+#endif
+#if defined(MRF49XA)
+    #define SOFTWARE_CRC
+    #define SOFTWARE_SECURITY
+    #include "Transceivers/MRF49XA/MRF49XA.h"
+#endif
+#if defined(MRF89XA)
+	#define SOFTWARE_SECURITY
+	#include "Transceivers/MRF89XA/MRF89XA.h"
+#endif
 
 #if defined(SOFTWARE_CRC)
     #include "Transceivers/crc.h"
     #include "GenericTypeDefs.h"
 
+/*-----------------------------------------------------------------------------------------*/
     /**********************************************************************
     *  There are two ways to generate Cyclic Redundancy Check (CRC) code:
     *  the lookup table method and the loop method. Both methods generate
@@ -97,7 +120,7 @@
             0xef1f,  0xff3e,  0xcf5d,  0xdf7c,  0xaf9b,  0xbfba,  0x8fd9,  0x9ff8,
             0x6e17,  0x7e36,  0x4e55,  0x5e74,  0x2e93,  0x3eb2,  0x0ed1,  0x1ef0
         };
-    
+
         /*********************************************************************
          * WORD CRC16(  INPUT BYTE * data, 
          *              INPUT signed char dataLength, 
@@ -135,7 +158,7 @@
         	}
         	return crc;
         }
-    
+
     #else
         /*********************************************************************
          * WORD CRC16(  INPUT BYTE * data, 
@@ -187,6 +210,8 @@
         }
         
     #endif
+
+/*.........................................................................................*/
 #else
     /*******************************************************************
      * C18 compiler cannot compile an empty C file. define following 
@@ -194,5 +219,8 @@
      * a different protocol is chosen.
      ******************************************************************/
     extern char bogusVariable;
+
+
+/*-----------------------------------------------------------------------------------------*/
 #endif
 

@@ -3,7 +3,6 @@
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 #include "p24fxxxx.h"
-#include "GenericTypeDefs.h"
 
 #ifndef __RESET_H
 #define __RESET_H

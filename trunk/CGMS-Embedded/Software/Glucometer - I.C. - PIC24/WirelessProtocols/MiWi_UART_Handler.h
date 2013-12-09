@@ -46,86 +46,58 @@
 *  3.1   5/28/2010    yfy       MiWi DE 3.1
 *  4.1   6/3/2011     yfy       MAL v2011-06
 ********************************************************************/
+
 #ifndef  _CONSOLE_H_
 #define  _CONSOLE_H_
 
-/************************ HEADERS **********************************/
+
+/*-----------------------------------------------------------------------------------------*/
 #include "GenericTypeDefs.h"
 #include "Compiler.h"
-//#include "SystemProfile.h"
-#include "HardwareProfile.h"
+#include "MiWi_ConfigApp.h"
+	#if defined(PROTOCOL_P2P)
+    	#include "WirelessProtocols/P2P/MiWi_P2P.h"
+	#elif defined(PROTOCOL_MIWI)
+    	#include "WirelessProtocols/MiWi/MiWi.h"
+	#elif defined(PROTOCOL_MIWI_PRO)
+    	#include "WirelessProtocols/MiWiPRO/MiWiPRO.h"
+#endif
+#include "HardwareConfig.h"
 
+/*.........................................................................................*/
 #define BAUD_RATE 19200
 
-/************************ DEFINITIONS ******************************/
-/************************ FUNCTION PROTOTYPES **********************/
-#if defined(__dsPIC30F__) || defined(__dsPIC33F__) || defined(__PIC24F__) || defined(__PIC24FK__) || defined(__PIC24H__) || defined(__PIC32MX__)
-    #if defined(ENABLE_CONSOLE)
-        void ConsoleInit(void);
-        #define ConsoleIsPutReady()     (U2STAbits.TRMT)
-        void ConsolePut(BYTE c);
-        //void ConsolePutString(BYTE *s);
-        void ConsolePutROMString(ROM char* str);
-    
-        #define ConsoleIsGetReady()     (IFS1bits.U2RXIF)
-        BYTE ConsoleGet(void);
-        //BYTE ConsoleGetString(char *buffer, BYTE bufferLen);
-        void PrintChar(BYTE);
-        void PrintDec(BYTE);
-    #else
-        #define ConsoleInit()
-        #define ConsoleIsPutReady() 1
-        #define ConsolePut(c)
-        #define ConsolePutString(s)
-        #define ConsolePutROMString(str)
-
-        #define ConsoleIsGetReady() 1
-        #define ConsoleGet()        'a'
-        #define ConsoleGetString(buffer, bufferLen) 0
-        #define PrintChar(a)
-        #define PrintDec(a)
-    #endif
-#elif defined(__18CXX)
-
-    #if defined(ENABLE_CONSOLE)   // Useful for disabling the console (saving power)
-        void ConsoleInit(void);
-        #if defined(EIGHT_BIT_WIRELESS_BOARD)
-            #define ConsoleIsPutReady()     (TXSTA2bits.TRMT)
-        #else
-            #define ConsoleIsPutReady()     (TXSTAbits.TRMT)
-        #endif
-        void ConsolePut(BYTE c);
-        void ConsolePutString(BYTE *s);
-        void ConsolePutROMString(ROM char* str);
-    
-        #if defined(EIGHT_BIT_WIRELESS_BOARD)
-            #define ConsoleIsGetReady()     (PIR3bits.RC2IF)
-        #else
-            #define ConsoleIsGetReady()     (PIR1bits.RCIF)
-        #endif
-        BYTE ConsoleGet(void);
-        BYTE ConsoleGetString(char *buffer, BYTE bufferLen);
-        void PrintChar(BYTE);
-        void PrintDec(BYTE);
-    #else
-        #define ConsoleInit()
-        #define ConsoleIsPutReady() 1
-        #define ConsolePut(c)
-        #define ConsolePutString(s)
-        #define ConsolePutROMString(str)
-    
-        #define ConsoleIsGetReady() 1
-        #define ConsoleGet()        'a'
-        #define ConsoleGetString(buffer, bufferLen) 0
-        #define PrintChar(a)
-        #define PrintDec(a)
-    #endif
+/*.........................................................................................*/
+#if defined(ENABLE_CONSOLE)
+	void ConsoleInit(void);
+    #define ConsoleIsPutReady()     (U2STAbits.TRMT)
+    void ConsolePut(BYTE c);
+    //void ConsolePutString(BYTE *s);
+    void ConsolePutROMString(ROM char* str);
+    #define ConsoleIsGetReady()     (IFS1bits.U2RXIF)
+    BYTE ConsoleGet(void);
+    //BYTE ConsoleGetString(char *buffer, BYTE bufferLen);
+    void PrintChar(BYTE);
+    void PrintDec(BYTE);
 #else
-#error Unknown processor.  See Compiler.h
+    #define ConsoleInit()
+    #define ConsoleIsPutReady() 1
+    #define ConsolePut(c)
+	#define ConsolePutString(s)
+    #define ConsolePutROMString(str)
+    #define ConsoleIsGetReady() 1
+    #define ConsoleGet()        'a'
+    #define ConsoleGetString(buffer, bufferLen) 0
+    #define PrintChar(a)
+    #define PrintDec(a)
 #endif
 
+/*.........................................................................................*/
 #define Printf(x) ConsolePutROMString((ROM char*)x)
 //#define printf(x) ConsolePutROMString((ROM char*)x)
+
+
+/*-----------------------------------------------------------------------------------------*/
 #endif
 
 

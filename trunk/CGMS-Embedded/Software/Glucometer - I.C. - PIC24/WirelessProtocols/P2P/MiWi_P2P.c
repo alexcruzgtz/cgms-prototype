@@ -47,25 +47,35 @@
 *  4.1   6/3/2011     yfy       MAL v2011-06
 ********************************************************************/
 
-/************************ HEADERS **********************************/
-#include "ConfigApp.h"
-
+#include "MiWi_ConfigApp.h"
 #if defined(PROTOCOL_P2P)
 
-#include "WirelessProtocols/MSPI.h"
-#include "WirelessProtocols/P2P/P2P.h"
-#include "Compiler.h"
-#include "GenericTypeDefs.h"
-#include "WirelessProtocols/Console.h"
-#include "WirelessProtocols/NVM.h"
-#include "WirelessProtocols/SymbolTime.h"
-#include "Transceivers/MCHP_MAC.h"
-#include "Transceivers/Transceivers.h"
-#include "WirelessProtocols/MCHP_API.h"
-#include "WirelessProtocols/EEPROM.h"
+	#include "Compiler.h"
+	#include "GenericTypeDefs.h"
+	#include "SymbolTime.h"
+	#include "SPI_Handler.h"
+	#include "SymbolTime.h"
+	#include "WirelessProtocols/P2P/MiWi_P2P.h"
+	#include "WirelessProtocols/MiWi_UART_Handler.h"
+	#include "WirelessProtocols/MiWi_NVM.h"
+	#include "Transceivers/MiWi_MCHP_MAC.h"
+	#include "WirelessProtocols/MiWi_MCHP_API.h"
+	#if defined(MRF24J40)
+		#define IEEE_802_15_4
+    	#include "Transceivers/MRF24J40/MRF24J40.h"
+	#endif
+	#if defined(MRF49XA)
+   		#define SOFTWARE_CRC
+   		#define SOFTWARE_SECURITY
+   		#include "Transceivers/MRF49XA/MRF49XA.h"
+	#endif
+	#if defined(MRF89XA)
+		#define SOFTWARE_SECURITY
+		#include "Transceivers/MRF89XA/MRF89XA.h"
+	#endif
 
 
-/************************ VARIABLES ********************************/
+/*-----------------------------------------------------------------------------------------*/
 // permanent address definition
 #if MY_ADDRESS_LENGTH == 8
     BYTE myLongAddress[MY_ADDRESS_LENGTH] = {EUI_0,EUI_1,EUI_2,EUI_3, EUI_4, EUI_5,EUI_6,EUI_7};
@@ -108,53 +118,13 @@
     };
 #endif
 
-/**********************************************************************
- * "#pragma udata" is used to specify the starting address of a 
- * global variable. The address may be MCU dependent on RAM available
- * If the size of the global variable is small, such manual assignment
- * may not be necessary. Developer can comment out the address
- * assignment.
- **********************************************************************/
-#if defined(__18CXX)
-    #pragma udata TRX_BUFFER
-#endif
 BYTE TxBuffer[TX_BUFFER_SIZE];
-#if defined(__18CXX)
-    #pragma udata
-#endif
 
 #ifdef ENABLE_INDIRECT_MESSAGE
-    /**********************************************************************
-     * "#pragma udata" is used to specify the starting address of a 
-     * global variable. The address may be MCU dependent on RAM available
-     * If the size of the global variable is small, such manual assignment
-     * may not be necessary. Developer can comment out the address
-     * assignment.
-     **********************************************************************/
-    #if defined(__18CXX)
-        #pragma udata INDIRECT_BUFFER
-    #endif
     INDIRECT_MESSAGE indirectMessages[INDIRECT_MESSAGE_SIZE];   // structure to store the indirect messages
-                                                                // for nodes with radio off duing idle time
-    #if defined(__18CXX)
-        #pragma udata
-    #endif
 #endif
 
-/**********************************************************************
- * "#pragma udata" is used to specify the starting address of a 
- * global variable. The address may be MCU dependent on RAM available
- * If the size of the global variable is small, such manual assignment
- * may not be necessary. Developer can comment out the address
- * assignment.
- **********************************************************************/
-#if defined(__18CXX)
-    #pragma udata BIGvariables1
-#endif
 CONNECTION_ENTRY    ConnectionTable[CONNECTION_SIZE];        // The peer device records for P2P connections
-#if defined(__18CXX)
-    #pragma udata
-#endif
 
 #if defined(IEEE_802_15_4)
     WORD_VAL        myPANID;                    // the PAN Identifier for the device
@@ -203,7 +173,6 @@ MAC_RECEIVED_PACKET MACRxPacket;
     #endif
 #endif
 
-/************************ FUNCTION DEFINITION ********************************/
 BYTE AddConnection(void);
 BOOL isSameAddress(INPUT BYTE *Address1, INPUT BYTE *Address2);
 
@@ -223,8 +192,9 @@ BOOL isSameAddress(INPUT BYTE *Address1, INPUT BYTE *Address2);
 
 BOOL CheckForData(void);
 
-/************************ FUNCTIONS ********************************/
 
+
+/*-----------------------------------------------------------------------------------------*/
 /******************************************************************/
 // C18 compiler cannot optimize the code with a macro. Instead of 
 // calling macro Nop in a big function, we define a wrapper to call
@@ -235,22 +205,15 @@ void MacroNop(void)
     Nop(); 
 }    
 
-
 /*********************************************************************
  * void P2PTasks( void )
- *
  * Overview:        This function maintains the operation of the stack
  *                  It should be called as often as possible. 
- *
  * PreCondition:    None
- *
  * Input:           None
- *
  * Output:          None
- *
  * Side Effects:    The stack receives, handles, buffers, and transmits 
  *                  packets.  It also handles all of the joining 
- * 
  ********************************************************************/
 void P2PTasks(void)
 {
@@ -1000,20 +963,16 @@ BOOL MiApp_ProtocolInit(BOOL bNetworkFreezer)
     /************************************************************************************
      * Function:
      *      BYTE    MiApp_TransceiverPowerState(BYTE Mode)
-     *
      * Summary:
      *      This function put the RF transceiver into different power state. i.e. Put the 
      *      RF transceiver into sleep or wake it up.
-     *
      * Description:        
      *      This is the primary user interface functions for the application layer to 
      *      put RF transceiver into sleep or wake it up. This function is only available
      *      to those wireless nodes that may have to disable the transceiver to save 
      *      battery power.
-     *
      * PreCondition:    
      *      Protocol initialization has been done. 
-     *
      * Parameters: 
      *      BYTE Mode - The mode of power state for the RF transceiver to be set. The possible
      *                  power states are following
@@ -1021,7 +980,6 @@ BOOL MiApp_ProtocolInit(BOOL bNetworkFreezer)
      *                  * POWER_STATE_WAKEUP    Wake up state, or operating state for RF transceiver
      *                  * POWER_STATE_WAKEUP_DR Put device into wakeup mode and then transmit a 
      *                                          data request to the device's associated device
-     *
      * Returns: 
      *      The status of the operation. The following are the possible status
      *      * SUCCESS           Operation successful
@@ -1031,7 +989,6 @@ BOOL MiApp_ProtocolInit(BOOL bNetworkFreezer)
      *      * ERR_RX_FAIL       Failed to receive any response to Data Request command. Only available
      *                          if input mode is POWER_STATE_WAKEUP_DR.
      *      * ERR_INVLAID_INPUT Invalid input mode. 
-     *
      * Example:
      *      <code>
      *      // put RF transceiver into sleep
@@ -1045,10 +1002,8 @@ BOOL MiApp_ProtocolInit(BOOL bNetworkFreezer)
      *      // make sure that RF transceiver to wake up and send out Data Request
      *      MiApp_TransceiverPowerState(POWER_STATE_WAKEUP_DR);
      *      </code>
-     *
      * Remarks:    
      *      None
-     *
      *****************************************************************************************/
     BYTE MiApp_TransceiverPowerState(INPUT BYTE Mode)
     {
@@ -1112,21 +1067,15 @@ BOOL MiApp_ProtocolInit(BOOL bNetworkFreezer)
      
      /*********************************************************************
      * BOOL CheckForData(void)
-     *
      * Overview:        This function sends out a Data Request to the peer
      *                  device of the first P2P connection. 
-     *
      * PreCondition:    Transceiver is initialized and fully waken up
-     *
      * Input:           None
-     *
      * Output:          None
-     *
      * Side Effects:    The P2P stack is waiting for the response from
      *                  the peer device. A data request timer has been
      *                  started. In case there is no response from the
      *                  peer device, the data request will time-out itself
-     *
      ********************************************************************/
      BOOL CheckForData(void)
      {
@@ -1204,12 +1153,9 @@ BOOL MiApp_ProtocolInit(BOOL bNetworkFreezer)
      *                     BYTE *DestinationAddress, 
      *                     BOOL isCommand, 
      *                     BOOL SecurityEnabled)
-     *
      * Overview:        This function store the indirect message for node
      *                  that turns off radio when idle     
-     *
      * PreCondition:    None
-     *
      * Input:           Broadcast           - Boolean to indicate if the indirect
      *                                        message a broadcast message
      *                  DestinationPANID    - The PAN Identifier of the 
@@ -1220,14 +1166,11 @@ BOOL MiApp_ProtocolInit(BOOL bNetworkFreezer)
      *                                        is command
      *                  SecurityEnabled     - The boolean to indicate if the 
      *                                        packet needs encryption
-     *
      * Output:          boolean to indicate if operation successful
-     *
      * Side Effects:    An indirect message stored and waiting to deliever
      *                  to sleeping device. An indirect message timer
      *                  has started to expire the indirect message in case
      *                  RFD does not acquire data in predefined interval
-     *
      ********************************************************************/
     #if defined(IEEE_802_15_4)
         BOOL IndirectPacket(INPUT BOOL Broadcast, 
@@ -1308,30 +1251,23 @@ BOOL MiApp_ProtocolInit(BOOL bNetworkFreezer)
     }
 #endif
 
-
 /*********************************************************************
  * BOOL SendPacket(BOOL Broadcast, 
  *                 WORD_VAL DestinationPANID, 
  *                 BYTE *DestinationAddress, 
  *                 BOOL isCommand, 
  *                 BOOL SecurityEnabled)
- *
  * Overview:        This function sends the packet  
- *
  * PreCondition:    Transceiver is initialized
- *
  * Input:     
  *          BOOL        Broadcast           If packet to send needs to be broadcast
  *          WORD_VAL    DestinationPANID    Destination PAN Identifier
  *          BYTE *      DestinationAddress  Pointer to destination long address 
  *          BOOL        isCommand           If packet to send is a command packet
  *          BOOL        SecurityEnabled     If packet to send needs encryption
- *                  
  * Output: 
  *          BOOL                            If operation successful
- *
  * Side Effects:    Transceiver is triggered to transmit a packet
- *
  ********************************************************************/
 #if defined(IEEE_802_15_4)
     BOOL SendPacket(INPUT BOOL Broadcast, 
@@ -1394,34 +1330,26 @@ BOOL MiApp_ProtocolInit(BOOL bNetworkFreezer)
 /************************************************************************************
  * Function:
  *      BOOL MiApp_BroadcastPacket(BOOL SecEn )
- *
  * Summary:
  *      This function broadcast a message in the TxBuffer.
- *
  * Description:        
  *      This is the primary user interface function for the application layer to 
  *      broadcast a message. The application payload is filled in the global char
  *      array TxBuffer.
- *
  * PreCondition:    
  *      Protocol initialization has been done. 
- *
  * Parameters:           
  *      BOOL SecEn -    The boolean indicates if the application payload needs to be
  *                      secured before transmission.
- *
  * Returns: 
  *      A boolean to indicates if the broadcast procedure is succcessful.
- *
  * Example:
  *      <code>
  *      // Secure and then broadcast the message stored in TxBuffer
  *      MiApp_BroadcastPacket(TRUE);
  *      </code>
- *
  * Remarks:    
  *      None
- *
  *****************************************************************************************/ 
 BOOL MiApp_BroadcastPacket( INPUT BOOL SecEn )                                                     
 {
@@ -1460,39 +1388,31 @@ BOOL MiApp_BroadcastPacket( INPUT BOOL SecEn )
 /************************************************************************************
  * Function:
  *      BOOL MiApp_UnicastConnection(BYTE ConnectionIndex, BOOL SecEn)
- *
  * Summary:
  *      This function unicast a message in the TxBuffer to the device with the input 
  *      ConnectionIndex in the connection table. 
- *
  * Description:        
  *      This is one of the primary user interface functions for the application layer to 
  *      unicast a message. The destination device is in the connection table specified by 
  *      the input parameter ConnectionIndex. The application payload is filled in the 
  *      global char array TxBuffer.
- *
  * PreCondition:    
  *      Protocol initialization has been done. The input parameter ConnectionIndex points to
  *      a valid peer device in the connection table.
- *
  * Parameters: 
  *      BYTE ConnectionIndex -  The index of the destination device in the connection table.          
  *      BOOL SecEn -    The boolean indicates if the application payload needs to be
  *                      secured before transmission.
- *
  * Returns: 
  *      A boolean to indicates if the unicast procedure is succcessful.
- *
  * Example:
  *      <code>
  *      // Secure and then unicast the message stored in TxBuffer to the first device in 
  *      // the connection table
  *      MiApp_UnicastConnection(0, TRUE);
  *      </code>
- *
  * Remarks:    
  *      None
- *
  *****************************************************************************************/  
 BOOL MiApp_UnicastConnection( INPUT BYTE ConnectionIndex, 
                         INPUT BOOL SecEn)
@@ -1539,18 +1459,14 @@ BOOL MiApp_UnicastConnection( INPUT BYTE ConnectionIndex,
 /************************************************************************************
  * Function:
  *      BOOL MiApp_UnicastAddress(BYTE *DestinationAddress, BOOL PermanentAddr, BOOL SecEn)
- *
  * Summary:
  *      This function unicast a message in the TxBuffer to the device with DestinationAddress 
- *
  * Description:        
  *      This is one of the primary user interface functions for the application layer to 
  *      unicast a message. The destination device is specified by the input parameter 
  *      DestinationAddress. The application payload is filled in the global char array TxBuffer.
- *
  * PreCondition:    
  *      Protocol initialization has been done. 
- *
  * Parameters: 
  *      BYTE * DestinationAddress - The destination address of the unicast
  *      BOOL PermanentAddr -    The boolean to indicate if the destination address above is a
@@ -1558,20 +1474,16 @@ BOOL MiApp_UnicastConnection( INPUT BYTE ConnectionIndex,
  *                              is only used in a network protocol.         
  *      BOOL SecEn -    The boolean indicates if the application payload needs to be
  *                      secured before transmission.
- *
  * Returns: 
  *      A boolean to indicates if the unicast procedure is succcessful.
- *
  * Example:
  *      <code>
  *      // Secure and then broadcast the message stored in TxBuffer to the permanent address
  *      // specified in the input parameter.
  *      MiApp_UnicastAddress(DestAddress, TRUE, TRUE);
  *      </code>
- *
  * Remarks:    
  *      None
- *
  *****************************************************************************************/    
 BOOL MiApp_UnicastAddress(INPUT BYTE *DestinationAddress, 
                     INPUT BOOL PermanentAddr, 
@@ -1614,21 +1526,15 @@ BOOL MiApp_UnicastAddress(INPUT BYTE *DestinationAddress,
 
 /*********************************************************************
  * BOOL    isSameAddress(BYTE *Address1, BYTE *Address2)
- *
  * Overview:        This function compares two long addresses and returns
  *                  the boolean to indicate if they are the same
- *
  * PreCondition:    
- *
  * Input:  
  *          Address1    - Pointer to the first long address to be compared
  *          Address2    - Pointer to the second long address to be compared
- *                  
  * Output: 
  *          If the two address are the same
- *
  * Side Effects:    
- *
  ********************************************************************/
 BOOL    isSameAddress(INPUT BYTE *Address1, INPUT BYTE *Address2)
 {
@@ -1713,11 +1619,9 @@ BOOL    isSameAddress(INPUT BYTE *Address1, INPUT BYTE *Address2)
     /************************************************************************************
      * Function:
      *      BYTE    MiApp_EstablishConnection(BYTE ActiveScanIndex, BYTE Mode)
-     *
      * Summary:
      *      This function establish a connection with one or more nodes in an existing
      *      PAN.
-     *
      * Description:        
      *      This is the primary user interface function for the application layer to 
      *      start communication with an existing PAN. For P2P protocol, this function
@@ -1725,12 +1629,10 @@ BOOL    isSameAddress(INPUT BYTE *Address1, INPUT BYTE *Address2)
      *      function can be used to join the network, or establish a virtual socket
      *      connection with a node out of the radio range. There are multiple ways to
      *      establish connection(s), all depends on the input parameters.
-     *
      * PreCondition:    
      *      Protocol initialization has been done. If only to establish connection with
      *      a predefined device, an active scan must be performed before and valid active
      *      scan result has been saved.
-     *
      * Parameters:           
      *      BYTE ActiveScanIndex -  The index of the target device in the ActiveScanResults
      *                              array, if a predefined device is targeted. If the 
@@ -1745,20 +1647,16 @@ BOOL    isSameAddress(INPUT BYTE *Address1, INPUT BYTE *Address2)
      *                                          is only valid for network protocol. The PAN 
      *                                          Coordinator will be involved to establish a 
      *                                          virtual indirect socket connection.
-     *                  
      * Returns: 
      *      The index of the peer device on the connection table.
-     *
      * Example:
      *      <code>
      *      // Establish one or more connections with any device
      *      PeerIndex = MiApp_EstablishConnection(0xFF, CONN_MODE_DIRECT);
      *      </code>
-     *
      * Remarks:    
      *      If more than one connections have been established through this function call, the
      *      return value points to the index of one of the peer devices.
-     *
      *****************************************************************************************/  
     BYTE    MiApp_EstablishConnection(INPUT BYTE ActiveScanIndex, INPUT BYTE Mode)
     {
@@ -1892,20 +1790,14 @@ BOOL MiApp_MessageAvailable(void)
 #ifdef ENABLE_DUMP
     /*********************************************************************
      * void DumpConnection(BYTE index)
-     *
      * Overview:        This function prints out the content of the connection 
      *                  with the input index of the P2P Connection Entry
-     *
      * PreCondition:    
-     *
      * Input:  
      *          index   - The index of the P2P Connection Entry to be printed out
-     *                  
      * Output:  None
-     *
      * Side Effects:    The content of the connection pointed by the index 
      *                  of the P2P Connection Entry will be printed out
-     *
      ********************************************************************/
     void DumpConnection(INPUT BYTE index)
     {
@@ -1990,26 +1882,19 @@ BOOL MiApp_MessageAvailable(void)
     }
 #endif
 
-
 #if defined(ENABLE_HAND_SHAKE)
     /*********************************************************************
      * BYTE AddConnection(void)
-     *
      * Overview:        This function create a new P2P connection entry
-     *
      * PreCondition:    A P2P Connection Request or Response has been 
      *                  received and stored in rxMessage structure
-     *
      * Input:  None
-     *                  
      * Output: 
      *          The index of the P2P Connection Entry for the newly added
      *          connection
-     *
      * Side Effects:    A new P2P Connection Entry is created. The search 
      *                  connection operation ends if an entry is added 
      *                  successfully
-     *
      ********************************************************************/
     BYTE AddConnection(void)
     {
@@ -2092,21 +1977,17 @@ BOOL MiApp_MessageAvailable(void)
     /************************************************************************************
      * Function:
      *      BYTE    MiApp_SearchConnection(BYTE ScanDuartion, DWORD ChannelMap)
-     *
      * Summary:
      *      This function perform an active scan to locate operating PANs in the
      *      neighborhood.
-     *
      * Description:        
      *      This is the primary user interface function for the application layer to 
      *      perform an active scan. After this function call, all active scan response
      *      will be stored in the global variable ActiveScanResults in the format of 
      *      structure ACTIVE_SCAN_RESULT. The return value indicates the total number
      *      of valid active scan response in the active scan result array.
-     *
      * PreCondition:    
      *      Protocol initialization has been done.
-     *
      * Parameters:           
      *      BYTE ScanDuration - The maximum time to perform scan on single channel. The
      *                          value is from 5 to 14. The real time to perform scan can
@@ -2117,19 +1998,15 @@ BOOL MiApp_MessageAvailable(void)
      *                          double word parameter use one bit to represent corresponding
      *                          channels from 0 to 31. For instance, 0x00000003 represent to 
      *                          scan channel 0 and channel 1. 
-     *                  
      * Returns: 
      *      The number of valid active scan response stored in the global variable ActiveScanResults.
-     *
      * Example:
      *      <code>
      *      // Perform an active scan on all possible channels
      *      NumOfActiveScanResponse = MiApp_SearchConnection(10, 0xFFFFFFFF);
      *      </code>
-     *
      * Remarks:    
      *      None
-     *
      *****************************************************************************************/
     BYTE MiApp_SearchConnection(INPUT BYTE ScanDuration, INPUT DWORD ChannelMap)
     {
@@ -2200,17 +2077,13 @@ BOOL MiApp_MessageAvailable(void)
      * Function:
      *      BYTE MiApp_NoiseDetection(  DWORD ChannelMap, BYTE ScanDuration, 
      *                                  BYTE DetectionMode, BYTE *NoiseLevel)
-     *
      * Summary:
      *      This function perform a noise scan and returns the channel with least noise
-     *
      * Description:        
      *      This is the primary user interface functions for the application layer to 
      *      perform noise detection on multiple channels.
-     *
      * PreCondition:    
      *      Protocol initialization has been done. 
-     *
      * Parameters: 
      *      DWORD ChannelMap -  The bit map of channels to perform noise scan. The 32-bit
      *                          double word parameter use one bit to represent corresponding
@@ -2226,19 +2099,15 @@ BOOL MiApp_MessageAvailable(void)
      *                              * NOISE_DETECT_ENERGY   Energy detection scan mode
      *                              * NOISE_DETECT_CS       Carrier sense detection scan mode
      *      BYTE *NoiseLevel -  The noise level at the channel with least noise level 
-     *
      * Returns: 
      *      The channel that has the lowest noise level
-     *
      * Example:
      *      <code>
      *      BYTE NoiseLevel;
      *      OptimalChannel = MiApp_NoiseDetection(0xFFFFFFFF, 10, NOISE_DETECT_ENERGY, &NoiseLevel);
      *      </code>
-     *
      * Remarks:    
      *      None
-     *
      *****************************************************************************************/
     BYTE MiApp_NoiseDetection(INPUT DWORD ChannelMap, INPUT BYTE ScanDuration, INPUT BYTE DetectionMode, OUTPUT BYTE *RSSIValue)
     {
@@ -2318,21 +2187,15 @@ BOOL MiApp_MessageAvailable(void)
 
     /*********************************************************************
      * void StartChannelHopping(BYTE OptimalChannel)
-     *
      * Overview:        This function broadcast the channel hopping command
      *                  and after that, change operating channel to the 
      *                  input optimal channel     
-     *
      * PreCondition:    Transceiver has been initialized
-     *
      * Input:           OptimalChannel  - The channel to hop to
-     *                  
      * Output: 
      *          None
-     *
      * Side Effects:    The operating channel for current device will change
      *                  to the specified channel
-     *
      ********************************************************************/
     void StartChannelHopping(INPUT BYTE OptimalChannel)
     {
@@ -2363,15 +2226,12 @@ BOOL MiApp_MessageAvailable(void)
         MiApp_SetChannel(OptimalChannel);  
     }
     
-    
     /********************************************************************************************
      * Function:
      *      BOOL MiApp_ResyncConnection(BYTE ConnectionIndex, DWORD ChannelMap)
-     *
      * Summary:
      *      This function tries to resynchronize the lost connection with 
      *      peers, probably due to channel hopping
-     *
      * Description:        
      *      This is the primary user interface function for the application to resynchronize a 
      *      lost connection. For a RFD device that goes to sleep periodically, it may not 
@@ -2379,30 +2239,25 @@ BOOL MiApp_MessageAvailable(void)
      *      RFD device depends on this function to hop to the channel that the rest of
      *      the PAN has jumped to. This function call is usually triggered by continously 
      *      communication failure with the peers.
-     *
      * PreCondition:    
      *      Transceiver has been initialized
-     *
      * Parameters:      
      *      DWORD ChannelMap -  The bit map of channels to perform noise scan. The 32-bit
      *                          double word parameter use one bit to represent corresponding
      *                          channels from 0 to 31. For instance, 0x00000003 represent to 
      *                          scan channel 0 and channel 1. 
-     *                  
+             
      * Returns: 
      *                  a boolean to indicate if resynchronization of connection is successful
-     *
      * Example:
      *      <code>
      *      // Sleeping RFD device resync with its associated device, usually the first peer
      *      // in the connection table
      *      MiApp_ResyncConnection(0, 0xFFFFFFFF);
      *      </code>
-     *
      * Remark:          
      *      If operation is successful, the wireless node will be hopped to the channel that 
      *      the rest of the PAN is operating on.
-     *
      *********************************************************************************************/ 
     BOOL MiApp_ResyncConnection(INPUT BYTE ConnectionIndex, INPUT DWORD ChannelMap)
     {
@@ -2479,36 +2334,29 @@ GetOutOfLoop:
         /*******************************************************************************************
          * Function:
          *      BOOL MiApp_InitChannelHopping(DWORD ChannelMap)
-         *
          * Summary:
          *      
          *      This function tries to start a channel hopping (frequency agility) procedure
-         *
          * Description:        
          *      This is the primary user interface function for the application to do energy 
          *      scan to locate the channel with least noise. If the channel is not current 
          *      operating channel, process of channel hopping will be started.
-         *
          * PreCondition:    
          *      Transceiver has been initialized
-         *
          * Parameters:      
          *      DWORD ChannelMap -  The bit map of the candicate channels
          *                          which can be hopped to
-         *                  
+                
          * Returns: 
          *                  a boolean to indicate if channel hopping is initiated
-         *
          * Example:
          *      <code>
          *      // if condition meets, scan all possible channels and hop 
          *      // to the one with least noise
          *      MiApp_InitChannelHopping(0xFFFFFFFF);
          *      </code>
-         *
          * Remark:          The operating channel will change to the optimal 
          *                  channel with least noise
-         *
          ******************************************************************************************/
         BOOL MiApp_InitChannelHopping( INPUT DWORD ChannelMap)
         {
@@ -2534,7 +2382,6 @@ GetOutOfLoop:
             return TRUE;
         }
     #endif
-
 #endif
 
 
@@ -2543,10 +2390,8 @@ GetOutOfLoop:
     /*********************************************************************
      * Function:
      *      void MiApp_RemoveConnection(BYTE ConnectionIndex)
-     *
      * Summary:
      *      This function remove connection(s) in connection table
-     *
      * Description:        
      *      This is the primary user interface function to disconnect connection(s).
      *      For a P2P protocol, it simply remove the connection. For a network protocol,
@@ -2554,26 +2399,21 @@ GetOutOfLoop:
      *      calling this function, the calling device will get out of network along with
      *      its children. If the device referred by the input parameter is children of
      *      the device calling this function, the target device will get out of network.
-     * 
      * PreCondition:    
      *      Transceiver has been initialized. Node has establish
      *      one or more connections
-     *
      * Parameters:           
      *      BYTE ConnectionIndex -  The index of the connection in the 
      *                              connection table to be removed
-     *                  
+               
      * Returns: 
      *      None
-     *
      * Example:
      *      <code>
      *      MiApp_RemoveConnection(0x00);
      *      </code>
-     *
      * Remarks:    
      *      None
-     *
      ********************************************************************/
     void MiApp_RemoveConnection(INPUT BYTE ConnectionIndex)
     {   
@@ -2623,17 +2463,13 @@ GetOutOfLoop:
 /************************************************************************************
  * Function:
  *      void    MiApp_ConnectionMode(BYTE Mode)
- *
  * Summary:
  *      This function set the current connection mode.
- *
  * Description:        
  *      This is the primary user interface function for the application layer to 
  *      configure the way that the host device accept connection request.
- *
  * PreCondition:    
  *      Protocol initialization has been done. 
- *
  * Parameters:           
  *      BYTE Mode -     The mode to accept connection request. The privilege for those modes
  *                      decreases gradually as defined. The higher privilege mode has all the 
@@ -2646,19 +2482,15 @@ GetOutOfLoop:
  *                      * ENABLE_ACTIVE_SCAN_RSP    Enable response to active scan only
  *                      * DISABLE_ALL_CONN      Disable response to connection request, including
  *                                              an acitve scan request.
- *
  * Returns: 
  *      None
- *
  * Example:
  *      <code>
  *      // Enable all connection request
  *      MiApp_ConnectionMode(ENABLE_ALL_CONN);
  *      </code>
- *
  * Remarks:    
  *      None
- *
  *****************************************************************************************/ 
 void MiApp_ConnectionMode(INPUT BYTE Mode)
 {
@@ -2674,6 +2506,9 @@ void MiApp_ConnectionMode(INPUT BYTE Mode)
     #endif
 }
 
+
+
+/*-----------------------------------------------------------------------------------------*/
 #else  // defined PROTOCOL_P2P
     /*******************************************************************
      * C18 compiler cannot compile an empty C file. define following 
@@ -2681,5 +2516,8 @@ void MiApp_ConnectionMode(INPUT BYTE Mode)
      * a different protocol is chosen.
      ******************************************************************/
     extern char bogusVariable;
+
+
+/*-----------------------------------------------------------------------------------------*/
 #endif
 
