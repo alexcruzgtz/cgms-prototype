@@ -54,14 +54,15 @@
 ********************************************************************/
 
 #include "MiWi_ConfigApp.h"
-#include "WirelessProtocols/P2P/MiWi_P2P.h"
+#include "MiWi_P2P.h"
+#include "MiWi_MRF89XA.h"
+
 #define SOFTWARE_SECURITY
-#include "Transceivers/MRF89XA/MRF89XA.h"
 
 #if defined(SOFTWARE_SECURITY) && defined(ENABLE_SECURITY)
     #include "GenericTypeDefs.h"
-    #include "Transceivers/Security.h"                                
-    #include "WirelessProtocols/MiWi_UART_Handler.h"
+    #include "Security.h"                                
+    #include "UART_Handler.h"
 
 /*-----------------------------------------------------------------------------------------*/    
     BYTE tmpBlock[BLOCK_SIZE];

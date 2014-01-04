@@ -48,17 +48,20 @@
 ********************************************************************/
 
 #include "MiWi_ConfigApp.h"
-#include "WirelessProtocols/P2P/MiWi_P2P.h"
+#include "MiWi_P2P.h"
 
 #if defined(MRF89XA)
     #include "SymbolTime.h"
     #include "TimeDelay.h"
-    #include "Transceivers/MRF89XA/MRF89XA.h"
-    #include "Transceivers/MiWi_MCHP_MAC.h"
-    #include "Transceivers/Security.h"
-    #include "WirelessProtocols/MiWi_UART_Handler.h"
-    #include "WirelessProtocols/MiWi_NVM.h"
-    #include "WirelessProtocols/MiWi_MCHP_API.h"
+    #include "UART_Handler.h"
+	#include "HardwareConfig.h"
+    #include "MiWi_Security.h"
+    #include "MiWi_MRF89XA.h"
+    #include "MiWi_MCHP_MAC.h"
+    #include "MiWi_MCHP_API.h"
+    #include "MiWi_NVM.h"
+
+
 
 /*-----------------------------------------------------------------------------------------*/
     volatile RX_PACKET  RxPacket[BANK_SIZE];

@@ -43,19 +43,19 @@
 *  2.0   4/15/2009    yfy       MiMAC and MiApp revision
 *  3.1   5/28/2010    yfy       MiWi DE 3.1
 ********************************************************************/
-#ifndef __NVM_H
-#define __NVM_H
+#ifndef __MIWI_NVM_H
+#define __MIWI_NVM_H
 
 /*-----------------------------------------------------------------------------------------*/
 #include "MiWi_ConfigApp.h"
-#include "WirelessProtocols/P2P/MiWi_P2P.h"
+#include "MiWi_P2P.h"
     
 /*.........................................................................................*/
 #if defined(ENABLE_NVM)
 	#include "GenericTypeDefs.h"
     #include "Compiler.h"
-    #include "WirelessProtocols/MiWi_MCHP_API.h"
-	#include "WirelessProtocols/MiWi_UART_Handler.h"
+	#include "UART_Handler.h"
+    #include "MiWi_MCHP_API.h"
 
 /*-----------------------------------------------------------------------------------------*/
   	#define TOTAL_NVM_BYTES     1024

@@ -4,7 +4,7 @@
 
 #include "p24fxxxx.h"
 #include "GenericTypeDefs.h"
-#include "MRF89XA.h"
+#include "MiWi_MRF89XA.h"
 #include "ADC_Handler.h"
 
 #ifndef __INTERRUPTS_H

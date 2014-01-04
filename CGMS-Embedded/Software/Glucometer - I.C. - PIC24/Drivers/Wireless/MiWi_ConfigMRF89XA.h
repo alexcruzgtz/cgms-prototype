@@ -1,10 +1,10 @@
 /********************************************************************
-* FileName:		ConfigMRF49XA.h
+* FileName:		ConfigMRF89XA.h
 * Dependencies: 
 * Processor:	PIC18, PIC24F, PIC32, dsPIC30, dsPIC33
 *               tested with 18F4620, dsPIC33FJ256GP710	
-* Hardware:		PICDEM Z, Explorer 16
-* Complier:     Microchip C18 v3.04 or higher
+* Hardware:		PICDEM Z, Explorer 16, PIC18 Explorer
+* Complier:     Microchip C18 v3.30 or higher
 *				Microchip C30 v2.03 or higher	
 *               Microchip C32 v1.02 or higher
 * Company:		Microchip Technology, Inc.
@@ -37,113 +37,83 @@
 *********************************************************************
 * File Description:
 *
-*  This file provides configuration settings for MRF49XA
-*
-* Change History:
 *  Rev   Date         Author        Description
-*  2.0   4/15/2009    yfy           MiMAC and MiApp revision
-*  3.1   5/28/2010    yfy           MiWi DE 3.1
-*  4.1   6/3/2011     yfy           MAL v2011-06
+*  2.0   4/15/2009    SM            MiWi DE 3.1
+*  4.1   6/3/2011     SM            MAL v2011-06
 ********************************************************************/
 
-#ifndef __CONFIG_MRF49XA_H
+#ifndef __MIWI_CONFIG_MRF89XA_H
+#define __MIWI_CONFIG_MRF89XA_H
 
-    #define __CONFIG_MRF49XA_H
-    
-    #include "Transceivers/MRF49XA/MRF49XA.h"
+
+/*-----------------------------------------------------------------------------------------*/    
+    #include "MiWi_MRF89XA.h"
 
     /*********************************************************************/
-    // BAND_915, BAND_868 or BAND_434 are three supported frequency
-    // band for Microchip MRF49XA. One and only one of the frequency
+    // BAND_902, BAND_915 or BAND_863 (or BAND_950 - circuit dependent) are three supported frequency
+    // band for Microchip MRF89XA. One and only one of the frequency
     // band must be defined 
     /*********************************************************************/
-    #define BAND_915
-    
-    //#define BAND_868
-    //#define BAND_434
-    
+    //#define BAND_902      //Choose BAND_902 and BAND_915 for FCC and IC
+                            //Supports frequencies between 902 - 915MHz
+    //#define BAND_915      //Supports frequencies between 915 - 928MHz
+
+    #define BAND_863        //Choose this for Europe ETSI 868MHz Frequency band
+                            //Supports frequencies between 863MHz - 870MHz
     
     /*********************************************************************/
-    // DATA_RATE_1200, DATA_RATE_9600, DATA_RATE_19200, DATA_RATE_38400, 
-    // DATA_RATE_57600 and DATA_RATE_115200 are six data rates supported 
-    // by Microchip MRF49XA transceivers in MiMAC interface. One and only 
+    // DATA_RATE_5, DATA_RATE_10, DATA_RATE_20, 
+    // DATA_RATE_25, DATA_RATE_40, DATA_RATE_50, DATA_RATE_66,
+    // DATA_RATE_100 and DATA_RATE_200 are 10 data rates supported 
+    // by Microchip MRF89XA transceivers in MiMAC interface. One and only 
     // one of the data rate must be defined
+    /*********************************************************************/  
+    //#define DATA_RATE_5
+    //#define DATA_RATE_10
+    #define DATA_RATE_20
+    //#define DATA_RATE_40
+    //#define DATA_RATE_50
+    //#define DATA_RATE_66
+    //#define DATA_RATE_100
+    //#define DATA_RATE_200
+	
     /*********************************************************************/
-    //#define DATA_RATE_1200
-    
-    #define DATA_RATE_9600
-    //#define DATA_RATE_19200
-    //#define DATA_RATE_38400
-    //#define DATA_RATE_57600
-    //#define DATA_RATE_115200
-    
-    
-    /*********************************************************************/
-    // XTAL_LD_CAP defines the capacitor load on the external crystal
-    // as the clock to MRF49XA transceiver
-    /*********************************************************************/
-    #define XTAL_LD_CAP     XTAL_LD_CAP_10
-    
-    
-    /*********************************************************************/
-    // CRYSTAL_PPM defines the accuracy of the external crystal in PPM
-    /*********************************************************************/
-    #define CRYSTAL_PPM     10
-    
-    
-    /*********************************************************************/
-    // LNA_GAIN defines the internal low noise amplifier gain for
-    // MRF49XA transceiver.
+    // LNA_GAIN defines the internal IF gain for
+    // MRF89XA transceiver.
     /*********************************************************************/
     #define LNA_GAIN        LNA_GAIN_0_DB
-    
-    
+
     /*********************************************************************/
-    // TX_POWER defines the output power for MRF49XA
+    // TX_POWER defines the output power for MRF89XA
     /*********************************************************************/
-    #define TX_POWER        TX_POWER_0_DB
-    
-    
+    #define TX_POWER        TX_POWER_1_DB
+
     /*********************************************************************/
     // RSSI_THRESHOLD defines the threshold for the RSSI digital output
     /*********************************************************************/
-    #define RSSI_THRESHOLD  RSSI_THRESHOLD_79
-    
-    
+   	// #define RSSI_THRESHOLD  RSSI_THRESHOLD_79
+
     /*********************************************************************/
-    // ENABLE_CCA enables MRF49XA to perform Clear Channel Assessement
+    // ENABLE_CCA enables MRF89XA to perform Clear Channel Assessement
     // before transmitting data in MiMAC layer. 
     /*********************************************************************/            
     #define ENABLE_CCA
-    
-    
+
     /*********************************************************************/
-    // ENABLE_ACK enables MRF49XA to automatically send back an 
+    // ENABLE_ACK enables MRF89XA to automatically send back an 
     // acknowledgement packet in MiMAC layer after receiving a packet, 
     // when such acknowledgement is requested by the packet sender.
     /*********************************************************************/
-    #define ENABLE_ACK
-    
-    
+	#define ENABLE_ACK
+
     /*********************************************************************/
-    // ENABLE_RETRANSMISSION enables MRF49XA to retransmit the packet
+    // ENABLE_RETRANSMISSION enables MRF89XA to retransmit the packet
     // up to RETRANSMISSION_TIMES, if ENABLE_ACK is defined, and a proper
     // acknowledgement packet is not received by the sender in predefined
     // time period.
     /*********************************************************************/
     #define ENABLE_RETRANSMISSION
 
-
-    /*********************************************************************/
-    // INFER_DEST_ADDRESS enables inferred destination address mode, which
-    // does not transmit the destination address, but depends on the software
-    // CRC to infer the destination address. Infer destination address applies
-    // to only transceivers that support MiMAC frame format and the CRC engine
-    // that supports this feature.
-    /*********************************************************************/
-    #define INFER_DEST_ADDRESS
-    
-    
     /*********************************************************************/
     // SOURCE_ADDRESS_ABSENT disable the stack to transmit the source address
     // in the MAC layer, if the destination does not care where the message
@@ -152,15 +122,13 @@
     /*********************************************************************/
     #define SOURCE_ADDRESS_ABSENT
 
-
     /*********************************************************************/
     // MAX_ALLOWED_TX_FAILURE defines the maximum number of tries to
     // transmit a packet before a transmission failure can be issued to
     // the upper protocol layer. Transmission failure under this condition
-    // usually due to timeout from MRF49XA pin switch.
+    // usually due to timeout from MRF89XA pin switch.
     /*********************************************************************/ 
     #define MAX_ALLOWED_TX_FAILURE  20
-    
     
     /*********************************************************************/
     // RETRANSMISSION_TIMES defines the maximum retries that can be performed
@@ -168,7 +136,6 @@
     // time period, if ENABLE_RETRANSMISSION is defined.
     /*********************************************************************/
     #define RETRANSMISSION_TIMES    3
-    
     
     /*********************************************************************/
     // CCA_TIMES defines the total number of Clear Channel Assessment
@@ -180,7 +147,6 @@
     /*********************************************************************/
     #define CCA_TIMES               5
     
-    
     /*********************************************************************/
     // CCA_THRESHOLD defines the threshold times of Clear Channel Assessment
     // failure in the CCA procedure. CCA procedure perform CCA for CCA_TIMES
@@ -189,9 +155,9 @@
     // CCA_THRESHOLD, the whole procedure must be repeated up to 
     // CCA_RETRIES times before transmission failure can be flagged.
     /*********************************************************************/
-    #define CCA_THRESHOLD           2
-    
-    
+    #define CCA_THRESHOLD           65 	//-65dB limit for CCA threshold values (as sampling at data/preamble)
+										//can use higher values for preamble (refer 802.11 standard)
+
     /*********************************************************************/
     // CCA_RETRIES defines the maximum retries can be performed in the case 
     // of Clear Channel Assessment failure in the CCA procedure. CCA 
@@ -203,13 +169,11 @@
     /*********************************************************************/
     #define CCA_RETRIES             4
     
-    
     /*********************************************************************/
     // BANK_SIZE defines the number of packet can be received and stored
     // to wait for handling in MiMAC layer.
     /*********************************************************************/
     #define BANK_SIZE               2
-
 
     /*********************************************************************/
     // ACK_INFO_SIZE defines the number of acknowledgement information
@@ -217,7 +181,20 @@
     // layer.
     /*********************************************************************/
     #define ACK_INFO_SIZE           5
-
+    
+    /*********************************************************************/
+    //USE_IRQ0_AS_INTERRUPT enable MRF89XA transceiver to use both the IRQ0
+    //and IRQ1 interrupts. In MRF89XA.c file IRQ0 is received after 
+    //preamble detection (for accurate RSSI) and IRQ1 received after CRC
+    //correct packet is received.
+    //If IRQ0 and IRQ1 are both connected to PIC interrupts pins then
+    //enable this mode
+    /*********************************************************************/
+    //#define USE_IRQ0_AS_INTERRUPT
+    #define RFIE        PHY_IRQ1_En
+    #define RFIF        PHY_IRQ1
+    #define RF_INT_PIN  IRQ1_INT_PIN
+    #define RF_INT_TRIS IRQ1_INT_TRIS
 
     /***********************************************************************/
     //  SECURITY_KEY_xx defines xxth byte of security key used in the block
@@ -240,82 +217,95 @@
     #define SECURITY_KEY_13 0x0d
     #define SECURITY_KEY_14 0x0e
     #define SECURITY_KEY_15 0x0f
-    
-    
+
     /*********************************************************************/
     // KEY_SEQUENCE_NUMBER defines the sequence number that is used to
     // identify the key. Different key should have different sequence
     // number, if multiple security keys are used in the application.
     /*********************************************************************/
     #define KEY_SEQUENCE_NUMBER 0x00
-    
-    
+
     /*********************************************************************/
     // SECURITY_LEVEL defines the security mode used in the application.
     /*********************************************************************/
     #define SECURITY_LEVEL SEC_LEVEL_CCM_16
 
-
     /*********************************************************************/
-    // FRAME_COUNTER_UPDATE_INTERVAL defines the NVM update interval for
-    // frame counter, when security is enabled. The same interval will be
-    // added to the frame counter read from NVM when Network Freezer
-    // feature is enabled.
-    /*********************************************************************/ 
+    // The interval to update the frame counter in the NVM
+    /*********************************************************************/
     #define FRAME_COUNTER_UPDATE_INTERVAL 1024
 
-
     /*********************************************************************/
-    // MRF49XA configuration verification
+    // MRF89XA configuration verification
     /*********************************************************************/
-    #if !defined(BAND_915) && !defined(BAND_868) && !defined(BAND_434)
-        #error "At least one of the frequency band must be defined for MRF_49XA"
+    #if !defined(BAND_902) && !defined(BAND_915) && !defined(BAND_863)
+        #error "At least one of the frequency band must be defined for MRF_89XA"
     #endif
     
-    #if (defined(BAND_915) && defined(BAND_868)) || (defined(BAND_915) && defined(BAND_434)) || (defined(BAND_868) && defined(BAND_434))
-        #error "Only one frequency band can be defined for MRF_49XA"
+    #if (defined(BAND_902) && defined(BAND_915)) || (defined(BAND_902) && defined(BAND_863)) || (defined(BAND_915) && defined(BAND_863))
+        #error "Only one frequency band can be defined for MRF_89XA"
     #endif
 
-    #if !defined(DATA_RATE_1200) && !defined(DATA_RATE_9600) && !defined(DATA_RATE_19200) && !defined(DATA_RATE_38400) && !defined(DATA_RATE_57600) && !defined(DATA_RATE_115200)
-        #error "At least one of the data rate must be defined for MRF_49XA"
+    #if !defined(DATA_RATE_2) && !defined(DATA_RATE_5) && !defined(DATA_RATE_10) && !defined(DATA_RATE_20) && !defined(DATA_RATE_40) &&  !defined(DATA_RATE_50) && !defined(DATA_RATE_66) && !defined(DATA_RATE_100) && !defined(DATA_RATE_200)
+        #error "At least one of the data rate must be defined for MRF_89XA"
     #endif
     
     #undef DATA_RATE_DEFINED
-    #if defined(DATA_RATE_1200)
+    #if defined(DATA_RATE_2)
         #define DATA_RATE_DEFINED
     #endif
-    #if defined(DATA_RATE_9600)
+    #if defined(DATA_RATE_5)
         #if defined(DATA_RATE_DEFINED)
-            #error "Only one of the data rate can be defined for MRF_49XA"
+            #error "Only one of the data rate can be defined for MRF_89XA"
         #endif
         #define DATA_RATE_DEFINED
     #endif
-    #if defined(DATA_RATE_19200)
+    #if defined(DATA_RATE_10)
         #if defined(DATA_RATE_DEFINED)
-            #error "Only one of the data rate can be defined for MRF_49XA"
+            #error "Only one of the data rate can be defined for MRF_89XA"
         #endif
         #define DATA_RATE_DEFINED
     #endif
-    #if defined(DATA_RATE_38400)
+    #if defined(DATA_RATE_20)
         #if defined(DATA_RATE_DEFINED)
-            #error "Only one of the data rate can be defined for MRF_49XA"
+            #error "Only one of the data rate can be defined for MRF_89XA"
         #endif
         #define DATA_RATE_DEFINED
     #endif
-    #if defined(DATA_RATE_57600)
+    #if defined(DATA_RATE_40)
         #if defined(DATA_RATE_DEFINED)
-            #error "Only one of the data rate can be defined for MRF_49XA"
+            #error "Only one of the data rate can be defined for MRF_89XA"
         #endif
         #define DATA_RATE_DEFINED
     #endif
-    #if defined(DATA_RATE_115200)
+    #if defined(DATA_RATE_50)
         #if defined(DATA_RATE_DEFINED)
-            #error "Only one of the data rate can be defined for MRF_49XA"
+            #error "Only one of the data rate can be defined for MRF_89XA"
+        #endif
+        #define DATA_RATE_DEFINED
+    #endif
+	#if defined(DATA_RATE_66)
+        #if defined(DATA_RATE_DEFINED)
+            #error "Only one of the data rate can be defined for MRF_89XA"
+        #endif
+        #define DATA_RATE_DEFINED
+    #endif
+    #if defined(DATA_RATE_100)
+        #if defined(DATA_RATE_DEFINED)
+            #error "Only one of the data rate can be defined for MRF_89XA"
+        #endif
+        #define DATA_RATE_DEFINED
+    #endif
+    #if defined(DATA_RATE_200)
+        #if defined(DATA_RATE_DEFINED)
+            #error "Only one of the data rate can be defined for MRF_89XA"
         #endif
         #define DATA_RATE_DEFINED
     #endif
     #undef DATA_RATE_DEFINED
 
+
+/*-----------------------------------------------------------------------------------------*/
 #endif
 
 

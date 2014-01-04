@@ -45,17 +45,18 @@
 ********************************************************************/
 
 #include "MiWi_ConfigApp.h"
-#if !defined(__MRF89XA_H) && defined(MRF89XA)
-#define __MRF89XA_H
+#if !defined(__MIWI_MRF89XA_H) && defined(MRF89XA)
+#define __MIWI_MRF89XA_H
 
-   	#include "WirelessProtocols/P2P/MiWi_P2P.h"
     #include "GenericTypeDefs.h"
     #include "Compiler.h"
     #include "SymbolTime.h"
     #include "TimeDelay.h"
-    #include "Transceivers/MRF89XA/ConfigMRF89XA.h"
-    #include "Transceivers/Security.h"
-    #include "Transceivers/MiWi_MCHP_MAC.h"
+	#include "HardwareConfig.h"
+   	#include "MiWi_P2P.h"
+    #include "MiWi_ConfigMRF89XA.h"
+    #include "MiWi_Security.h"
+    #include "MiWi_MCHP_MAC.h"
 
 
 /*-----------------------------------------------------------------------------------------*/       
@@ -496,7 +497,10 @@
 
 /*-----------------------------------------------------------------------------------------*/   
 void IRQ1_Handler(void);
+
+#if defined(USE_IRQ0_AS_INTERRUPT)
 void IRQ0_Handler(void);
+#endif
 
 /*-----------------------------------------------------------------------------------------*/   
 #endif
