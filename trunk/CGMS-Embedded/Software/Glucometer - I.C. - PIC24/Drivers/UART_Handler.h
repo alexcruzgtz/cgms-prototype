@@ -47,16 +47,16 @@
 *  4.1   6/3/2011     yfy       MAL v2011-06
 ********************************************************************/
 
-#ifndef  _CONSOLE_H_
-#define  _CONSOLE_H_
+#ifndef  _UART_HANDLER_H_
+#define  _UART_HANDLER_H_
 
 
 /*-----------------------------------------------------------------------------------------*/
 #include "GenericTypeDefs.h"
 #include "Compiler.h"
-#include "MiWi_ConfigApp.h"
-#include "WirelessProtocols/P2P/MiWi_P2P.h"
 #include "HardwareConfig.h"
+#include "MiWi_ConfigApp.h"
+#include "MiWi_P2P.h"
 
 /*.........................................................................................*/
 #define BAUD_RATE 19200

@@ -46,16 +46,16 @@
 *  4.1   6/3/2011     yfy          MAL v2011-06
 ********************************************************************/
 
-#ifndef __MCHP_MAC_H
-#define __MCHP_MAC_H
+#ifndef __MIWI_MCHP_MAC_H
+#define __MIWI_MCHP_MAC_H
 
 
 /*-----------------------------------------------------------------------------------------*/
     #include "MiWi_ConfigApp.h"
     #include "GenericTypeDefs.h"
-    #include "WirelessProtocols/P2P/ConfigP2P.h"
+    #include "MiWi_ConfigP2P.h"
+	#include "MiWi_MRF89XA.h"
     #define  SOFTWARE_SECURITY
-	#include "Transceivers/MRF89XA/MRF89XA.h"
 
 /*.........................................................................................*/    
     #define CHANNEL_ASSESSMENT_CARRIER_SENSE    0x00

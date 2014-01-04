@@ -48,9 +48,9 @@
 *  4.1   6/3/2011     yfy       MAL v2011-06
 ********************************************************************/
 
-#include "WirelessProtocols/MiWi_UART_Handler.h"
+#include "UART_Handler.h"
 #include "MiWi_ConfigApp.h"
-#include "WirelessProtocols/P2P/MiWi_P2P.h"
+#include "MiWi_P2P.h"
 #include "Compiler.h"
 #include "GenericTypeDefs.h"
 #include "Oscillator.h"

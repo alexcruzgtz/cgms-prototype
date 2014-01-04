@@ -48,12 +48,8 @@
 ********************************************************************/
 
 #include "SymbolTime.h"
-#include "Compiler.h"
 #include "GenericTypeDefs.h"
-#include "Oscillator.h"
-#include "MiWi_ConfigApp.h"
-#include "MiWi_UART_Handler.h"
-#include "WirelessProtocols/P2P/MiWi_P2P.h"
+
 
 /*-----------------------------------------------------------------------------------------*/
 volatile BYTE timerExtension1,timerExtension2;

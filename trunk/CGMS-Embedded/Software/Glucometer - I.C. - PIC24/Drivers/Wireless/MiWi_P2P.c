@@ -53,14 +53,16 @@
 	#include "GenericTypeDefs.h"
 	#include "SymbolTime.h"
 	#include "SPI_Handler.h"
+	#include "UART_Handler.h"
 	#include "SymbolTime.h"
-	#include "WirelessProtocols/P2P/MiWi_P2P.h"
-	#include "WirelessProtocols/MiWi_UART_Handler.h"
-	#include "WirelessProtocols/MiWi_NVM.h"
-	#include "Transceivers/MiWi_MCHP_MAC.h"
-	#include "WirelessProtocols/MiWi_MCHP_API.h"
+	#include "MiWi_P2P.h"
+	#include "MiWi_NVM.h"
+	#include "MiWi_MCHP_MAC.h"
+	#include "MiWi_MCHP_API.h"
+	#include "MiWi_MRF89XA.h"
+
 	#define SOFTWARE_SECURITY
-	#include "Transceivers/MRF89XA/MRF89XA.h"
+
 
 /*-----------------------------------------------------------------------------------------*/
 // permanent address definition
@@ -1110,17 +1112,8 @@ BOOL MiApp_ProtocolInit(BOOL bNetworkFreezer)
             TxBuffer[0] = firstByte;
             TxData = tmpTxData;
             #if defined(ENABLE_TIME_SYNC)
-                #if defined(__18CXX)
-                    TMR3H = 0;
-                    TMR3L = 0;
-                #elif defined(__dsPIC33F__) || defined(__PIC24F__) || defined(__PIC24FK__) || defined(__PIC24H__)
                     PR1 = 0xFFFF;
                     TMR1 = 0;
-                #elif defined(__PIC32MX__)
-                    PR1 = 0xFFFF;
-                    while(T1CONbits.TWIP) ;
-                    TMR1 = 0;
-                #endif
             #endif
             return TRUE;
         }

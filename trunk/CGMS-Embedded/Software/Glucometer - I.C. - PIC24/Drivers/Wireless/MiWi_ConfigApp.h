@@ -124,7 +124,7 @@
 // address in byte. This definition is not valid for IEEE 802.15.4
 // compliant RF transceivers.
 /*********************************************************************/
-#define MY_ADDRESS_LENGTH       4 
+#define MY_ADDRESS_LENGTH       2 
 
 /*********************************************************************/
 // EUI_x defines the xth byte of permanent address for the wireless
@@ -252,7 +252,7 @@
 // ENABLE_FREQUENCY_AGILITY will enable the device to change operating
 // channel to bypass the sudden change of noise
 /*********************************************************************/
-//#define ENABLE_FREQUENCY_AGILITY
+#define ENABLE_FREQUENCY_AGILITY
 
 
 // Constants Validation

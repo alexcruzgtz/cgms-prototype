@@ -45,15 +45,15 @@
 *  4.1   6/3/2011     yfy       MAL v2011-06
 ********************************************************************/
 
-#ifndef __SECURITY_H
-#define __SECURITY_H
+#ifndef __MIWI_SECURITY_H
+#define __MIWI_SECURITY_H
 
 
 /*-----------------------------------------------------------------------------------------*/   
 	#include "MiWi_ConfigApp.h"
-	#include "WirelessProtocols/P2P/MiWi_P2P.h"
+	#include "MiWi_P2P.h"
+	#include "MiWi_MRF89XA.h"
 	#define SOFTWARE_SECURITY
-	#include "Transceivers/MRF89XA/MRF89XA.h"
 	
 /*-----------------------------------------------------------------------------------------*/   
     #if defined(SOFTWARE_SECURITY)

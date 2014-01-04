@@ -45,13 +45,13 @@
 *  4.1   6/3/2011     yfy       MAL v2011-06
 ********************************************************************/
 
-#ifndef __MCHP_API
-#define __MCHP_API
+#ifndef __MIWI_MCHP_API
+#define __MIWI_MCHP_API
 
 
 /*-----------------------------------------------------------------------------------------*/    
     #include "MiWi_ConfigApp.h"
-	#include "WirelessProtocols/P2P/MiWi_P2P.h"
+	#include "MiWi_P2P.h"
 	#include "GenericTypeDefs.h"
 
 /*.........................................................................................*/    

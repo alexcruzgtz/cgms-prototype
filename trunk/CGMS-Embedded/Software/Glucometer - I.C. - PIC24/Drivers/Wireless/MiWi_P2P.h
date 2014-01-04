@@ -48,16 +48,17 @@
 *  4.1   6/3/2011     yfy       MAL v2011-06
 ********************************************************************/
 
-#ifndef __P2P_H_
-#define __P2P_H_
+#ifndef __MIWI_P2P_H_
+#define __MIWI_P2P_H_
 
 #include "MiWi_ConfigApp.h"
 #if defined(PROTOCOL_P2P)
 	#include "SymbolTime.h"
-	#include "WirelessProtocols/P2P/ConfigP2P.h"
+	#include "MiWi_ConfigP2P.h"
+	#include "MiWi_MRF89XA.h"
+	#include "MiWi_MCHP_MAC.h"
 	#define SOFTWARE_SECURITY
-	#include "Transceivers/MRF89XA/MRF89XA.h"
-	#include "Transceivers/MiWi_MCHP_MAC.h"
+
 
 /************************ DEFINITIONS ******************************/
 #define INPUT
