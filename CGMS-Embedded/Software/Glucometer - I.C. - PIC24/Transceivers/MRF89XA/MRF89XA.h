@@ -48,13 +48,7 @@
 #if !defined(__MRF89XA_H) && defined(MRF89XA)
 #define __MRF89XA_H
 
-	#if defined(PROTOCOL_P2P)
-    	#include "WirelessProtocols/P2P/MiWi_P2P.h"
-	#elif defined(PROTOCOL_MIWI)
-    	#include "WirelessProtocols/MiWi/MiWi.h"
-	#elif defined(PROTOCOL_MIWI_PRO)
-    	#include "WirelessProtocols/MiWiPRO/MiWiPRO.h"
-	#endif
+   	#include "WirelessProtocols/P2P/MiWi_P2P.h"
     #include "GenericTypeDefs.h"
     #include "Compiler.h"
     #include "SymbolTime.h"
@@ -500,6 +494,9 @@
     } ACK_INFO;
     
 
+/*-----------------------------------------------------------------------------------------*/   
+void IRQ1_Handler(void);
+void IRQ0_Handler(void);
 
 /*-----------------------------------------------------------------------------------------*/   
 #endif

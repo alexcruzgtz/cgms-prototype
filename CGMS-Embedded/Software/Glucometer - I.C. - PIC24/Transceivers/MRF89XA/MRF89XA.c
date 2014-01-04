@@ -48,13 +48,7 @@
 ********************************************************************/
 
 #include "MiWi_ConfigApp.h"
-#if defined(PROTOCOL_P2P)
- 	#include "WirelessProtocols/P2P/MiWi_P2P.h"
-#elif defined(PROTOCOL_MIWI)
-   	#include "WirelessProtocols/MiWi/MiWi.h"
-#elif defined(PROTOCOL_MIWI_PRO)
-   	#include "WirelessProtocols/MiWiPRO/MiWiPRO.h"
-#endif
+#include "WirelessProtocols/P2P/MiWi_P2P.h"
 
 #if defined(MRF89XA)
     #include "SymbolTime.h"
@@ -66,10 +60,7 @@
     #include "WirelessProtocols/MiWi_NVM.h"
     #include "WirelessProtocols/MiWi_MCHP_API.h"
 
-    //==============================================================
-    // Global variables:
-    //==============================================================
-   
+/*-----------------------------------------------------------------------------------------*/
     volatile RX_PACKET  RxPacket[BANK_SIZE];
     volatile BOOL 		IRQ1_Received = 0;
     MACINIT_PARAM		MACInitParams;
@@ -79,6 +70,8 @@
     BYTE 	RF_Mode;
     BYTE 	RSSIVal;
     BYTE 	RSSILock;
+
+/*.........................................................................................*/
     ROM BYTE PVALUE[]    = {CHANNEL1_PVALUE, CHANNEL2_PVALUE, CHANNEL3_PVALUE, CHANNEL4_PVALUE, CHANNEL5_PVALUE, CHANNEL6_PVALUE,
                             CHANNEL7_PVALUE, CHANNEL8_PVALUE, CHANNEL9_PVALUE, CHANNEL10_PVALUE, CHANNEL11_PVALUE, CHANNEL12_PVALUE,
                             CHANNEL13_PVALUE, CHANNEL14_PVALUE, CHANNEL15_PVALUE, CHANNEL16_PVALUE, CHANNEL17_PVALUE, CHANNEL18_PVALUE,
@@ -91,6 +84,8 @@
                             CHANNEL19_SVALUE, CHANNEL20_SVALUE, CHANNEL21_SVALUE, CHANNEL22_SVALUE, CHANNEL23_SVALUE, CHANNEL24_SVALUE,
                             CHANNEL25_SVALUE, CHANNEL26_SVALUE, CHANNEL27_SVALUE, CHANNEL28_SVALUE, CHANNEL29_SVALUE, CHANNEL30_SVALUE,
 			    CHANNEL31_SVALUE, CHANNEL32_SVALUE};
+
+/*.........................................................................................*/
     #if defined(ENABLE_ACK)
         volatile    BOOL hasAck = FALSE;
         #if defined(ENABLE_RETRANSMISSION)
@@ -104,7 +99,8 @@
     #endif
     
     volatile BYTE        MACTxBuffer[TX_PACKET_SIZE];     
-    
+
+/*-----------------------------------------------------------------------------------------*/
     //First time configuration settings for MRF89XA
     ROM WORD InitConfigRegs[] = {
         /* 0 */                     GCONREG | GCONREG_SET, 
@@ -145,7 +141,9 @@
     BYTE SPIGet(void);
     void SetRFMode(BYTE);
     BYTE RegisterRead(BYTE);
-    /*********************************************************************
+
+/*-----------------------------------------------------------------------------------------*/
+	/*********************************************************************
      * WORD getReceiverBW(void)
      * Overview:        
      *              This function get the receiver band width setting
@@ -167,7 +165,7 @@
         return (WORD)(((value & 0x0F) + 1) * 25);
     }
 
-    
+/*.........................................................................................*/
     /*********************************************************************
      * void RegisterSet(INPUT WORD setting)
      * Overview:        
@@ -189,19 +187,18 @@
             BOOL IRQ0select = PHY_IRQ0_En;
             PHY_IRQ0_En = 0;
         #endif
-        
         PHY_IRQ1_En = 0;
         Config_nCS = 0;
         SPIPut((BYTE)(setting >> 8));
         SPIPut((BYTE)setting);
         Config_nCS = 1;
         PHY_IRQ1_En = IRQ1select;
-        
         #if defined USE_IRQ0_AS_INTERRUPT
             PHY_IRQ0_En = IRQ0select;
         #endif
     }
     
+/*.........................................................................................*/
     /*********************************************************************
      * BYTE RegisterRead(BYTE)
      * Overview:        
@@ -221,7 +218,6 @@
             
             PHY_IRQ0_En = 0;
         #endif
-        
         PHY_IRQ1_En = 0;
         Config_nCS = 0;
         address = (address|0x40);
@@ -229,14 +225,13 @@
         value = SPIGet();
         Config_nCS = 1;
         PHY_IRQ1_En = IRQ1select;
-        
         #if defined USE_IRQ0_AS_INTERRUPT
             PHY_IRQ0_En = IRQ0select;
         #endif
-        
         return value;
     }
 
+/*.........................................................................................*/
     /*********************************************************************
      * void WriteFIFO(BYTE Data)
      * Overview:        
@@ -254,21 +249,19 @@
         BYTE IRQ1select = PHY_IRQ1_En;
         #if defined USE_IRQ0_AS_INTERRUPT
             BOOL IRQ0select = PHY_IRQ0_En;
-            
             PHY_IRQ0_En = 0;
         #endif
-        
         PHY_IRQ1_En = 0;
         Data_nCS = 0;
         SPIPut(Data);
         Data_nCS = 1;
         PHY_IRQ1_En = IRQ1select;
-        
         #if defined USE_IRQ0_AS_INTERRUPT
             PHY_IRQ0_En = IRQ0select;
         #endif
     }
     
+/*.........................................................................................*/
     /*********************************************************************
      * BOOL TxPacket(INPUT BYTE TxPacketLen, INPUT BOOL CCA)
      * Overview:        
@@ -399,6 +392,7 @@ TX_END_HERE:
         return status;
     }
     
+/*.........................................................................................*/
     /************************************************************************************
      * Function:
      *      BOOL MiMAC_SetAltAddress(BYTE *Address, BYTE *PANID)
@@ -432,6 +426,7 @@ TX_END_HERE:
         return FALSE;
     }
     
+/*.........................................................................................*/
     /************************************************************************************
      * Function:
      *      BOOL MiMAC_SetChannel(BYTE channel, BYTE offsetFreq)
@@ -485,7 +480,7 @@ TX_END_HERE:
         return TRUE;   
     }
     
-    
+/*.........................................................................................*/
     /************************************************************************************
      * Function:
      *      BOOL MiMAC_SetPower(BYTE outputPower)
@@ -520,6 +515,7 @@ TX_END_HERE:
         return TRUE;
     }
     
+/*.........................................................................................*/
     /************************************************************************************
      * Function:
      *      BOOL MiMAC_Init(MACINIT_PARAM initValue)
@@ -545,14 +541,10 @@ TX_END_HERE:
     BOOL MiMAC_Init(INPUT MACINIT_PARAM initValue)
     {
         BYTE i;
-         
         MACInitParams = initValue;
-         
         DelayMs(20);  
         Config_nCS = 1;           // Config select inactive
         Data_nCS = 1;             // Data select inactive
-                
-    
         MACSeq = TMRL;
         ReceivedBankIndex = 0xFF;
         
@@ -614,6 +606,7 @@ TX_END_HERE:
         return TRUE;
     }
     
+/*.........................................................................................*/
 /*********************************************************************
  * void SetRFMode(BYTE mode)
  * Overview:        
@@ -649,7 +642,8 @@ void SetRFMode(BYTE mode)
     } /* end switch (mode) */
 
 }
-    
+ 
+/*.........................................................................................*/   
     /************************************************************************************
      * Function:
      *      BOOL MiMAC_SendPacket(  MAC_TRANS_PARAM transParam, 
@@ -796,8 +790,7 @@ void SetRFMode(BYTE mode)
         return TxPacket(TxIndex, MACInitParams.actionFlags.bits.CCAEnable);
     }
     
-    
-     
+/*.........................................................................................*/
     BOOL MiMAC_ReceivedPacket(void)
     {
         BYTE i;
@@ -962,6 +955,7 @@ void SetRFMode(BYTE mode)
         return FALSE;    
     }
     
+/*.........................................................................................*/
     /************************************************************************************
      * Function:
      *      void MiMAC_DiscardPacket(void)
@@ -998,6 +992,7 @@ void SetRFMode(BYTE mode)
         }
     }
     
+/*.........................................................................................*/
     #if defined(ENABLE_ED_SCAN)
         /************************************************************************************
          * Function:
@@ -1054,6 +1049,7 @@ void SetRFMode(BYTE mode)
         }
     #endif
     
+/*.........................................................................................*/
     #if defined(ENABLE_SLEEP)
         /************************************************************************************
          * Function:
@@ -1130,18 +1126,11 @@ void SetRFMode(BYTE mode)
         }
     #endif
 
-
-#if defined(__dsPIC30F__) || defined(__dsPIC33F__) || defined(__PIC24F__) || defined(__PIC24H__)
-    void _ISRFAST __attribute__((interrupt, auto_psv)) _INT1Interrupt(void)
-#elif defined(__PIC32MX__)
-        void __ISR(_EXTERNAL_1_VECTOR, ipl4) _INT1Interrupt(void)
-#else
-    #if !defined(__18CXX)
-        void _ISRFAST _INT1Interrupt(void)
-    #endif
-#endif
-    #if !defined(__18CXX)
-    {
+/*-----------------------------------------------------------------------------------------*/
+	#if defined(USE_IRQ0_AS_INTERRUPT)
+    //void _ISRFAST __attribute__((interrupt, auto_psv)) _INT2Interrupt(void)
+    void IRQ0_Handler (void)
+	{
         if(PHY_IRQ0 && PHY_IRQ0_En)
             PHY_IRQ0 = 0;
             
@@ -1153,28 +1142,12 @@ void SetRFMode(BYTE mode)
         #endif
         return;
     }
-    #endif
-    
-    
-    #if defined(__18CXX)
-        #if defined(HITECH_C18)
-            #pragma interrupt_level 0
-            void interrupt HighISR(void)
-        #else
-            #pragma interruptlow HighISR
-            void HighISR(void)
-        #endif
-    #elif defined(__dsPIC30F__) || defined(__dsPIC33F__) || defined(__PIC24F__) || defined(__PIC24H__)
-        void _ISRFAST __attribute__((interrupt, auto_psv)) _INT2Interrupt(void)
-    #elif defined(__PICC__)
-        #pragma interrupt_level 0
-        void interrupt HighISR(void)
-    #elif defined(__PIC32MX__)
-        void __ISR(_EXTERNAL_2_VECTOR, ipl4) _INT2Interrupt(void)
-    #else
-        void _ISRFAST _INT2Interrupt(void)
-    #endif
-    {
+	#endif
+
+/*.........................................................................................*/	
+    //void _ISRFAST __attribute__((interrupt, auto_psv)) _INT1Interrupt(void)
+    void IRQ1_Handler (void)
+	{
         if( PHY_IRQ1 && PHY_IRQ1_En )
         {
             if(RF_Mode == RF_RECEIVER)
@@ -1379,73 +1352,17 @@ IGNORE_HERE:
             }
             else
             {
-            
                 IRQ1_Received = 1; //capture interrupt status
             }
               
 RETURN_HERE:     
             PHY_IRQ1 = 0;
-
             Nop();
         }   
-   
-        #if defined(__18CXX)
-            #if defined USE_IRQ0_AS_INTERRUPT
-                {
-                    if(PHY_IRQ0 && PHY_IRQ0_En)
-                    {
-                        PHY_IRQ0 = 0;
-                        
-                    #if !defined(TARGET_SMALL)                    
-                        if(RF_Mode == RF_RECEIVER)
-                        {
-                            RSSIVal = (RegisterRead(RSTSREG>>8))>>1;        //Capturing the RSSiVal at SYNC/ADRS match
-                        }
-                    #endif
-                    }
-                }
-            #endif
-        
-            //check to see if the symbol timer overflowed
-            if(TMR_IF)
-            {
-                if(TMR_IE)
-                {
-                    /* there was a timer overflow */
-                    TMR_IF = 0;
-                    timerExtension1++;
-                    if(timerExtension1 == 0)
-                    {
-                        timerExtension2++;
-                    }
-                }
-            }
-            
-            UserInterruptHandler();
-        #endif
-    }
+   }
     
     
-    #if defined(__18CXX) & !defined(HI_TECH_C)
-        #pragma code highVector=0x08
-        void HighVector (void)
-        {
-            _asm goto HighISR _endasm
-        }
-        #pragma code /* return to default code section */
-    #endif
-    
-    #if defined(__18CXX) & !defined(HI_TECH_C)
-        #pragma code lowhVector=0x18
-        void LowVector (void)
-        {
-            _asm goto HighISR _endasm
-        }
-        #pragma code /* return to default code section */
-    #endif
-
-
-
+/*-----------------------------------------------------------------------------------------*/
 #else
     /*******************************************************************
      * C18 compiler cannot compile an empty C file. define following 
@@ -1454,7 +1371,7 @@ RETURN_HERE:
      ******************************************************************/
     extern char bogusVariable;
 
-
+/*-----------------------------------------------------------------------------------------*/
 #endif
 
 

@@ -2,13 +2,7 @@
 /**/
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-
-#include "p24fxxxx.h"
-#include "GenericTypeDefs.h"
-#include "PPS.h"
 #include "HardwareConfig.h"
-#include "Oscillator.h"
-
 
 /*-----------------------------------------------------------------------------------------*/
 void HardwareCfg_Init(void)
@@ -16,6 +10,7 @@ void HardwareCfg_Init(void)
 Cfg_CFGBits();
 Cfg_PPS();
 Cfg_Ports();
+OSC_Init();
 }
 
 
@@ -36,17 +31,17 @@ void Cfg_PPS(void)
 	iPPSOutput(OUT_PIN_PPS_RP0, OUT_FN_PPS_NULL);		//PPS RP0 function Null
 	iPPSOutput(OUT_PIN_PPS_RP1, OUT_FN_PPS_NULL);		//PPS RP1 function Null
 	iPPSOutput(OUT_PIN_PPS_RP2, OUT_FN_PPS_NULL);		//PPS RP2 function Null
-	iPPSOutput(OUT_PIN_PPS_RP3, OUT_FN_PPS_NULL);		//PPS RP3function Null
-	iPPSOutput(OUT_PIN_PPS_RP4, OUT_FN_PPS_NULL);		//PPS RP4 function Null
-	iPPSOutput(OUT_PIN_PPS_RP5, OUT_FN_PPS_SDO1);		//PPS RP5 function SPI -> SDO1
+	iPPSOutput(OUT_PIN_PPS_RP3, OUT_FN_PPS_NULL);		//PPS RP3 function Null
+	iPPSOutput(OUT_PIN_PPS_RP4, OUT_FN_PPS_SDO1);		//PPS RP4 function SPI -> SDO1
+	iPPSInput (IN_FN_PPS_INT1, IN_PIN_PPS_RP5 );		//PPS RP5 function INT1 <- MiWi IRQ1
 	iPPSOutput(OUT_PIN_PPS_RP6, OUT_FN_PPS_SCK1OUT);	//PPS RP6 function SPI -> SCK1
-	iPPSInput(IN_FN_PPS_SDI1, IN_PIN_PPS_RP7);			//PPS RP7 function SPI <- SDI
+	iPPSInput (IN_FN_PPS_SDI1, IN_PIN_PPS_RP7);			//PPS RP7 function SPI <- SDI
 	iPPSOutput(OUT_PIN_PPS_RP8, OUT_FN_PPS_NULL);		//PPS RP8 function Null
 	iPPSOutput(OUT_PIN_PPS_RP9, OUT_FN_PPS_NULL);		//PPS RP9 function Null
 	iPPSOutput(OUT_PIN_PPS_RP10, OUT_FN_PPS_NULL);		//PPS RP10 function Null
 	iPPSOutput(OUT_PIN_PPS_RP11, OUT_FN_PPS_NULL);		//PPS RP11 function Null
 	iPPSOutput(OUT_PIN_PPS_RP12, OUT_FN_PPS_U1TX);		//PPS RP12 function UART1 -> Tx
-	iPPSInput(IN_FN_PPS_U1RX, IN_PIN_PPS_RP13);			//PPS RP13 function UART1 <- Rx
+	iPPSInput (IN_FN_PPS_U1RX, IN_PIN_PPS_RP13);		//PPS RP13 function UART1 <- Rx
 	iPPSOutput(OUT_PIN_PPS_RP14, OUT_FN_PPS_NULL);		//PPS RP14 function Null
 	iPPSOutput(OUT_PIN_PPS_RP15, OUT_FN_PPS_NULL);		//PPS RP15 function Null
 	PPSLock
@@ -63,6 +58,18 @@ void Cfg_Ports(void)
 	PORTB=0;
 	LATB=0;
 	TRISA=IOPORTB_CFG
+
+
+    
+	Data_nCS_TRIS = 0;
+    Config_nCS_TRIS = 0;
+    Data_nCS = 1;   
+    Config_nCS = 1;
+    IRQ1_INT_TRIS = 1;
+    IRQ0_INT_TRIS = 1;
+	PHY_IRQ1 = 0;
+    PHY_IRQ0 = 0;
+    PHY_RESETn_TRIS = 1;
 }
 
 

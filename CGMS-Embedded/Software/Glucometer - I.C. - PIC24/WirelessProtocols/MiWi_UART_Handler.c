@@ -50,13 +50,7 @@
 
 #include "WirelessProtocols/MiWi_UART_Handler.h"
 #include "MiWi_ConfigApp.h"
-#if defined(PROTOCOL_P2P)
- 	#include "WirelessProtocols/P2P/MiWi_P2P.h"
-#elif defined(PROTOCOL_MIWI)
-   	#include "WirelessProtocols/MiWi/MiWi.h"
-#elif defined(PROTOCOL_MIWI_PRO)
-   	#include "WirelessProtocols/MiWiPRO/MiWiPRO.h"
-#endif
+#include "WirelessProtocols/P2P/MiWi_P2P.h"
 #include "Compiler.h"
 #include "GenericTypeDefs.h"
 #include "Oscillator.h"
@@ -64,8 +58,7 @@
 
 /*-----------------------------------------------------------------------------------------*/
 #if defined(ENABLE_CONSOLE)
-ROM unsigned char CharacterArray[]={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
-
+	ROM unsigned char CharacterArray[]={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
 
 /*-----------------------------------------------------------------------------------------*/
 /*********************************************************************
@@ -73,21 +66,22 @@ ROM unsigned char CharacterArray[]={'0','1','2','3','4','5','6','7','8','9','A',
 * PreCondition:     none
 * Input:		    none
 * Output:		    none
-* Side Effects:	    UART2 is configured
+* Side Effects:	    UART1 is configured
 * Overview:		    This function will configure the UART for use at 
 *                   in 8 bits, 1 stop, no flowcontrol mode
 * Note:			    None
 ********************************************************************/
 void ConsoleInit(void)
 {
-	U2BRG   = (FOSC/2/16)/BAUD_RATE-1;
-    IFS1bits.U2RXIF = 0;
-    U2STA  = 0;
-    U2MODE = 0b0000000010000000;
-    U2MODEbits.UARTEN = 1;
-    U2STAbits.UTXEN = 1;
+	U1BRG   = (FOSC/2/16)/BAUD_RATE-1;
+    UART1_RxIRQ_Flag = 0;
+    U1STA  = 0;
+    U1MODE = 0b0000000010000000;
+    U1MODEbits.UARTEN = 1;
+    U1STAbits.UTXEN = 1;
 }
 
+/*.........................................................................................*/
 /*********************************************************************
 * Function:         void ConsolePutROMString(ROM char* str)
 * PreCondition:     none
@@ -106,6 +100,7 @@ void ConsolePutROMString(ROM char* str)
         ConsolePut(c);
 }
 
+/*.........................................................................................*/
 /*********************************************************************
 * Function:         void ConsolePut(BYTE c)
 * PreCondition:     none
@@ -119,10 +114,11 @@ void ConsolePutROMString(ROM char* str)
 ********************************************************************/
 void ConsolePut(BYTE c)
 {
-    while(U2STAbits.TRMT == 0);
-    U2TXREG = c;
+    while(U1STAbits.TRMT == 0);
+    U1TXREG = c;
 }
 
+/*.........................................................................................*/
 /*********************************************************************
 * Function:         BYTE ConsoleGet(void)
 * PreCondition:     none
@@ -137,12 +133,13 @@ void ConsolePut(BYTE c)
 BYTE ConsoleGet(void)
 {
 	char Temp;
-    while(IFS1bits.U2RXIF == 0);
-	Temp = U2RXREG;
-    IFS1bits.U2RXIF = 0;
+    while(UART1_RxIRQ_Flag == 0);
+	Temp = U1RXREG;
+    UART1_RxIRQ_Flag = 0;
 	return Temp;
 }
 
+/*.........................................................................................*/
 /*********************************************************************
 * Function:         void PrintChar(BYTE toPrint)
 * PreCondition:     none
@@ -166,6 +163,7 @@ void PrintChar(BYTE toPrint)
     return;
 }
 
+/*.........................................................................................*/
 /*********************************************************************
 * Function:         void PrintDec(BYTE toPrint)
 * PreCondition:     none

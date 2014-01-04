@@ -51,14 +51,8 @@
 
 /*-----------------------------------------------------------------------------------------*/    
     #include "MiWi_ConfigApp.h"
-	#if defined(PROTOCOL_P2P)
-    	#include "WirelessProtocols/P2P/MiWi_P2P.h"
-	#elif defined(PROTOCOL_MIWI)
-    	#include "WirelessProtocols/MiWi/MiWi.h"
-	#elif defined(PROTOCOL_MIWI_PRO)
-    	#include "WirelessProtocols/MiWiPRO/MiWiPRO.h"
-	#endif
-    #include "GenericTypeDefs.h"
+	#include "WirelessProtocols/P2P/MiWi_P2P.h"
+	#include "GenericTypeDefs.h"
 
 /*.........................................................................................*/    
     #define INPUT

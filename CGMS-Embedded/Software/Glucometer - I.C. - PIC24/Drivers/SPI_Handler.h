@@ -3,6 +3,7 @@
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 #include "p24fxxxx.h"
+#include "GenericTypeDefs.h"
 
 #ifndef __SPI_HANDLER_H
 #define __SPI_HANDLER_H
@@ -82,8 +83,9 @@ FSCK= Fcy / Primary Prescaler * Secundary Prescaler */
 
 
 /*-----------------------------------------------------------------------------------------*/
-extern void SPI_Init(Void);
-
+void SPI_Init(Void);
+void SPIPut(BYTE v);
+BYTE SPIGet(void);
 
 /*-----------------------------------------------------------------------------------------*/
 #endif

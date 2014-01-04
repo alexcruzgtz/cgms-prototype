@@ -49,7 +49,6 @@
 
 #include "MiWi_ConfigApp.h"
 #if defined(PROTOCOL_P2P)
-
 	#include "Compiler.h"
 	#include "GenericTypeDefs.h"
 	#include "SymbolTime.h"
@@ -60,20 +59,8 @@
 	#include "WirelessProtocols/MiWi_NVM.h"
 	#include "Transceivers/MiWi_MCHP_MAC.h"
 	#include "WirelessProtocols/MiWi_MCHP_API.h"
-	#if defined(MRF24J40)
-		#define IEEE_802_15_4
-    	#include "Transceivers/MRF24J40/MRF24J40.h"
-	#endif
-	#if defined(MRF49XA)
-   		#define SOFTWARE_CRC
-   		#define SOFTWARE_SECURITY
-   		#include "Transceivers/MRF49XA/MRF49XA.h"
-	#endif
-	#if defined(MRF89XA)
-		#define SOFTWARE_SECURITY
-		#include "Transceivers/MRF89XA/MRF89XA.h"
-	#endif
-
+	#define SOFTWARE_SECURITY
+	#include "Transceivers/MRF89XA/MRF89XA.h"
 
 /*-----------------------------------------------------------------------------------------*/
 // permanent address definition
@@ -205,6 +192,7 @@ void MacroNop(void)
     Nop(); 
 }    
 
+/*.........................................................................................*/
 /*********************************************************************
  * void P2PTasks( void )
  * Overview:        This function maintains the operation of the stack
@@ -815,7 +803,7 @@ END_OF_SENDING_INDIRECT_MESSAGE:
     }   
 }
 
-
+/*.........................................................................................*/
 BOOL MiApp_ProtocolInit(BOOL bNetworkFreezer)
 {
     BYTE i;
@@ -959,6 +947,7 @@ BOOL MiApp_ProtocolInit(BOOL bNetworkFreezer)
     return TRUE;
 }
 
+/*.........................................................................................*/
 #ifdef ENABLE_SLEEP
     /************************************************************************************
      * Function:
@@ -1064,7 +1053,7 @@ BOOL MiApp_ProtocolInit(BOOL bNetworkFreezer)
         return ERR_INVALID_INPUT;    
     }
 
-     
+/*.........................................................................................*/     
      /*********************************************************************
      * BOOL CheckForData(void)
      * Overview:        This function sends out a Data Request to the peer
@@ -1144,7 +1133,7 @@ BOOL MiApp_ProtocolInit(BOOL bNetworkFreezer)
      }
  #endif
  
-
+/*.........................................................................................*/
 #ifdef ENABLE_INDIRECT_MESSAGE
     
     /*********************************************************************
@@ -1251,6 +1240,7 @@ BOOL MiApp_ProtocolInit(BOOL bNetworkFreezer)
     }
 #endif
 
+/*.........................................................................................*/
 /*********************************************************************
  * BOOL SendPacket(BOOL Broadcast, 
  *                 WORD_VAL DestinationPANID, 
@@ -1327,6 +1317,7 @@ BOOL MiApp_ProtocolInit(BOOL bNetworkFreezer)
     return status;
 }
 
+/*.........................................................................................*/
 /************************************************************************************
  * Function:
  *      BOOL MiApp_BroadcastPacket(BOOL SecEn )
@@ -1385,6 +1376,7 @@ BOOL MiApp_BroadcastPacket( INPUT BOOL SecEn )
     #endif
 }
 
+/*.........................................................................................*/
 /************************************************************************************
  * Function:
  *      BOOL MiApp_UnicastConnection(BYTE ConnectionIndex, BOOL SecEn)
@@ -1456,6 +1448,7 @@ BOOL MiApp_UnicastConnection( INPUT BYTE ConnectionIndex,
     return FALSE;
 }
 
+/*.........................................................................................*/
 /************************************************************************************
  * Function:
  *      BOOL MiApp_UnicastAddress(BYTE *DestinationAddress, BOOL PermanentAddr, BOOL SecEn)
@@ -1522,8 +1515,7 @@ BOOL MiApp_UnicastAddress(INPUT BYTE *DestinationAddress,
     #endif
 }
 
-
-
+/*.........................................................................................*/
 /*********************************************************************
  * BOOL    isSameAddress(BYTE *Address1, BYTE *Address2)
  * Overview:        This function compares two long addresses and returns
@@ -1550,6 +1542,7 @@ BOOL    isSameAddress(INPUT BYTE *Address1, INPUT BYTE *Address2)
     return TRUE;
 }
 
+/*.........................................................................................*/
 #if defined(ENABLE_HAND_SHAKE)
      
     BOOL MiApp_StartConnection(BYTE Mode, BYTE ScanDuration, DWORD ChannelMap)
@@ -1616,6 +1609,7 @@ BOOL    isSameAddress(INPUT BYTE *Address1, INPUT BYTE *Address2)
         return FALSE;
     }
     
+/*.........................................................................................*/
     /************************************************************************************
      * Function:
      *      BYTE    MiApp_EstablishConnection(BYTE ActiveScanIndex, BYTE Mode)
@@ -1751,21 +1745,16 @@ BOOL    isSameAddress(INPUT BYTE *Address1, INPUT BYTE *Address2)
         return LatestConnection;
         
     }
-
-
 #endif
 
-
-
- 
+/*.........................................................................................*/
 void MiApp_DiscardMessage(void)
 {
     P2PStatus.bits.RxHasUserData = 0;
     MiMAC_DiscardPacket();
 }
 
-
- 
+/*.........................................................................................*/ 
 BOOL MiApp_SetChannel(BYTE channel)
 {
     if( MiMAC_SetChannel(channel, 0) )
@@ -1779,7 +1768,7 @@ BOOL MiApp_SetChannel(BYTE channel)
     return FALSE;
 }
 
-
+/*.........................................................................................*/
 BOOL MiApp_MessageAvailable(void)
 { 
     P2PTasks(); 
@@ -1787,6 +1776,7 @@ BOOL MiApp_MessageAvailable(void)
     return P2PStatus.bits.RxHasUserData;
 }
 
+/*.........................................................................................*/
 #ifdef ENABLE_DUMP
     /*********************************************************************
      * void DumpConnection(BYTE index)
@@ -1882,6 +1872,7 @@ BOOL MiApp_MessageAvailable(void)
     }
 #endif
 
+/*.........................................................................................*/
 #if defined(ENABLE_HAND_SHAKE)
     /*********************************************************************
      * BYTE AddConnection(void)
@@ -1972,7 +1963,7 @@ BOOL MiApp_MessageAvailable(void)
     }
 #endif
 
-
+/*.........................................................................................*/
 #ifdef ENABLE_ACTIVE_SCAN
     /************************************************************************************
      * Function:
@@ -2071,6 +2062,7 @@ BOOL MiApp_MessageAvailable(void)
 
 #endif
 
+/*.........................................................................................*/
 #ifdef ENABLE_ED_SCAN
 
     /************************************************************************************
@@ -2182,7 +2174,7 @@ BOOL MiApp_MessageAvailable(void)
    
 #endif
 
-
+/*.........................................................................................*/
 #ifdef ENABLE_FREQUENCY_AGILITY
 
     /*********************************************************************
@@ -2225,7 +2217,8 @@ BOOL MiApp_MessageAvailable(void)
         }
         MiApp_SetChannel(OptimalChannel);  
     }
-    
+
+/*.........................................................................................*/
     /********************************************************************************************
      * Function:
      *      BOOL MiApp_ResyncConnection(BYTE ConnectionIndex, DWORD ChannelMap)
@@ -2330,6 +2323,7 @@ GetOutOfLoop:
         return FALSE;
     }        
 
+/*.........................................................................................*/
     #ifdef FREQUENCY_AGILITY_STARTER
         /*******************************************************************************************
          * Function:
@@ -2384,8 +2378,7 @@ GetOutOfLoop:
     #endif
 #endif
 
-
-
+/*.........................................................................................*/
 #if !defined(TARGET_SMALL)
     /*********************************************************************
      * Function:
@@ -2460,6 +2453,7 @@ GetOutOfLoop:
     }
 #endif
 
+/*.........................................................................................*/
 /************************************************************************************
  * Function:
  *      void    MiApp_ConnectionMode(BYTE Mode)
@@ -2507,7 +2501,6 @@ void MiApp_ConnectionMode(INPUT BYTE Mode)
 }
 
 
-
 /*-----------------------------------------------------------------------------------------*/
 #else  // defined PROTOCOL_P2P
     /*******************************************************************
@@ -2516,7 +2509,6 @@ void MiApp_ConnectionMode(INPUT BYTE Mode)
      * a different protocol is chosen.
      ******************************************************************/
     extern char bogusVariable;
-
 
 /*-----------------------------------------------------------------------------------------*/
 #endif

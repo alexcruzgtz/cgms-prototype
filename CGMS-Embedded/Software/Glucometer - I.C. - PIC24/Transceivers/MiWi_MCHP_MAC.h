@@ -53,28 +53,9 @@
 /*-----------------------------------------------------------------------------------------*/
     #include "MiWi_ConfigApp.h"
     #include "GenericTypeDefs.h"
-    #if defined(PROTOCOL_MIWI)
-        #include "WirelessProtocols/MiWi/ConfigMiWi.h"
-    #endif
-    #if defined(PROTOCOL_P2P)
-        #include "WirelessProtocols/P2P/ConfigP2P.h"
-    #endif
-    #if defined(PROTOCOL_MIWI_PRO)
-        #include "WirelessProtocols/MiWiPRO/ConfigMiWiPRO.h"
-    #endif
-	#if defined(MRF24J40)
-        #define IEEE_802_15_4
-        #include "Transceivers/MRF24J40/MRF24J40.h"
-    #endif
-    #if defined(MRF49XA)
-        #define SOFTWARE_CRC
-        #define SOFTWARE_SECURITY
-        #include "Transceivers/MRF49XA/MRF49XA.h"
-    #endif
-	#if defined(MRF89XA)
-		#define SOFTWARE_SECURITY
-		#include "Transceivers/MRF89XA/MRF89XA.h"
-	#endif
+    #include "WirelessProtocols/P2P/ConfigP2P.h"
+    #define  SOFTWARE_SECURITY
+	#include "Transceivers/MRF89XA/MRF89XA.h"
 
 /*.........................................................................................*/    
     #define CHANNEL_ASSESSMENT_CARRIER_SENSE    0x00

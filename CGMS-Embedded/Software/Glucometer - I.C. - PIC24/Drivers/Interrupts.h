@@ -3,6 +3,9 @@
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 #include "p24fxxxx.h"
+#include "GenericTypeDefs.h"
+#include "MRF89XA.h"
+#include "ADC_Handler.h"
 
 #ifndef __INTERRUPTS_H
 #define __INTERRUPTS_H
@@ -67,10 +70,13 @@
 #define INT1_IRQ_Flag			IFS1bits.INT1IF
 #define INT2_IRQ_Flag			IFS1bits.INT2IF
 
+#define INT0_IRQ_En				IEC0bits.INT0IE
 #define INT0_IRQ_ON				IEC0bits.INT0IE=SET;
 #define INT0_IRQ_OFF			IEC0bits.INT0IE=CLEAR;
+#define INT2_IRQ_En				IEC1bits.INT1IE
 #define INT1_IRQ_ON				IEC1bits.INT1IE=SET;
 #define INT1_IRQ_OFF			IEC1bits.INT1IE=CLEAR;
+#define INT2_IRQ_En				IEC1bits.INT2IE
 #define INT2_IRQ_ON				IEC1bits.INT2IE=SET;
 #define INT2_IRQ_OFF			IEC1bits.INT2IE=CLEAR;
 
@@ -297,6 +303,8 @@
 #define CRC_IRQ_Priority		IPC16bits.CRCIP
 
 
+/*-----------------------------------------------------------------------------------------*/
+void Interrupts_Init(void);
 
 /*-----------------------------------------------------------------------------------------*/
 #endif

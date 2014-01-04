@@ -5,6 +5,8 @@
 #include "p24fxxxx.h"
 #include "GenericTypeDefs.h"
 #include "PPS.h"
+#include "Interrupts.h"
+#include "Oscillator.h"
 
 #ifndef __CONFIG_MCU
 #define __CONFIG_MCU
@@ -13,16 +15,28 @@
 /*-----------------------------------------------------------------------------------------*/
 #define __PIC24FJ64GA102__
 
-#define IOPORTA_CFG			0b01000
-#define IOPORTB_CFG 		0b1111000111000000
-#define ANALOGPINS_CFG 		0b0111110000000
+#define IOPORTA_CFG			0b00010
+#define IOPORTB_CFG 		0b0010001110101111
+#define ANALOGPINS_CFG 		0b0000000111110
 
-#define MiWi_CfgCS			LATAbits.LATA3
-#define MiWi_CfgCS_Tris		TRISAbits.TRISA3
-#define MiWi_DataCS			LATAbits.LATA4
-#define MiWi_DataCS_Tris	TRISAbits.TRISA4
-#define MiWi_Reset			LATBbits.LATB4
-#define MiWi_Reset_Tris		TRISBbits.TRIS4	
+/*Wireless Transceiver Control bits*/
+/*...................................................................
+Configuration Chip Select -> Port A Pin 2
+Data Chip Select		  -> Port A Pin 4
+Reset Pin				  -> Port A Pin 3
+Interrupt Request 1 Pin	  -> Port B Pin 5
+.....................................................................*/
+#define Config_nCs			LATAbits.LATA2
+#define Config_nCs_TRIS		TRISAbits.TRISA2
+#define Data_nCS			LATAbits.LATA4
+#define Data_nCS_TRIS		TRISAbits.TRISA4
+#define PHY_RESETn			LATAbits.LATA3
+#define PHY_RESETn_TRIS		TRISAbits.TRISA3	
+#define IRQ1_INT_PIN		LATBbits.LATB5
+#define IRQ1_INT_TRIS		TRISBbits.TRISB5
+#define PHY_IRQ1			INT1_IRQ_Flag
+#define PHY_IRQ1_En			INT1_IRQ_En
+
 
 /*ADC Pins-Channel Name*/
 /*...................................................................
@@ -40,9 +54,10 @@ AN5----> <REF> Reference Electrode
 #define ADC_DEFAULT_CH	ADC_VGND_CH
 
 /*-----------------------------------------------------------------------------------------*/
-void CfgHardware_Init(void);
-void CfgPPS(void);
-void CfgCFGBits(void);
+void HardwareCfg_Init(void);
+void Cfg_PPS(void);
+void Cfg_CFGBits(void);
+void Cfg_Ports(void);
 /*-----------------------------------------------------------------------------------------*/
 
 

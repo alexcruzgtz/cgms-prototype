@@ -47,22 +47,18 @@
 *  4.1   6/3/2011     yfy       MAL v2011-06
 ********************************************************************/
 
-#include "MiWi_ConfigApp.h"
-#if defined(PROTOCOL_P2P)
-    #include "WirelessProtocols/P2P/MiWi_P2P.h"
-#elif defined(PROTOCOL_MIWI)
-    #include "WirelessProtocols/MiWi/MiWi.h"
-#elif defined(PROTOCOL_MIWI_PRO)
-    #include "WirelessProtocols/MiWiPRO/MiWiPRO.h"
-#endif
 #include "SymbolTime.h"
 #include "Compiler.h"
 #include "GenericTypeDefs.h"
+#include "Oscillator.h"
+#include "MiWi_ConfigApp.h"
 #include "MiWi_UART_Handler.h"
+#include "WirelessProtocols/P2P/MiWi_P2P.h"
 
-
+/*-----------------------------------------------------------------------------------------*/
 volatile BYTE timerExtension1,timerExtension2;
 
+/*-----------------------------------------------------------------------------------------*/
 /*********************************************************************
 * Function:         void InitSymbolTimer()
 * PreCondition:     none
@@ -84,7 +80,7 @@ void InitSymbolTimer()
     T2CONbits.TON = 1;
 }
 
-
+/*.........................................................................................*/
 /*********************************************************************
 * Function:         void InitSymbolTimer()
 * PreCondition:     none
@@ -96,7 +92,6 @@ void InitSymbolTimer()
 MIWI_TICK MiWi_TickGet(void)
 {
     MIWI_TICK currentTime;
-    
     currentTime.word.w1 = TMR3;
     currentTime.word.w0 = TMR2;
     if( currentTime.word.w1 != TMR3 )

@@ -5,18 +5,10 @@
 #include "p24fxxxx.h"
 #include "GenericTypeDefs.h"
 #include "HardwareConfig.h"
+#include "Interrupts.h"
 
 #ifndef __ADC_HANDLER_H
 #define __ADC_HANDLER_H
-
-/*-----------------------------------------------------------------------------------------*/
-extern void 	ADC_Init(void);
-extern void 	ADC_ReadAll(UINT16 *ADCBufAddress);
-extern UINT16 	ADC_ReadOne(UINT16 ADCAnalogInpit);
-extern void		ADC_StartAll(void);
-extern void		ADC_StopAll(void);
-
-UINT16 	*ptr_ADC8Buffer
 
 /*-----------------------------------------------------------------------------------------*/
 #define _31_TAD		31
@@ -41,8 +33,6 @@ UINT16 	*ptr_ADC8Buffer
 #define ADC_BUF2_OFFSET			0x0008
 #define ADC_Buf_Status 			AD1CON2bits.BUFS /*If 1: AD filling upper buffer. If 0: AD filling lower buffer*/
 #define ADC_Conv_Done			AD1CON1bits.DONE
-
-	
 
 /*............. AD1CON1 A/D Control Register 1 Macros .....................................*/
 #define ADC_ON							AD1CON1bits.ADON=SET;
@@ -111,4 +101,15 @@ UINT16 	*ptr_ADC8Buffer
 #define ADC_Scan_Pins_Enabled			AD1CSSLbits.CSSL
 
 
+/*-----------------------------------------------------------------------------------------*/
+extern void 	ADC_Init(void);
+extern void 	ADC_ReadAll(UINT16 *ADCBufAddress);
+extern UINT16 	ADC_ReadOne(UINT16 ADCAnalogInpit);
+extern void		ADC_StartAll(void);
+extern void		ADC_StopAll(void);
+
+UINT16 	*ptr_ADC8Buffer
+
+
+/*-----------------------------------------------------------------------------------------*/
 #endif
