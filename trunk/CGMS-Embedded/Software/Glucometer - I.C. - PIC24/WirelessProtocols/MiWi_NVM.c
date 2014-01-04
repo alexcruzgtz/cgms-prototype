@@ -42,52 +42,24 @@
 *  3.1   5/28/2010    yfy       MiWi DE 3.1
 *  4.1   6/3/2011     yfy       MAL v2011-06
 ********************************************************************/
-
-#include "MiWi_ConfigApp.h"
-	#if defined(PROTOCOL_P2P)
-    	#include "WirelessProtocols/P2P/MiWi_P2P.h"
-	#elif defined(PROTOCOL_MIWI)
-    	#include "WirelessProtocols/MiWi/MiWi.h"
-	#elif defined(PROTOCOL_MIWI_PRO)
-    	#include "WirelessProtocols/MiWiPRO/MiWiPRO.h"
-#endif
-
+#include "MiWi_NVM.h"
 
 /*-----------------------------------------------------------------------------------------*/
 #if defined(ENABLE_NVM)
-
-    #include "WirelessProtocols/MiWi_NVM.h"
-    #include "WirelessProtocols/MiWi_UART_Handler.h"
     
-    extern void MacroNop(void);
-            
-    WORD        nvmMyPANID;
-    WORD        nvmCurrentChannel;
-    WORD        nvmConnMode;
-    WORD        nvmConnectionTable;
-    WORD        nvmOutFrameCounter;
+/*-----------------------------------------------------------------------------------------*/
+    WORD    nvmMyPANID;
+    WORD    nvmCurrentChannel;
+    WORD    nvmConnMode;
+    WORD    nvmConnectionTable;
+    WORD	nvmOutFrameCounter;
+  	WORD 	nextEEPosition;
 
-    #if defined(PROTOCOL_MIWI)
-	    WORD        nvmMyShortAddress;
-        WORD        nvmMyParent;
-        #ifdef NWK_ROLE_COORDINATOR
-    	    WORD    nvmRoutingTable;
-            WORD    nvmKnownCoordinators;
-            WORD    nvmRole;
-        #endif
-    #endif
-    #if defined(PROTOCOL_MIWI_PRO)
-        WORD        nvmMyShortAddress;
-        WORD        nvmMyParent;
-        #ifdef NWK_ROLE_COORDINATOR
-   	    	WORD    nvmRoutingTable;
-            WORD    nvmNeighborRoutingTable;
-            WORD    nvmFamilyTree;
-            WORD    nvmRole;
-        #endif
-    #endif
-   
- 	void NVMRead(BYTE *dest, WORD addr, WORD count)
+/*-----------------------------------------------------------------------------------------*/
+    extern void MacroNop(void);
+
+/*.........................................................................................*/
+    void NVMRead(BYTE *dest, WORD addr, WORD count)
     {
 	    while( count )
         {
@@ -102,7 +74,8 @@
             addr++;
         }            
     }
-        
+
+/*.........................................................................................*/
     void NVMWrite(BYTE *source, WORD addr, WORD count)
     {
     	BYTE oldGIEH;
@@ -127,8 +100,7 @@
         }
     }
 
-  	WORD nextEEPosition;
-
+/*.........................................................................................*/
     BOOL NVMalloc(WORD size, WORD *location)
     {
     	//WORD retval;
@@ -141,6 +113,7 @@
         return TRUE;
     }
         
+/*.........................................................................................*/
     BOOL NVMInit(void)
     {
     	BOOL result = TRUE;
@@ -150,33 +123,12 @@
         result &= NVMalloc(1, &nvmConnMode);
         result &= NVMalloc(sizeof(CONNECTION_ENTRY) * CONNECTION_SIZE, &nvmConnectionTable);
         result &= NVMalloc(4, &nvmOutFrameCounter);
-        #if defined(PROTOCOL_MIWI)
-	        result &= NVMalloc(2, &nvmMyShortAddress);
-            result &= NVMalloc(1, &nvmMyParent);
-            #if defined(NWK_ROLE_COORDINATOR)
-    	        result &= NVMalloc(8, &nvmRoutingTable);
-                result &= NVMalloc(1, &nvmKnownCoordinators);
-                result &= NVMalloc(1, &nvmRole);
-            #endif
-        #endif
-        #if defined(PROTOCOL_MIWI_PRO)
-	        result &= NVMalloc(2, &nvmMyShortAddress);
-            result &= NVMalloc(1, &nvmMyParent);
-            #if defined(NWK_ROLE_COORDINATOR)
-    	        result &= NVMalloc((NUM_COORDINATOR/8), &nvmRoutingTable);
-                result &= NVMalloc(((WORD)NUM_COORDINATOR/8*(WORD)NUM_COORDINATOR), &nvmNeighborRoutingTable);
-                result &= NVMalloc(NUM_COORDINATOR, &nvmFamilyTree);
-                result &= NVMalloc(1, &nvmRole);
-            #endif
-        #endif
         return result;
     }
 
-
-/*.........................................................................................*/
+/*-----------------------------------------------------------------------------------------*/
 #else
     extern char bogusVar;
     
-
 /*-----------------------------------------------------------------------------------------*/
 #endif   

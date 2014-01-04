@@ -37,12 +37,12 @@
 6...AN4-PB.2---> <Vctrl> Input Reference Voltage for CNT-REF Voltage
 7...AN5-PB.3---> <REF> Reference Electrode
 8...VSS -------> GND
-9...Not Used
-10..RA3 -------> <CSCON> Wireless Transciever Configuration Chip Select(SPI)
-11..RB4 -------> <RESET> Wireles Transciever RESET Pin
+9...RA2 -------> <CSCON> Wireless Transciever Configuration Chip Select(SPI)
+10..RA3 -------> <RESET> Wireles Transciever RESET Pin
+11..RP4 -------> [SDO1] SPI1 Data Output		{Wireless Transciever}
 12..RA4 -------> <CSDATA> Wireless TRansciever Data Chip Select (SPI)
 13..VDD -------> 3.3V
-14..RP5 -------> [SDO1] SPI1 Data Output		{Wireless Transciever}
+14..RP5 -------> <IRQ1> Wireless Transciever IRQ 1
 15..RP6 -------> [SCK1] SPI1 Clock Signal		{Wireless Transciever}
 16..RP7 -------> [SDI1] SPI1 Data Input			{Wireless Transciever}
 17..SCL1 ------> I2C1 Clock Signal				{Digital Potentiometer}
@@ -66,11 +66,11 @@ Bit ... Fuction		 	---> IOPort Configuration
 |           |					|
 0   ... Not Used     	---> Digital Output	=0
 1   ... Analog Input 	---> Digital Input	=1
-2   ... Not Used		---> Digital Output =0
+2   ... Digital Output	---> Digital Output =0
 3   ... Digital Output  ---> Digital Output	=0
 4   ... Digital Output  ---> Digital Output	=0
 
-TRIS = 0b01000
+TRIS = 0b00010
 
 
 ************************************************************************************************
@@ -82,8 +82,8 @@ Bit ... Fuction		 	    ---> IOPort Configuration
 1   ... Analog Input 		---> Digital Input	=1
 2   ... Analog Input 		---> Digital Input	=1
 3   ... Analog Input 		---> Digital Input	=1
-4   ... Not Used 	    	---> Digital Output	=0
-5   ... Peripheral Output  	---> Digital Output	=0
+4   ... Peripheral Output  	---> Digital Output	=0
+5   ... Peripheral Input  	---> Digital Input	=1
 6   ... Peripheral Output  	---> Digital Output	=0
 7   ... Peripheral Input    ---> Digital Input	=1
 8   ... Peripherical I/O    ---> Digital Input	=1
@@ -91,11 +91,11 @@ Bit ... Fuction		 	    ---> IOPort Configuration
 10  ... ICSP Pin		    ---> Digital Output	=0
 11  ... ICSP Pin		    ---> Digital Output	=0
 12  ... Peripheral Output   ---> Digital Output	=0
-13  ... Peripheral Input    ---> Digital Output	=0
+13  ... Peripheral Input    ---> Digital Input	=1
 14  ... Not Used            ---> Digital Output	=0	
 15  ... Not Used            ---> Digital Output	=0
 
-TRIS = 0b1111000111000000
+TRIS = 0b0010001110101111
 
 
 ************************************************************************************************
@@ -107,7 +107,7 @@ Channel: |AN0|AN1|AN2|AN3|AN4|AN5|AN6|AN7|AN8|AN9|AN10|AN11|AN12|
 Status:  | D | E | E | E | E | E | D | D | D | D | D  | D  | D  |
 Cfg val: | 0 | 1 | 1 | 1 | 1 | 1 | 0 | 0 | 0 | 0 | 0  | 0  | 0  |
 
-AnalogPins = 0b0111110000000 
+AnalogPins = 0b0000000111110
 
 *Note: AN1 can be used as negative reference vs AN2-AN5. Software configuration is needed.
        (AN1 Measures Vgnd Value, which allows the correct measurement of Vout, and REF-CNT Voltage)
@@ -120,8 +120,8 @@ AnalogPins = 0b0111110000000
 | 1  | Null			| Output-[NULL]		| OUT_PIN_PPS_RP1, OUT_FN_PPS_NULL
 | 2  | Null			| Output-[NULL]		| OUT_PIN_PPS_RP2, OUT_FN_PPS_NULL
 | 3  | Null			| Output-[NULL]		| OUT_PIN_PPS_RP3, OUT_FN_PPS_NULL
-| 4  | Null			| Output-[NULL]		| OUT_PIN_PPS_RP4, OUT_FN_PPS_NULL
-| 5  | SPI1-SDO		| Output-[SDO1]		| OUT_PIN_PPS_RP5, OUT_FN_PPS_SDO1
+| 4  | SPI1-SDO		| Output-[SDO1]		| OUT_PIN_PPS_RP4, OUT_FN_PPS_SDO1
+| 5  | INT1			| Input -[INT1]		| IN_FN_PPS_INT1, IN_PIN_PPS_RP5
 | 6  | SPI1-SCK		| Output-[SCK1OUT]	| OUT_PIN_PPS_RP6, OUT_FN_PPS_SCK1OUT
 | 7  | SPI1-SDI		| Input-[SDI1]		| IN_FN_PPS_SDI1, IN_PIN_PPS_RP7
 | 8  | Null			| Output-[NULL]		| OUT_PIN_PPS_RP8, OUT_FN_PPS_NULL

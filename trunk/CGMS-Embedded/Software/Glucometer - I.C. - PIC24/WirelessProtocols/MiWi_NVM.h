@@ -43,25 +43,19 @@
 *  2.0   4/15/2009    yfy       MiMAC and MiApp revision
 *  3.1   5/28/2010    yfy       MiWi DE 3.1
 ********************************************************************/
-#ifndef __EEPROM_H
-#define __EEPROM_H
+#ifndef __NVM_H
+#define __NVM_H
 
 /*-----------------------------------------------------------------------------------------*/
 #include "MiWi_ConfigApp.h"
-#if defined(PROTOCOL_P2P)
-    #include "WirelessProtocols/P2P/MiWi_P2P.h"
-#elif defined(PROTOCOL_MIWI)
-    #include "WirelessProtocols/MiWi/MiWi.h"
-#elif defined(PROTOCOL_MIWI_PRO)
-    #include "WirelessProtocols/MiWiPRO/MiWiPRO.h"
-#endif
+#include "WirelessProtocols/P2P/MiWi_P2P.h"
     
 /*.........................................................................................*/
 #if defined(ENABLE_NVM)
 	#include "GenericTypeDefs.h"
     #include "Compiler.h"
     #include "WirelessProtocols/MiWi_MCHP_API.h"
-
+	#include "WirelessProtocols/MiWi_UART_Handler.h"
 
 /*-----------------------------------------------------------------------------------------*/
   	#define TOTAL_NVM_BYTES     1024
@@ -72,27 +66,6 @@
     extern WORD        nvmConnectionTable;
     extern WORD        nvmOutFrameCounter;
                             
-    #if defined(PROTOCOL_MIWI)
-		extern WORD        nvmMyShortAddress;
-        extern WORD        nvmMyParent;
-        #ifdef NWK_ROLE_COORDINATOR
-        	extern WORD    nvmRoutingTable;
-            extern WORD    nvmKnownCoordinators;
-            extern WORD    nvmRole;
-        #endif
-    #endif
-       
-    #if defined(PROTOCOL_MIWI_PRO)
-    	extern WORD        nvmMyShortAddress;
-        extern WORD        nvmMyParent;
-        #ifdef NWK_ROLE_COORDINATOR
-	    	extern WORD    nvmRoutingTable;
-            extern WORD    nvmFamilyTree;
-            extern WORD    nvmNeighborRoutingTable;
-            extern WORD    nvmRole;
-        #endif
-    #endif
-        
     void NVMRead(BYTE *dest, WORD addr, WORD count);
     void NVMWrite(BYTE *source, WORD addr, WORD count);
     BOOL NVMInit(void);
@@ -109,39 +82,6 @@
     #define nvmGetOutFrameCounter( x )          NVMRead( (BYTE *)x, nvmOutFrameCounter, 4)
     #define nvmPutOutFrameCounter( x )          NVMWrite((BYTE *)x, nvmOutFrameCounter, 4)
             
-    #if defined(PROTOCOL_MIWI)
-		#define nvmGetMyShortAddress( x )       NVMRead( (BYTE *)x, nvmMyShortAddress, 2)
-        #define nvmPutMyShortAddress( x )       NVMWrite((BYTE *)x, nvmMyShortAddress, 2)
-        #define nvmGetMyParent( x )             NVMRead( (BYTE *)x, nvmMyParent, 1)
-        #define nvmPutMyParent( x )             NVMWrite((BYTE *)x, nvmMyParent, 1)
-	    #if defined(NWK_ROLE_COORDINATOR)
-	    	#define nvmGetRoutingTable( x )         NVMRead( (BYTE *)x, nvmRoutingTable, 8)
-            #define nvmPutRoutingTable( x )         NVMWrite((BYTE *)x, nvmRoutingTable, 8)
-            #define nvmGetKnownCoordinators( x )    NVMRead( (BYTE *)x, nvmKnownCoordinators, 1)
-            #define nvmPutKnownCoordinators( x )    NVMWrite((BYTE *)x, nvmKnownCoordinators, 1)
-            #define nvmGetRole( x )                 NVMRead( (BYTE *)x, nvmRole, 1)
-            #define nvmPutRole( x )                 NVMWrite((BYTE *)x, nvmRole, 1)
-        #endif
-    #endif
-            
-    #if defined(PROTOCOL_MIWI_PRO)
-		#define nvmGetMyShortAddress( x )       NVMRead( (BYTE *)x, nvmMyShortAddress, 2)
-        #define nvmPutMyShortAddress( x )       NVMWrite((BYTE *)x, nvmMyShortAddress, 2)
-        #define nvmGetMyParent( x )             NVMRead( (BYTE *)x, nvmMyParent, 1)
-        #define nvmPutMyParent( x )             NVMWrite((BYTE *)x, nvmMyParent, 1)
-    	#if defined(NWK_ROLE_COORDINATOR)
-        	#define nvmGetRoutingTable( x )         NVMRead( (BYTE *)x, nvmRoutingTable, NUM_COORDINATOR/8)
-            #define nvmPutRoutingTable( x )         NVMWrite((BYTE *)x, nvmRoutingTable, NUM_COORDINATOR/8)
-            #define nvmGetNeighborRoutingTable( x ) NVMRead( (BYTE *)x, nvmNeighborRoutingTable, ((WORD)NUM_COORDINATOR/8) * ((WORD)NUM_COORDINATOR))
-            #define nvmPutNeighborRoutingTable( x ) NVMWrite((BYTE *)x, nvmNeighborRoutingTable, ((WORD)NUM_COORDINATOR/8) * ((WORD)NUM_COORDINATOR))
-            #define nvmGetFamilyTree( x )           NVMRead( (BYTE *)x, nvmFamilyTree, NUM_COORDINATOR)
-            #define nvmPutFamilyTree( x )           NVMWrite((BYTE *)x, nvmFamilyTree, NUM_COORDINATOR)
-            #define nvmGetRole( x )                 NVMRead( (BYTE *)x, nvmRole, 1)
-            #define nvmPutRole( x )                 NVMWrite((BYTE *)x, nvmRole, 1)
-        #endif
-    #endif    
     
-
-
 /*-----------------------------------------------------------------------------------------*/
 #endif

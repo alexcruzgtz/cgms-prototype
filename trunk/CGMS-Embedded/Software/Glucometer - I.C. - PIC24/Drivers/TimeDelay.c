@@ -39,10 +39,13 @@ Date        Comments
 2010.03.07	Added include "Compiler.h"
 2010.10.13  Added PICC support
 *******************************************************************************/
-#include "Compiler.h"
+
 #include "TimeDelay.h"
+#include "GenericTypeDefs.h"
+#include "Compiler.h"
 #include "Oscillator.h"
 
+/*-----------------------------------------------------------------------------------------*/
 /****************************************************************************
   Function:
     void Delay10us( UINT32 tenMicroSecondCounter )
@@ -71,7 +74,7 @@ void Delay10us( UINT32 tenMicroSecondCounter )
             //For FOSC == 10MHZ, it takes 0.2us.
      }    
      else
-	{
+	 {
         /*7 cycles burned to this point.
         We want to pre-calculate number of cycles required to delay 10us * tenMicroSecondCounter using a 1 cycle granule.*/
       	cyclesRequiredForEntireDelay = (INT32)(FCY)/100000)*tenMicroSecondCounter;
@@ -89,9 +92,10 @@ void Delay10us( UINT32 tenMicroSecondCounter )
             	cyclesRequiredForEntireDelay -= 11; //Subtract cycles burned while doing each delay stage, 12 in this case. Add one cycle as padding.
             }
         }
-	}
+	 }
 }
 
+/*.........................................................................................*/
 /****************************************************************************
   Function:
     void DelayMs( UINT16 ms )
@@ -109,7 +113,6 @@ void Delay10us( UINT32 tenMicroSecondCounter )
 void DelayMs( UINT16 ms )
 {
 	volatile UINT8 i;
-    
 	while (ms--)
     {
     	i = 4;

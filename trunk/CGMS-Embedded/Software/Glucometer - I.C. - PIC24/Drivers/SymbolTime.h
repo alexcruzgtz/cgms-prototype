@@ -57,6 +57,9 @@
 #include "Compiler.h"
 #include "GenericTypeDefs.h"
 #include "Oscillator.h"
+#include "MiWi_ConfigApp.h"
+#include "MiWi_UART_Handler.h"
+#include "WirelessProtocols/P2P/MiWi_P2P.h"
 
 /* this section is based on the Timer 2/3 module of the dsPIC33/PIC24 family */
 #if(FOSC <= 125000)

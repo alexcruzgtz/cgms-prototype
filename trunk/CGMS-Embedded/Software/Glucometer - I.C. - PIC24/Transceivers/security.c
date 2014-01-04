@@ -54,34 +54,16 @@
 ********************************************************************/
 
 #include "MiWi_ConfigApp.h"
-#if defined(PROTOCOL_P2P)
-   	#include "WirelessProtocols/P2P/MiWi_P2P.h"
-#elif defined(PROTOCOL_MIWI)
-   	#include "WirelessProtocols/MiWi/MiWi.h"
-#elif defined(PROTOCOL_MIWI_PRO)
-   	#include "WirelessProtocols/MiWiPRO/MiWiPRO.h"
-#endif
-
-#if defined(MRF24J40)
-    #define IEEE_802_15_4
-    #include "Transceivers/MRF24J40/MRF24J40.h"
-#endif
-#if defined(MRF49XA)
-    #define SOFTWARE_CRC
-    #define SOFTWARE_SECURITY
-    #include "Transceivers/MRF49XA/MRF49XA.h"
-#endif
-#if defined(MRF89XA)
-	#define SOFTWARE_SECURITY
-	#include "Transceivers/MRF89XA/MRF89XA.h"
-#endif
+#include "WirelessProtocols/P2P/MiWi_P2P.h"
+#define SOFTWARE_SECURITY
+#include "Transceivers/MRF89XA/MRF89XA.h"
 
 #if defined(SOFTWARE_SECURITY) && defined(ENABLE_SECURITY)
-
     #include "GenericTypeDefs.h"
     #include "Transceivers/Security.h"                                
     #include "WirelessProtocols/MiWi_UART_Handler.h"
-    
+
+/*-----------------------------------------------------------------------------------------*/    
     BYTE tmpBlock[BLOCK_SIZE];
         
     #if defined(XTEA_128)
@@ -94,15 +76,11 @@
 		  ***************************************************************************/
     
     #elif defined(XTEA_64)
-        #if defined(__18CXX)
-            //#pragma romdata securityKey = 0x2E
-        #endif
-            ROM const unsigned char mySecurityKey[8] = {SECURITY_KEY_00, SECURITY_KEY_01, SECURITY_KEY_02,    // The 16-byte security key used in the
-                SECURITY_KEY_03, SECURITY_KEY_04, SECURITY_KEY_05, SECURITY_KEY_06, SECURITY_KEY_07};   // security module.                                                              
-        #if defined(__18CXX)
-            //#pragma romdata
-        #endif
+	    ROM const unsigned char mySecurityKey[8] = {SECURITY_KEY_00, SECURITY_KEY_01, SECURITY_KEY_02,    // The 16-byte security key used in the
+        SECURITY_KEY_03, SECURITY_KEY_04, SECURITY_KEY_05, SECURITY_KEY_06, SECURITY_KEY_07};   // security module.                                                              
         
+
+/*-----------------------------------------------------------------------------------------*/
         /*********************************************************************
          * void encode(INPUT WORD *text, INPUT WORD *key)
          *
@@ -139,6 +117,7 @@
         }
     #endif
     
+/*.........................................................................................*/	
     /*********************************************************************
      * void CTR(BYTE *text, 
      *          BYTE len, 
@@ -168,12 +147,6 @@
     {
         BYTE block = len/BLOCK_SIZE+1;
         BYTE i, j;
-        #if defined(__18CXX)
-            BYTE ITStatus = INTCONbits.GIEH;
-        
-            INTCONbits.GIEH = 0;
-        #endif
-
         for(i = 0; i < block; i++)
         {
             for(j = 0; j < BLOCK_SIZE-1; j++)
@@ -191,13 +164,9 @@
                 text[i * BLOCK_SIZE + j] ^= tmpBlock[j];
             }
         }
-
-        #if defined(__18CXX)
-            INTCONbits.GIEH = ITStatus;
-        #endif
     }
         
-    
+/*.........................................................................................*/	
     /*********************************************************************
      * void CBC_MAC(   BYTE *text, 
      *                 BYTE len, 
@@ -228,13 +197,7 @@
     {
         BYTE block = len / BLOCK_SIZE + 1;
         BYTE i, j;
-        #if defined(__18CXX)
-            BYTE ITStatus = INTCONbits.GIEH;
-        
-            INTCONbits.GIEH = 0;
-        #endif
-        
-        for(i = 0; i < BLOCK_SIZE; i++)
+		for(i = 0; i < BLOCK_SIZE; i++)
         {
             MIC[i] = 0;
         }
@@ -251,13 +214,9 @@
             }
             encode((BLOCK_UNIT *)MIC, (BLOCK_UNIT *)key);
         }  
-        #if defined(__18CXX)
-            INTCONbits.GIEH = ITStatus;
-        #endif  
     }
-    
 
-
+/*.........................................................................................*/	
     /*********************************************************************
      * void CCM_Enc(    BYTE *text, 
      *                  BYTE headerLen, 
@@ -292,14 +251,7 @@
                     BYTE *key)
     {
         BYTE i;
-        #if defined(__18CXX)
-            BYTE ITStatus = INTCONbits.GIEH;
-        
-            INTCONbits.GIEH = 0;
-        #endif
-        
         CBC_MAC(text, (headerLen + payloadLen), key, tmpBlock);   
-        
         for(i = 0; i < BLOCK_SIZE; i++)
         {
             text[headerLen + payloadLen + i] = tmpBlock[i];
@@ -311,12 +263,9 @@
         }
     
         CTR(&(text[headerLen]), (payloadLen + BLOCK_SIZE), key, tmpBlock);    
-        #if defined(__18CXX)
-            INTCONbits.GIEH = ITStatus;
-        #endif  
     }
     
-    
+/*.........................................................................................*/	
     /*********************************************************************
      * void CCM_Dec(    BYTE *text, 
      *                  BYTE headerLen, 
@@ -348,12 +297,6 @@
     BOOL CCM_Dec(BYTE *text, BYTE headerLen, BYTE payloadLen, BYTE *key)
     {
         BYTE i;
-        #if defined(__18CXX)
-            BYTE ITStatus = INTCONbits.GIEH;
-        
-            INTCONbits.GIEH = 0;
-        #endif
-
         for(i = 0; i < BLOCK_SIZE-1; i++)
         {
             tmpBlock[i] = (i < headerLen) ? text[i] : 0;
@@ -371,13 +314,9 @@
                 return FALSE;
             }       
         }
-        #if defined(__18CXX)
-            INTCONbits.GIEH = ITStatus;
-        #endif  
         return TRUE;
     }
 
 #endif
 
 extern char bogus;
-

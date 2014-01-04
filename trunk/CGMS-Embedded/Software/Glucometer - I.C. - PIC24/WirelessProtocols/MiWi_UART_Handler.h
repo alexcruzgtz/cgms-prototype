@@ -55,13 +55,7 @@
 #include "GenericTypeDefs.h"
 #include "Compiler.h"
 #include "MiWi_ConfigApp.h"
-	#if defined(PROTOCOL_P2P)
-    	#include "WirelessProtocols/P2P/MiWi_P2P.h"
-	#elif defined(PROTOCOL_MIWI)
-    	#include "WirelessProtocols/MiWi/MiWi.h"
-	#elif defined(PROTOCOL_MIWI_PRO)
-    	#include "WirelessProtocols/MiWiPRO/MiWiPRO.h"
-#endif
+#include "WirelessProtocols/P2P/MiWi_P2P.h"
 #include "HardwareConfig.h"
 
 /*.........................................................................................*/
@@ -70,11 +64,11 @@
 /*.........................................................................................*/
 #if defined(ENABLE_CONSOLE)
 	void ConsoleInit(void);
-    #define ConsoleIsPutReady()     (U2STAbits.TRMT)
+    #define ConsoleIsPutReady()     (U1STAbits.TRMT)
     void ConsolePut(BYTE c);
     //void ConsolePutString(BYTE *s);
     void ConsolePutROMString(ROM char* str);
-    #define ConsoleIsGetReady()     (IFS1bits.U2RXIF)
+    #define ConsoleIsGetReady()     (UART1_RxIRQ_Flag)
     BYTE ConsoleGet(void);
     //BYTE ConsoleGetString(char *buffer, BYTE bufferLen);
     void PrintChar(BYTE);
