@@ -38,7 +38,7 @@
 // ENABLE_CONSOLE will enable the print out on the hyper terminal
 // this definition is very helpful in the debugging process
 /*********************************************************************/
-//#define ENABLE_CONSOLE
+//#define ENABLE_UART
 
 /*********************************************************************/
 // HARDWARE_SPI enables the hardware SPI implementation on MCU
