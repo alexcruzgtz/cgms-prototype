@@ -3,9 +3,12 @@
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 #include "Drivers/Interrupts.h"
-
+#include <p24fxxxx.h>
+#include "Drivers/GenericTypeDefs.h"
+#include "Drivers/Wireless/MiWi_MRF89XA.h"
+//#include "ADC_Handler.h"
 /*-----------------------------------------------------------------------------------------*/
-void Interupts_Init(void)
+void Interrupts_Init(void)
 {
 	IR_NESTING_DISABLED
 	IR_USE_STD_VECTORTABLE
@@ -15,8 +18,8 @@ void Interupts_Init(void)
 	ADC_IRQ_OFF
 	ADC_IRQ_Priority = _IRQ_LVL_5;
 
-	SPI_EVENTIRQ_OFF
-	SPI_FAULTIRQ_OFF
+	SPI1_EVENTIRQ_OFF
+	SPI1_FAULTIRQ_OFF
 
 	I2C1_MASTERIRQ_OFF
 	I2C1_SLAVEIRQ_OFF

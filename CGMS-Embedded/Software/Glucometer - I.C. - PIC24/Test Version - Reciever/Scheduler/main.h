@@ -9,8 +9,8 @@
 #include "Scheduler/HardwareConfig.h"
 
 #include <p24fxxxx.h>
-#include <compiler.h>
-#include <GenericTypeDefs.h>
+#include "Drivers/compiler.h"
+#include "Drivers/GenericTypeDefs.h"
 
 #include <PPS.h>
 #include "Drivers/Interrupts.h"
@@ -23,8 +23,8 @@
 #include "Drivers/SymbolTime.h"
 #include "Drivers/TimeDelay.h"
 
-#include "Drivers/Wireless/ConfigApp.h"
-#include "Drivers/Wireless/ConfigMRF89XA.h"
+#include "Drivers/Wireless/MiWi_ConfigApp.h"
+#include "Drivers/Wireless/MiWi_ConfigMRF89XA.h"
 #include "Drivers/Wireless/MiWi_MCHP_API.h"
 #include "Drivers/Wireless/MiWi_MCHP_MAC.h"
 #include "Drivers/Wireless/MiWi_MRF89XA.h"

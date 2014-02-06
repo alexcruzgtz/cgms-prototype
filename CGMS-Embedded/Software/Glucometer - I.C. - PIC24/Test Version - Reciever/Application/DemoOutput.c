@@ -45,6 +45,14 @@
 **************************************************************************/
 
 #include "Application/DemoOutput.h"
+#include "Drivers/GenericTypeDefs.h"
+#include "Scheduler/HardwareConfig.h"
+#include "Drivers/UART_Handler.h"
+#include "Drivers/LCD_Handler.h"
+#include "Drivers/Wireless/MiWi_ConfigApp.h"
+#include "Drivers/Wireless/MiWi_MCHP_API.h"
+#include <stdio.h>
+//#include <string.h>
 
 /*************************************************************************/
 // the following two variable arrays are the data to be transmitted
@@ -74,7 +82,7 @@ ROM const BYTE DE[6][11] =
 void DemoOutput_Greeting(void)
 {
 	BYTE i=0;
-	stdout =_H_USER;
+	//stdout =_H_USER;
 	LCD_send_byte(0x80,0);
 	printf("Simple P2P Demo");
 	for (i=0 ; i<4 ; i++ )
@@ -95,7 +103,7 @@ void DemoOutput_Channel(BYTE channel, BYTE Step)
 	BYTE i=0;
     if( Step == 0 )
     {
-		stdout =_H_USER;
+		//stdout =_H_USER;
 		LCD_send_byte(0x80,0);
 		printf("Conn Peer Chann");
 		LCD_send_byte(0xC0,0);
@@ -110,7 +118,7 @@ void DemoOutput_Channel(BYTE channel, BYTE Step)
     }
     else
     {    
-        stdout =_H_USER;
+        //stdout =_H_USER;
 		LCD_send_byte(0x80,0);
 		printf("Conn Peer Chann");
 		LCD_send_byte(0xC0,0);
@@ -171,7 +179,7 @@ void DemoOutput_HandleMessage(void)
 void DemoOutput_UpdateTxRx(BYTE TxNum, BYTE RxNum)
 {
 	BYTE i=0;
-	stdout =_H_USER;
+	//stdout =_H_USER;
 	LCD_send_byte(0x80,0);
 	printf("TX:%d",TxNum);
 	LCD_send_byte(0xC0,0);
@@ -193,7 +201,7 @@ void DemoOutput_UnicastFail(void)
 {
 	BYTE i=0;
     Printf("\r\nUnicast Failed\r\n");                  
-    stdout =_H_USER;
+    //stdout =_H_USER;
 	LCD_send_byte(0x80,0);
 	printf("Unicast Failed");
 	for (i=0 ; i<4 ; i++ )

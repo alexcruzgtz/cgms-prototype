@@ -49,12 +49,13 @@
 ********************************************************************/
 
 #include "Drivers/UART_Handler.h"
-#include "Drivers/Wireless/MiWi_ConfigApp.h"
-#include "Drivers/Wireless/MiWi_P2P.h"
-#include <compiler.h>
-#include <GenericTypeDefs.h>
+#include "Drivers/Compiler.h"
+#include "Drivers/GenericTypeDefs.h"
 #include "Drivers/Oscillator.h"
-
+#include "Drivers/Interrupts.h"
+//#include "Scheduler/HardwareConfig.h"
+#include "Drivers/Wireless/MiWi_ConfigApp.h"
+//#include "Drivers/Wireless/MiWi_P2P.h"
 
 /*-----------------------------------------------------------------------------------------*/
 #if defined(ENABLE_UART)

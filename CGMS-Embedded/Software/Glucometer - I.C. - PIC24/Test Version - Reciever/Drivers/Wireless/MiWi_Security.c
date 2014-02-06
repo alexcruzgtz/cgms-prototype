@@ -57,12 +57,10 @@
 #include "Drivers/Wireless/MiWi_P2P.h"
 #include "Drivers/Wireless/MiWi_MRF89XA.h"
 
-#define SOFTWARE_SECURITY
-
 #if defined(SOFTWARE_SECURITY) && defined(ENABLE_SECURITY)
-	#include <GenericTypeDefs.h>
-    #include "Drivers/Wireless/MiWi_Security.h"                                
-    #include "Drivers/UART_Handler.h"
+    #include "Drivers/Wireless/MiWi_Security.h"
+	#include "Drivers/GenericTypeDefs.h"
+	#include "Drivers/UART_Handler.h"
 
 /*-----------------------------------------------------------------------------------------*/    
     BYTE tmpBlock[BLOCK_SIZE];

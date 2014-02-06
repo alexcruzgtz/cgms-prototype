@@ -54,12 +54,12 @@
 #ifndef __SYMBOL_TIME_H_
 #define __SYMBOL_TIME_H_
 
-#include <Compiler.h>
-#include <GenericTypeDefs.h>
+#include "Drivers/Compiler.h"
+#include "Drivers/GenericTypeDefs.h"
 #include "Drivers/Oscillator.h"
 #include "Drivers/UART_Handler.h"
-#include "Drivers/Wireless/MiWi_ConfigApp.h"
-#include "Drivers/Wireless/MiWi_P2P.h"
+//#include "Drivers/Wireless/MiWi_ConfigApp.h"
+//#include "Drivers/Wireless/MiWi_P2P.h"
 
 /* this section is based on the Timer 2/3 module of the dsPIC33/PIC24 family */
 #if(FOSC <= 125000)

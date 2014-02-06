@@ -64,8 +64,8 @@
 
 typedef enum _BOOL { FALSE = 0, TRUE } BOOL;    /* Undefined size */
 typedef enum _BIT { CLEAR = 0, SET } BIT;
-typedef ENABLE	1;
-typedef DISABLE 0;
+#define ENABLE	1
+#define DISABLE 0
 
 #define PUBLIC                                  /* Function attributes */
 #define PROTECTED

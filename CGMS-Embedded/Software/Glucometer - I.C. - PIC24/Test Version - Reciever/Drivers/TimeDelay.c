@@ -41,8 +41,8 @@ Date        Comments
 *******************************************************************************/
 
 #include "Drivers/TimeDelay.h"
-#include <GenericTypeDefs.h>
-#include <compiler.h>
+#include "Drivers/GenericTypeDefs.h"
+#include "Drivers/Compiler.h"
 #include "Drivers/Oscillator.h"
 
 /*-----------------------------------------------------------------------------------------*/
@@ -77,7 +77,7 @@ void Delay10us( UINT32 tenMicroSecondCounter )
 	 {
         /*7 cycles burned to this point.
         We want to pre-calculate number of cycles required to delay 10us * tenMicroSecondCounter using a 1 cycle granule.*/
-      	cyclesRequiredForEntireDelay = (INT32)(FCY)/100000)*tenMicroSecondCounter;
+      	cyclesRequiredForEntireDelay = (INT32)(FCY/100000)*tenMicroSecondCounter;
         /*We subtract all the cycles used up until we reach the while loop below, where each loop cycle count is subtracted.
         Also we subtract the 5 cycle function return.*/
         cyclesRequiredForEntireDelay -= 44; //(29 + 5) + 10 cycles padding

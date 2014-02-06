@@ -4,6 +4,31 @@
 
 
 #include "Scheduler/main.h"
+#include <p24fxxxx.h>
+#include "Drivers/compiler.h"
+#include "Drivers/GenericTypeDefs.h"
+#include <PPS.h>
+#include "Drivers/Interrupts.h"
+#include "Drivers/Oscillator.h"
+#include "Drivers/ADC_Handler.h"
+#include "Drivers/LCD_Handler.h"
+#include "Drivers/SPI_Handler.h"
+//#include "Drivers/I2C_Handler.h"
+#include "Drivers/UART_Handler.h"
+#include "Drivers/SymbolTime.h"
+#include "Drivers/TimeDelay.h"
+#include "Drivers/Wireless/MiWi_ConfigApp.h"
+#include "Drivers/Wireless/MiWi_ConfigMRF89XA.h"
+#include "Drivers/Wireless/MiWi_MCHP_API.h"
+#include "Drivers/Wireless/MiWi_MCHP_MAC.h"
+#include "Drivers/Wireless/MiWi_MRF89XA.h"
+#include "Drivers/Wireless/MiWi_NVM.h"
+#include "Drivers/Wireless/MiWi_P2P.h"
+#include "Drivers/Wireless/MiWi_Security.h"
+
+#include "Application/DemoOutput.h"
+
+Config_CFGBits();
 
 /*-----------------------------------------------------------------------------------------*/
 /****************************************************************************
@@ -248,7 +273,7 @@ int main(void)
 
     // Turn on LED 1 to indicate connection established
     LED_Lat = 1;
-    DemoOutput_Instruction();
+    //DemoOutput_Instruction();
 
     while(1)
     {
@@ -286,7 +311,7 @@ int main(void)
             // Function ButtonPressed will return if any of the two buttons
             // has been pushed.
             /*******************************************************************/
-            BYTE PressedButton = ButtonPressed();
+            BYTE PressedButton =0;// ButtonPressed();
             switch( PressedButton )
             {
                 case 1:                 
@@ -365,10 +390,48 @@ int main(void)
     }
 }
 
-
-
 /*-----------------------------------------------------------------------------------------*/
 
-
-
+/*BYTE ButtonPressed(void)
+{
+    MIWI_TICK tickDifference;
+        
+    if(PushB_Pin == 0)
+    {
+        //if the button was previously not pressed
+        if(PUSH_BUTTON_pressed == FALSE)
+        {
+            PUSH_BUTTON_pressed = TRUE;
+            PUSH_BUTTON_press_time = MiWi_TickGet();
+            return 1;
+        }
+    }
+    else if(PUSH_BUTTON_2 == 0)
+    {
+        //if the button was previously not pressed
+        if(PUSH_BUTTON_pressed == FALSE)
+        {
+            PUSH_BUTTON_pressed = TRUE;
+            PUSH_BUTTON_press_time = MiWi_TickGet();
+            return 2;
+        }
+    } 
+    else
+    {
+        //get the current time
+        MIWI_TICK t = MiWi_TickGet();
+        
+        //if the button has been released long enough
+        tickDifference.Val = MiWi_TickGetDiff(t,PUSH_BUTTON_press_time);
+        
+        //then we can mark it as not pressed
+        if(tickDifference.Val > DEBOUNCE_TIME)
+        {
+            PUSH_BUTTON_pressed = FALSE;
+        }
+    }
+    
+    return 0;
+}
+*/
 
