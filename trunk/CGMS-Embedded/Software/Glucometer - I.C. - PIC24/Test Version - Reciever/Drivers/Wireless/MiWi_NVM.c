@@ -42,7 +42,8 @@
 *  3.1   5/28/2010    yfy       MiWi DE 3.1
 *  4.1   6/3/2011     yfy       MAL v2011-06
 ********************************************************************/
-#include "MiWi_NVM.h"
+#include "Drivers/Wireless/MiWi_NVM.h"
+#include <GenericTypeDefs.h>
 
 /*-----------------------------------------------------------------------------------------*/
 #if defined(ENABLE_NVM)

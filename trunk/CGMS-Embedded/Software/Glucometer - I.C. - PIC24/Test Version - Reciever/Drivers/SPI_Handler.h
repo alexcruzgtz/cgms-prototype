@@ -2,8 +2,8 @@
 /**/
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-#include "p24fxxxx.h"
-#include "GenericTypeDefs.h"
+#include <p24fxxxx.h>
+#include <GenericTypeDefs.h>
 
 #ifndef __SPI_HANDLER_H
 #define __SPI_HANDLER_H

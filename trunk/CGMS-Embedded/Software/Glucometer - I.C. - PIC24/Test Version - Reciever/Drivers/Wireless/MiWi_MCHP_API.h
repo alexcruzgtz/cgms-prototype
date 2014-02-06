@@ -50,9 +50,9 @@
 
 
 /*-----------------------------------------------------------------------------------------*/    
-    #include "MiWi_ConfigApp.h"
-	#include "MiWi_P2P.h"
-	#include "GenericTypeDefs.h"
+    #include "Drivers/Wireless/MiWi_ConfigApp.h"
+	#include "Drivers/Wireless/MiWi_P2P.h"
+	#include <GenericTypeDefs.h>
 
 /*.........................................................................................*/    
     #define INPUT

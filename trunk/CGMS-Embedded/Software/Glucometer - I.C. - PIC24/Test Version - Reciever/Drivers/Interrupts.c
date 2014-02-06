@@ -2,7 +2,7 @@
 /**/
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-#include "Interrupts.h"
+#include "Drivers/Interrupts.h"
 
 /*-----------------------------------------------------------------------------------------*/
 void Interupts_Init(void)
@@ -23,11 +23,11 @@ void Interupts_Init(void)
 }
 
 /*.........................................................................................*/
-void __attribute__ ((__interrupt__)) _ADC1Interrupt(void)
+/*void __attribute__ ((__interrupt__)) _ADC1Interrupt(void)
 {
 ADC_IRQ_Flag = CLEAR;
 }
-
+*/
 /*.........................................................................................*/
 void _ISRFAST __attribute__((interrupt, auto_psv)) _INT1Interrupt(void)
 {

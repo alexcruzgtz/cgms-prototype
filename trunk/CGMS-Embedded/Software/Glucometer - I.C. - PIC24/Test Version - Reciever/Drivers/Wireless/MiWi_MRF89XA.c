@@ -47,19 +47,20 @@
 *  4.1   6/3/2011     SM        MAL v2011-06
 ********************************************************************/
 
-#include "MiWi_ConfigApp.h"
-#include "MiWi_P2P.h"
+#include "Drivers/Wireless/MiWi_ConfigApp.h"
+#include "Drivers/Wireless/MiWi_P2P.h"
 
 #if defined(MRF89XA)
-    #include "SymbolTime.h"
-    #include "TimeDelay.h"
-    #include "UART_Handler.h"
-	#include "HardwareConfig.h"
-    #include "MiWi_Security.h"
-    #include "MiWi_MRF89XA.h"
-    #include "MiWi_MCHP_MAC.h"
-    #include "MiWi_MCHP_API.h"
-    #include "MiWi_NVM.h"
+	#include <GenericTypeDefs.h>
+    #include "Drivers/SymbolTime.h"
+    #include "Drivers/TimeDelay.h"
+    #include "Drivers/UART_Handler.h"
+	#include "Scheduler/HardwareConfig.h"
+    #include "Drivers/Wireless/MiWi_Security.h"
+    #include "Drivers/Wireless/MiWi_MRF89XA.h"
+    #include "Drivers/Wireless/MiWi_MCHP_MAC.h"
+    #include "Drivers/Wireless/MiWi_MCHP_API.h"
+    #include "Drivers/Wireless/MiWi_NVM.h"
 
 
 

@@ -40,10 +40,10 @@ Date        Comments
 2010.10.13  Added PICC support
 *******************************************************************************/
 
-#include "TimeDelay.h"
-#include "GenericTypeDefs.h"
-#include "Compiler.h"
-#include "Oscillator.h"
+#include "Drivers/TimeDelay.h"
+#include <GenericTypeDefs.h>
+#include <compiler.h>
+#include "Drivers/Oscillator.h"
 
 /*-----------------------------------------------------------------------------------------*/
 /****************************************************************************

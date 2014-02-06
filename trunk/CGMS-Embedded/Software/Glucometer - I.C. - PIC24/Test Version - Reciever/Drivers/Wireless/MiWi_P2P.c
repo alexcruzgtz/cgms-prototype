@@ -47,19 +47,19 @@
 *  4.1   6/3/2011     yfy       MAL v2011-06
 ********************************************************************/
 
-#include "MiWi_ConfigApp.h"
+#include "Drivers/Wireless/MiWi_ConfigApp.h"
 #if defined(PROTOCOL_P2P)
-	#include "Compiler.h"
-	#include "GenericTypeDefs.h"
-	#include "SymbolTime.h"
-	#include "SPI_Handler.h"
-	#include "UART_Handler.h"
-	#include "SymbolTime.h"
-	#include "MiWi_P2P.h"
-	#include "MiWi_NVM.h"
-	#include "MiWi_MCHP_MAC.h"
-	#include "MiWi_MCHP_API.h"
-	#include "MiWi_MRF89XA.h"
+	#include <compiler.h>
+	#include <GenericTypeDefs.h>
+	#include "Drivers/SymbolTime.h"
+	#include "Drivers/SPI_Handler.h"
+	#include "Drivers/UART_Handler.h"
+	#include "Drivers/SymbolTime.h"
+	#include "Drivers/Wireless/MiWi_P2P.h"
+	#include "Drivers/Wireless/MiWi_NVM.h"
+	#include "Drivers/Wireless/MiWi_MCHP_MAC.h"
+	#include "Drivers/Wireless/MiWi_MCHP_API.h"
+	#include "Drivers/Wireless/MiWi_MRF89XA.h"
 
 	#define SOFTWARE_SECURITY
 

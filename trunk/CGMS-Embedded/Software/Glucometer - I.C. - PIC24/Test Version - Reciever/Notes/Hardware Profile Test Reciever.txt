@@ -3,24 +3,18 @@
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 
-/*            Instrumentation Circuit v1              */
+/*            Test Reciever Cirtuit              */
 
 /*
 ------------------------------------------------------------------------------------------------
 -----	Components	------------------------------------------------------------------------	
 
- MCU.....................PIC24FJ64GA102
- Wireless Transciever....MRF89XAM8A
- Digital Potentiometer...AD5241 1Mohm
- MCU Reset Circuit.......STM811
- OmAp's IC...............TLC27L9
- Voltage Reference.......LM385 Adj.
- LDO Regulator...........
+ MCU..................... PIC24FJ64GA102
+ Wireless Transciever.... MRF89XAM8A
  Resistors...............
  Capacitors..............
- Diodes..................
- Conectors...............{ ICSP, Serial Comm, Power, Glucose Sensor(MiniDin),Wireless Transceiver}
-
+ Diodes.................. 
+ Human Interface......... Red LED, Push Button, LCD Display
 
 
 ------------------------------------------------------------------------------------------------
@@ -29,48 +23,48 @@
 ************************************************************************************************
 	***	MCU Pins Hardware Connections	***
 
-1...MCLR-------> Master Reset	{Reset Circuit Through Protection Diode, ICSP Connector}
-2...Not Used
-3...AN1-PA.1 --> <Vgnd> Virtual Ground
-4...AN2-PB.0---> <Vout> Work Electrode Current Measurement Output Voltage
-5...AN3-PB.1---> <CNT> Counter Electrode
-6...AN4-PB.2---> <Vctrl> Input Reference Voltage for CNT-REF Voltage
-7...AN5-PB.3---> <REF> Reference Electrode
-8...VSS -------> GND
-9...RA2 -------> <CSCON> Wireless Transciever Configuration Chip Select(SPI)
-10..RA3 -------> <RESET> Wireles Transciever RESET Pin
-11..RP4 -------> [SDO1] SPI1 Data Output		{Wireless Transciever}
-12..RA4 -------> <CSDATA> Wireless TRansciever Data Chip Select (SPI)
-13..VDD -------> 3.3V
-14..RP5 -------> <IRQ1> Wireless Transciever IRQ 1
-15..RP6 -------> [SCK1] SPI1 Clock Signal		{Wireless Transciever}
-16..RP7 -------> [SDI1] SPI1 Data Input			{Wireless Transciever}
-17..SCL1 ------> I2C1 Clock Signal				{Digital Potentiometer}
-18..SDA1 ------> I2C1 Data Signal				{Digital Potentiometer}
-19..DISVREG ---> GND	[Config VddCore Regulator.Vss=Active, Vdd=Inactive]
-20..Vcap ------> GND Through 10uF tantalium Capacitor. [Only when DISVREG=Vss]
-21..PEGD2 -----> ICSP Data Line 2				{ICSP connector}
-22..PEGC2 -----> ICSP Clock Line 2				{ICSP connector}
-23..RP12 ------> [U1Tx] UART1 Transmission line	{UART connector}
-24..RP13 ------> [U1Rx] UART1 Recieve Line		{UART connector}
-25..Not Used
-26..Not Used	
-27..VSS -------> GND
-28..VDD -------> 3.3V
+1... MCLR ------> Master Reset	{Reset Circuit Through Protection Diode, ICSP Connector}
+2... RA0 -------> LCD RS Pin
+3... RA1 -------> LCD E Pin
+4... RB0 -------> LCD DB04 Pin
+5... RB1 -------> LCD DB05 Pin
+6... RB2 -------> LCD DB06 Pin
+7... RB3 -------> LCD DB07 Pin
+8... VSS -------> GND
+9... RA2 -------> <CSCON> Wireless Transciever Configuration Chip Select(SPI)
+10.. RA3 -------> <RESET> Wireles Transciever RESET Pin
+11.. RP4 -------> [SDO1] SPI1 Data Output		{Wireless Transciever}
+12.. RA4 -------> <CSDATA> Wireless TRansciever Data Chip Select (SPI)
+13.. VDD -------> 3.3V
+14.. RP5 -------> <IRQ1> Wireless Transciever IRQ 1
+15.. RP6 -------> [SCK1] SPI1 Clock Signal		{Wireless Transciever}
+16.. RP7 -------> [SDI1] SPI1 Data Input			{Wireless Transciever}
+17.. Not Used
+18.. Not Used
+19.. DISVREG ---> GND	[Config VddCore Regulator.Vss=Active, Vdd=Inactive]
+20.. Vcap ------> GND Through 10uF tantalium Capacitor. [Only when DISVREG=Vss]
+21.. PEGD2 -----> ICSP Data Line 2				{ICSP connector}
+22.. PEGC2 -----> ICSP Clock Line 2				{ICSP connector}
+23.. RP12 ------> [U1Tx] UART1 Transmission line	{UART connector}
+24.. RP13 ------> [U1Rx] UART1 Recieve Line		{UART connector}
+25.. RB14 ------> LED
+26.. RB15 ------> Push Button
+27.. VSS -------> GND
+28.. VDD -------> 3.3V
 
 
 ************************************************************************************************
 	*** Port A bits Configuration [4:0] ***
 
-Bit ... Fuction		 	---> IOPort Configuration
-|           |					|
-0   ... Not Used     	---> Digital Output	=0
-1   ... Analog Input 	---> Digital Input	=1
-2   ... Digital Output	---> Digital Output =0
-3   ... Digital Output  ---> Digital Output	=0
-4   ... Digital Output  ---> Digital Output	=0
+Bit ... Fuction 		 	---> IOPort Configuration
+|           |		 				|
+0   ... Peripheral Output 	---> Output	= 0
+1   ... Peripheral Output 	---> Output	= 0
+2   ... Peripheral Outputt	---> Output = 0
+3   ... Peripheral Output   ---> Output	= 0
+4   ... Peripheral Output   ---> Output	= 0
 
-TRIS = 0b00010
+TRIS = 0b00000
 
 
 ************************************************************************************************
@@ -78,24 +72,24 @@ TRIS = 0b00010
 
 Bit ... Fuction		 	    ---> IOPort Configuration
 |           |					|
-0   ... Analog Input   		---> Digital Input	=1
-1   ... Analog Input 		---> Digital Input	=1
-2   ... Analog Input 		---> Digital Input	=1
-3   ... Analog Input 		---> Digital Input	=1
-4   ... Peripheral Output  	---> Digital Output	=0
-5   ... Peripheral Input  	---> Digital Input	=1
-6   ... Peripheral Output  	---> Digital Output	=0
-7   ... Peripheral Input    ---> Digital Input	=1
-8   ... Peripherical I/O    ---> Digital Input	=1
-9   ... Peripherical I/O    ---> Digital Input	=1
-10  ... ICSP Pin		    ---> Digital Output	=0
-11  ... ICSP Pin		    ---> Digital Output	=0
-12  ... Peripheral Output   ---> Digital Output	=0
-13  ... Peripheral Input    ---> Digital Input	=1
-14  ... Not Used            ---> Digital Output	=0	
-15  ... Not Used            ---> Digital Output	=0
+0   ... Peripheral Output   ---> Output	= 0
+1   ... Peripheral Output 	---> Output	= 0
+2   ... Peripheral Output 	---> Output	= 0
+3   ... Peripheral Output 	---> Output	= 0
+4   ... Comm. Prot Output  	---> Output	= 0
+5   ... Peripheral Input  	---> Input	= 1
+6   ... Comm. Prot. Output 	---> Output	= 0
+7   ... Comm. Prot. Input  	---> Input	= 1
+8   ... Not Used    		---> Output	= 0
+9   ... Not Used    		---> Output	= 0
+10  ... ICSP Pin		    ---> Output	= 0
+11  ... ICSP Pin		    ---> Output	= 0
+12  ... Comm. Prot. Output  ---> Output	= 0
+13  ... Comm. Prot. Input   ---> Input	= 1
+14  ... Output Bit          ---> Output	= 0	
+15  ... Input Bit           ---> Input  = 1
 
-TRIS = 0b0010001110101111
+TRIS = 0b1010000010100000
 
 
 ************************************************************************************************
@@ -104,18 +98,16 @@ TRIS = 0b0010001110101111
 E=Enabled; D=Disabled
 
 Channel: |AN0|AN1|AN2|AN3|AN4|AN5|AN6|AN7|AN8|AN9|AN10|AN11|AN12|
-Status:  | D | E | E | E | E | E | D | D | D | D | D  | D  | D  |
-Cfg val: | 0 | 1 | 1 | 1 | 1 | 1 | 0 | 0 | 0 | 0 | 0  | 0  | 0  |
+Status:  | D | D | D | D | D | D | D | D | D | D | D  | D  | D  |
+Cfg val: | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0  | 0  | 0  |
 
-AnalogPins = 0b0000000111110
-
-*Note: AN1 can be used as negative reference vs AN2-AN5. Software configuration is needed.
-       (AN1 Measures Vgnd Value, which allows the correct measurement of Vout, and REF-CNT Voltage)
+AnalogPins = 0b0000000000000
 
 
 ************************************************************************************************
 	***	Peripheral Pin Select Configuration [15:0]
-|Pin | Function		| PPS-Configuration | PPS-Macro Definitions
+|Pin | Function		| PPS-Configuration | PPS-Macro Definitions					|
+|____|______________|___________________|_______________________________________|             
 | 0  | Null			| Output-[NULL]	    | OUT_PIN_PPS_RP0, OUT_FN_PPS_NULL
 | 1  | Null			| Output-[NULL]		| OUT_PIN_PPS_RP1, OUT_FN_PPS_NULL
 | 2  | Null			| Output-[NULL]		| OUT_PIN_PPS_RP2, OUT_FN_PPS_NULL
