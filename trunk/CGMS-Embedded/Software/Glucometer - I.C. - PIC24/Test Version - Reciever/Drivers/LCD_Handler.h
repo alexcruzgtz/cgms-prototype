@@ -32,8 +32,11 @@
 #define __LCD_HANDLER_H
 
 /*-----------------------------------------------------------------------------------------*/
-#include <GenericTypeDefs.h>
+#include "Drivers/GenericTypeDefs.h"
+#include "Drivers/Compiler.h"
 #include "Drivers/TimeDelay.h"
+#include "Scheduler/HardwareConfig.h"
+#include <stdio.h>
 
 /*-----------------------------------------------------------------------------------------*/
 //extern unsigned char Text_Line1;

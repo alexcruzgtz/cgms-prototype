@@ -9,7 +9,7 @@
 
 /*-----------------------------------------------------------------------------------------*/
 #include <p24fxxxx.h>
-#include <GenericTypeDefs.h>
+#include "Drivers/GenericTypeDefs.h"
 #include "Scheduler/HardwareConfig.h"
 #include "Drivers/Interrupts.h"
 

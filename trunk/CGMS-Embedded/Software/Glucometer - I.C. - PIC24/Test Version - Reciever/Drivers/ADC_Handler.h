@@ -3,7 +3,7 @@
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 #include <p24fxxxx.h>
-#include <GenericTypeDefs.h>
+#include "Drivers/GenericTypeDefs.h"
 #include "Scheduler/HardwareConfig.h"
 #include "Drivers/Interrupts.h"
 
@@ -85,8 +85,8 @@
 /*............. AD1PCFG A/D Port Configuration Register Macros ............................*/
 #define	ADC_BAND_GAP_REF_ENABLED		AD1PCFGbits.PCFG15=CLEAR;
 #define	ADC_BAND_GAP_REF_DISABLED		AD1PCFGbits.PCFG15=SET;
-#define ADC_HAlF_BAND_REF_ENABLED		AD1PCFGbits.PCFG14=CLEAR;
-#define ADC_HAlF_BAND_REF_DISABLED		AD1PCFGbits.PCFG14=SET;
+#define ADC_HAlFBAND_REF_ENABLED		AD1PCFGbits.PCFG14=CLEAR;
+#define ADC_HAlFBAND_REF_DISABLED		AD1PCFGbits.PCFG14=SET;
 #define ADC_INT_VREG_CH_ENABLED			AD1PCFGbits.PCFG13=CLEAR;
 #define ADC_INT_VREG_CH_DISABLED		AD1PCFGbits.PCFG13=SET;
 #define ADC_Analog_Pins_Cfg				AD1PCFGbits.PCFG

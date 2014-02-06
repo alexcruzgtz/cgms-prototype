@@ -8,7 +8,7 @@
 /*-----------------------------------------------------------------------------------------*/
 #include <p24fxxxx.h>
 #include <PPS.h>
-#include <GenericTypeDefs.h>
+#include "Drivers/GenericTypeDefs.h"
 #include "Drivers/Interrupts.h"
 #include "Drivers/Oscillator.h"
 #include "Drivers/ADC_Handler.h"
@@ -18,20 +18,26 @@
 #include "Drivers/UART_Handler.h"
 
 /*-----------------------------------------------------------------------------------------*/
-#define __PIC24FJ64GA102__
+//#define __PIC24FJ64GA102__
+
+#define Config_CFGBits(); _CONFIG1(JTAGEN_OFF & GCP_OFF & GWRP_OFF & ICS_PGx2 & FWDTEN_OFF & WINDIS_OFF & FWPSA_PR32 & WDTPS_PS1)\
+						  _CONFIG2(IESO_OFF & FNOSC_FRC & FCKSM_CSECMD & OSCIOFNC_ON & IOL1WAY_ON & I2C1SEL_PRI & POSCMOD_NONE)\
+						  _CONFIG3(WPDIS_WPDIS & WUTSEL_LEG & SOSCSEL_IO)\
+						  _CONFIG4(DSWDTEN_OFF & DSBOREN_ON & RTCOSC_LPRC & DSWDTOSC_LPRC & DSWDTPS_DSWDTPS9)\
 
 #define IOPORTA_CFG			0b00000
 #define IOPORTB_CFG 		0b1010000010100000
 #define ANALOGPINS_CFG 		0b0000000000000
 
 #define LED_Lat				LATBbits.LATB14
-#define LED_Tris			LATBbits.TRISB14
+#define LED_Tris			TRISBbits.TRISB14
 #define LED_Pin				PORTBbits.RB14
 
 #define PushB_Lat			LATBbits.LATB15							
-#define PushB_Tris			LATBbits.TRISB15
+#define PushB_Tris			TRISBbits.TRISB15
 #define PushB_Pin			PORTBbits.RB15
 
+#define TMRL 				TMR2
 
 /*Wireless Transceiver Control Pins*/
 /*...................................................................
@@ -40,8 +46,8 @@ Data Chip Select		  -> Port A Pin 4
 Reset Pin				  -> Port A Pin 3
 Interrupt Request 1 Pin	  -> Port B Pin 5
 .....................................................................*/
-#define Config_nCs			LATAbits.LATA2
-#define Config_nCs_TRIS		TRISAbits.TRISA2
+#define Config_nCS			LATAbits.LATA2
+#define Config_nCS_TRIS		TRISAbits.TRISA2
 #define Data_nCS			LATAbits.LATA4
 #define Data_nCS_TRIS		TRISAbits.TRISA4
 #define PHY_RESETn			LATAbits.LATA3

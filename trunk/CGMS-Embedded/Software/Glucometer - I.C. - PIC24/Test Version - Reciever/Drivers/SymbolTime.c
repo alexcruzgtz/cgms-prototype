@@ -48,8 +48,12 @@
 ********************************************************************/
 
 #include "Drivers/SymbolTime.h"
-#include <GenericTypeDefs.h>
-#include <compiler.h>
+#include "Drivers/Compiler.h"
+#include "Drivers/GenericTypeDefs.h"
+#include "Drivers/Oscillator.h"
+#include "Drivers/UART_Handler.h"
+//#include "Drivers/Wireless/MiWi_ConfigApp.h"
+//#include "Drivers/Wireless/MiWi_P2P.h"
 
 
 /*-----------------------------------------------------------------------------------------*/

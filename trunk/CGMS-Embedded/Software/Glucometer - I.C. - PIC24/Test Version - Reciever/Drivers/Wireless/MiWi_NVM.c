@@ -43,7 +43,12 @@
 *  4.1   6/3/2011     yfy       MAL v2011-06
 ********************************************************************/
 #include "Drivers/Wireless/MiWi_NVM.h"
-#include <GenericTypeDefs.h>
+#include "Drivers/Wireless/MiWi_ConfigApp.h"
+#include "Drivers/GenericTypeDefs.h"
+#include "Drivers/Compiler.h"
+#include "Drivers/UART_Handler.h"
+#include "Drivers/Wireless/MiWi_MCHP_API.h"
+#include "Drivers/Wireless/MiWi_P2P.h"
 
 /*-----------------------------------------------------------------------------------------*/
 #if defined(ENABLE_NVM)
@@ -62,7 +67,7 @@
 /*.........................................................................................*/
     void NVMRead(BYTE *dest, WORD addr, WORD count)
     {
-	    while( count )
+	   /* while( count )
         {
         	EEADRH = addr >> 8;
             EEADR = addr;
@@ -73,13 +78,13 @@
             *dest++ = EEDATA;
             count--;
             addr++;
-        }            
+        }*/            
     }
 
 /*.........................................................................................*/
     void NVMWrite(BYTE *source, WORD addr, WORD count)
     {
-    	BYTE oldGIEH;
+    /*	BYTE oldGIEH;
         while(count)
         {   
         	EEADRH = addr >> 8;
@@ -98,33 +103,33 @@
             EECON1bits.WREN = 0;
             count--;
             addr++;
-        }
+        }*/
     }
 
 /*.........................................................................................*/
     BOOL NVMalloc(WORD size, WORD *location)
     {
-    	//WORD retval;
+    /*	//WORD retval;
         if ((nextEEPosition + size) > TOTAL_NVM_BYTES)
         {
         	return FALSE;
         }
         *location = nextEEPosition;
         nextEEPosition += size;
-        return TRUE;
+        return TRUE;*/
     }
         
 /*.........................................................................................*/
     BOOL NVMInit(void)
     {
-    	BOOL result = TRUE;
+    /*	BOOL result = TRUE;
         nextEEPosition = 0;
         result &= NVMalloc(2, &nvmMyPANID);
         result &= NVMalloc(1, &nvmCurrentChannel);
         result &= NVMalloc(1, &nvmConnMode);
         result &= NVMalloc(sizeof(CONNECTION_ENTRY) * CONNECTION_SIZE, &nvmConnectionTable);
         result &= NVMalloc(4, &nvmOutFrameCounter);
-        return result;
+        return result;*/
     }
 
 /*-----------------------------------------------------------------------------------------*/

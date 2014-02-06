@@ -11,19 +11,20 @@
 
 /*-----------------------------------------------------------------------------------------*/
 #include "Drivers/LCD_Handler.h"
-#include <GenericTypeDefs.h>
-#include <stdio.h>
+#include "Drivers/GenericTypeDefs.h"
+#include "Drivers/Compiler.h"
 #include "Drivers/TimeDelay.h"
+#include "Scheduler/HardwareConfig.h"
+#include <stdio.h>
 
 /*-----------------------------------------------------------------------------------------*/
 //unsigned char Text_Line1;
 //unsigned char Text_Line2;
 
 /*-----------------------------------------------------------------------------------------*/
-void LCD_Init( void );
 
 /*.........................................................................................*/
-rom const INT8 LCD_INIT_STRING[4] =
+const UINT8 LCD_INIT_STRING[4] =
 {
   0x20 | (LCD_TYPE << 2), // Func set: 4-bit, 2 lines, 5x8 dots
   0x0C, // Display on

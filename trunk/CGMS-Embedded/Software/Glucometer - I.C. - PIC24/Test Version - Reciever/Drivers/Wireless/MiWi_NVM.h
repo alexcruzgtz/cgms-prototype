@@ -52,9 +52,9 @@
     
 /*.........................................................................................*/
 #if defined(ENABLE_NVM)
-	#include <GenericTypeDefs.h>
-	#include <compiler.h>
-	#include "Dirvers/UART_Handler.h"
+	#include "Drivers/GenericTypeDefs.h"
+	#include "Drivers/Compiler.h"
+	#include "Drivers/UART_Handler.h"
     #include "Drivers/Wireless/MiWi_MCHP_API.h"
 
 /*-----------------------------------------------------------------------------------------*/
@@ -82,6 +82,8 @@
     #define nvmGetOutFrameCounter( x )          NVMRead( (BYTE *)x, nvmOutFrameCounter, 4)
     #define nvmPutOutFrameCounter( x )          NVMWrite((BYTE *)x, nvmOutFrameCounter, 4)
             
+#endif
+
     
 /*-----------------------------------------------------------------------------------------*/
 #endif

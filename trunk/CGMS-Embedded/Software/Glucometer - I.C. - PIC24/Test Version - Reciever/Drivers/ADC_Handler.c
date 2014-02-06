@@ -3,6 +3,10 @@
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 #include "Drivers/ADC_Handler.h"
+#include <p24fxxxx.h>
+#include "Drivers/GenericTypeDefs.h"
+#include "Scheduler/HardwareConfig.h"
+#include "Drivers/Interrupts.h"
 
 /*-----------------------------------------------------------------------------------------*/
 void ADC_Init(void)
@@ -24,7 +28,7 @@ void ADC_Init(void)
 	ADC_MA_NEG_INPUT_VRNEG
 	ADC_MA_Pos_Input = 0; //ADC_DEFAULT_CH;
 	ADC_BAND_GAP_REF_DISABLED
-	ADC_HALF_BAND_REF_DISABLED
+	//ADC_HALFBAND_REF_DISABLED
 	ADC_INT_VREG_CH_DISABLED
 	ADC_Analog_Pins_Cfg = ANALOGPINS_CFG;
 	ADC_BAND_GAP_DISABLED

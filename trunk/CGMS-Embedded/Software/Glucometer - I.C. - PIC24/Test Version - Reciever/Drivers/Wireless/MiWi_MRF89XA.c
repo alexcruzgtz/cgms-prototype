@@ -48,19 +48,22 @@
 ********************************************************************/
 
 #include "Drivers/Wireless/MiWi_ConfigApp.h"
-#include "Drivers/Wireless/MiWi_P2P.h"
 
 #if defined(MRF89XA)
-	#include <GenericTypeDefs.h>
+	#include <p24fxxxx.h>
+	#include "Drivers/GenericTypeDefs.h"
     #include "Drivers/SymbolTime.h"
     #include "Drivers/TimeDelay.h"
     #include "Drivers/UART_Handler.h"
 	#include "Scheduler/HardwareConfig.h"
+    #include "Drivers/Wireless/MiWi_ConfigMRF89XA.h"
     #include "Drivers/Wireless/MiWi_Security.h"
     #include "Drivers/Wireless/MiWi_MRF89XA.h"
     #include "Drivers/Wireless/MiWi_MCHP_MAC.h"
     #include "Drivers/Wireless/MiWi_MCHP_API.h"
     #include "Drivers/Wireless/MiWi_NVM.h"
+	#include "Drivers/Wireless/MiWi_P2P.h"
+
 
 
 
