@@ -48,12 +48,12 @@
 *  4.1   6/3/2011     yfy       MAL v2011-06
 ********************************************************************/
 
-#include "UART_Handler.h"
-#include "MiWi_ConfigApp.h"
-#include "MiWi_P2P.h"
-#include "Compiler.h"
-#include "GenericTypeDefs.h"
-#include "Oscillator.h"
+#include "Drivers/UART_Handler.h"
+#include "Drivers/Wireless/MiWi_ConfigApp.h"
+#include "Drivers/Wireless/MiWi_P2P.h"
+#include <compiler.h>
+#include <GenericTypeDefs.h>
+#include "Drivers/Oscillator.h"
 
 
 /*-----------------------------------------------------------------------------------------*/

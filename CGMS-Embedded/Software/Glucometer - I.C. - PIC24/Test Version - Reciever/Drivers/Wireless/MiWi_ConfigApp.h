@@ -164,7 +164,7 @@
 // on the P2P connection. The additional payload will be defined by 
 // the application and defined in main.c
 /*********************************************************************/
-#define ADDITIONAL_NODE_ID_SIZE   1
+#define ADDITIONAL_NODE_ID_SIZE   0
 
 /*********************************************************************/
 // P2P_CONNECTION_SIZE defines the maximum P2P connections that this 

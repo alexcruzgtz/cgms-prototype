@@ -51,9 +51,9 @@
 
 
 /*-----------------------------------------------------------------------------------------*/    
-    #include "MiWi_ConfigApp.h"
+    #include "Drivers/Wireless/MiWi_ConfigApp.h"
     #if defined(PROTOCOL_P2P)
-        #include "SymbolTime.h"
+        #include "Drivers/SymbolTime.h"
     
         /*********************************************************************/
         // ENABLE_DUMP will enable the stack to be able to print out the 

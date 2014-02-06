@@ -50,9 +50,10 @@
 
 
 /*-----------------------------------------------------------------------------------------*/   
-	#include "MiWi_ConfigApp.h"
-	#include "MiWi_P2P.h"
-	#include "MiWi_MRF89XA.h"
+	#include "Drivers/Wireless/MiWi_ConfigApp.h"
+	#include "Drivers/Wireless/MiWi_P2P.h"
+	#include "Drivers/Wireless/MiWi_MRF89XA.h"
+	#include <GenericTypeDefs.h>
 	#define SOFTWARE_SECURITY
 	
 /*-----------------------------------------------------------------------------------------*/   

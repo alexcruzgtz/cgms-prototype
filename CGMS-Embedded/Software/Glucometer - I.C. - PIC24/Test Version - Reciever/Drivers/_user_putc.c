@@ -11,9 +11,9 @@
 _user_putc (void)
 {
 }*/
-extern void lcd_putc(unsigned char c);
+extern void LCD_putc(unsigned char c);
 
 void _user_putc (unsigned char c)
 {
-	lcd_putc(c);
+	LCD_putc(c);
 }

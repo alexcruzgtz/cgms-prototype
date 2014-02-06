@@ -2,7 +2,7 @@
 /**/
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-#include "HardwareConfig.h"
+#include "Scheduler/HardwareConfig.h"
 
 /*-----------------------------------------------------------------------------------------*/
 void HardwareCfg_Init(void)
@@ -10,7 +10,14 @@ void HardwareCfg_Init(void)
 Cfg_CFGBits();
 Cfg_PPS();
 Cfg_Ports();
+
 OSC_Init();
+Interrupts_Init();
+ADC_Init();
+SPI_Init();
+//I2C_Init();
+LCD_Init();
+//ConsoleInit();
 }
 
 
@@ -51,6 +58,7 @@ void Cfg_PPS(void)
 /*.........................................................................................*/
 void Cfg_Ports(void)
 {
+	/* General Ports Configuration */
 	PORTA=0;
 	LATA=0;
 	TRISA=IOPORTA_CFG;
@@ -58,9 +66,13 @@ void Cfg_Ports(void)
 	PORTB=0;
 	LATB=0;
 	TRISA=IOPORTB_CFG
-
-
     
+	LED_Tris = 0;
+	LED_Lat = 0;
+	PushB_Tris = 1;
+	PushB_Lat = 0;
+
+	/* MiWi Pins Configuration */
 	Data_nCS_TRIS = 0;
     Config_nCS_TRIS = 0;
     Data_nCS = 1;   

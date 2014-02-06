@@ -47,15 +47,15 @@
 #define __MIWI_NVM_H
 
 /*-----------------------------------------------------------------------------------------*/
-#include "MiWi_ConfigApp.h"
-#include "MiWi_P2P.h"
+#include "Drivers/Wireless/MiWi_ConfigApp.h"
+#include "Drivers/Wireless/MiWi_P2P.h"
     
 /*.........................................................................................*/
 #if defined(ENABLE_NVM)
-	#include "GenericTypeDefs.h"
-    #include "Compiler.h"
-	#include "UART_Handler.h"
-    #include "MiWi_MCHP_API.h"
+	#include <GenericTypeDefs.h>
+	#include <compiler.h>
+	#include "Dirvers/UART_Handler.h"
+    #include "Drivers/Wireless/MiWi_MCHP_API.h"
 
 /*-----------------------------------------------------------------------------------------*/
   	#define TOTAL_NVM_BYTES     1024

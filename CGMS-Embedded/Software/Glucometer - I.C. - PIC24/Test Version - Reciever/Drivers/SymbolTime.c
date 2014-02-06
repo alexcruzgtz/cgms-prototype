@@ -47,8 +47,9 @@
 *  4.1   6/3/2011     yfy       MAL v2011-06
 ********************************************************************/
 
-#include "SymbolTime.h"
-#include "GenericTypeDefs.h"
+#include "Drivers/SymbolTime.h"
+#include <GenericTypeDefs.h>
+#include <compiler.h>
 
 
 /*-----------------------------------------------------------------------------------------*/
