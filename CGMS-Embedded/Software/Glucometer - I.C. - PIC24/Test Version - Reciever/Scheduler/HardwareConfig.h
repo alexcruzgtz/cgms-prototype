@@ -8,7 +8,7 @@
 /*-----------------------------------------------------------------------------------------*/
 #include <p24fxxxx.h>
 #include <PPS.h>
-#include "Drivers/GenericTypeDefs.h"
+#include <GenericTypeDefs.h>
 #include "Drivers/Interrupts.h"
 #include "Drivers/Oscillator.h"
 #include "Drivers/ADC_Handler.h"
@@ -52,10 +52,11 @@ Interrupt Request 1 Pin	  -> Port B Pin 5
 #define Data_nCS_TRIS		TRISAbits.TRISA4
 #define PHY_RESETn			LATAbits.LATA3
 #define PHY_RESETn_TRIS		TRISAbits.TRISA3	
-#define IRQ1_INT_PIN		LATBbits.LATB5
+#define IRQ1_INT_PIN		PORTBbits.RB5
 #define IRQ1_INT_TRIS		TRISBbits.TRISB5
 #define PHY_IRQ1			INT1_IRQ_Flag
 #define PHY_IRQ1_En			INT1_IRQ_En
+#define PHY_IRQ1_TRIS   	TRISBbits.TRISB5
 
 
 /*LCD Display Control Pins*/

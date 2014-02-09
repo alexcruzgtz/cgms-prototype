@@ -10,13 +10,12 @@
 
 #include <p24fxxxx.h>
 #include "Drivers/Compiler.h"
-#include <GenericTypeDefs.h>
+#include "Drivers/GenericTypeDefs.h"
 
 #include <PPS.h>
 #include "Drivers/Interrupts.h"
 #include "Drivers/Oscillator.h"
 #include "Drivers/ADC_Handler.h"
-#include "Drivers/LCD_Handler.h"
 #include "Drivers/SPI_Handler.h"
 //#include "Drivers/I2C_Handler.h"
 #include "Drivers/UART_Handler.h"

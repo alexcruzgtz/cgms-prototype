@@ -4,7 +4,7 @@
 
 #include "Drivers/Oscillator.h"
 #include <p24fxxxx.h>
-#include "Drivers/GenericTypeDefs.h"
+#include <GenericTypeDefs.h>
 
 /*-----------------------------------------------------------------------------------------*/
 void Oscillator_Init(void)

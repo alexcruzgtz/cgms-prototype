@@ -1,11 +1,11 @@
-Microchip Technology Inc, vv3_30 (B) £
+Microchip Technology Inc, vv3_30 (B) m
 
 Tool Name:
   c:\program files (x86)\microchip\mplab c30\bin\bin\..\bin/pic30-coff-ld.exe
 
 Command:
   -p24FJ64GA102 \
-  -o..\Test Version - Reciever\OutPut\Test Reciever - PIC24.cof \
+  -o..\Test Version - Reciever\OutPut\Glucometer - I.C. - PIC24.cof \
   -Lc:/program files (x86)/microchip/mplab c30/bin/bin/.. \
   -Lc:/program files (x86)/microchip/mplab c30/bin/bin/../../lib \
   -Lc:/program files (x86)/microchip/mplab c30/bin/bin/../../lib/PIC24E \
@@ -21,25 +21,23 @@ Command:
   -Lc:/program files (x86)/microchip/mplab c30/bin/bin/../../lib/dsPIC33F \
   -Lc:/program files (x86)/microchip/mplab c30/bin/bin/../../support/dsPIC33F/gld \
   ADC_Handler.o \
-  _user_putc.o \
-  HardwareConfig.o \
   SPI_Handler.o \
+  SymbolTime.o \
+  TimeDelay.o \
+  HardwareConfig.o \
+  Oscillator.o \
   Interrupts.o \
-  LCD_Handler.o \
-  main.o \
+  UART_Handler.o \
   MiWi_MRF89XA.o \
   MiWi_NVM.o \
   MiWi_P2P.o \
   MiWi_Security.o \
-  Oscillator.o \
-  SymbolTime.o \
-  TimeDelay.o \
-  UART_Handler.o \
   DemoOutput.o \
+  main.o \
   -Tp24FJ64GA102.gld.00 \
   --defsym=__MPLAB_BUILD=1 \
   --defsym=__MPLAB_DEBUG=1 \
-  -Map=..\Test Version - Reciever\OutPut\Test Reciever - PIC24.map \
+  -Map=..\Test Version - Reciever\OutPut\Glucometer - I.C. - PIC24.map \
   --report-mem \
   -start-group \
   --library=pic30-coff \
@@ -53,41 +51,19 @@ c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libpic30-coff.a(crt
                               (_resetPRI)
 c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libpic30-coff.a(data_init_standard.o)
                               c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libpic30-coff.a(crt0_standard.o) (_data_init_standard)
-c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(printf_s.XXo)
-                              (__printf_s)
-c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(printf_cdnopuxX.XXo)
-                              DemoOutput.o (_printf_cdnopuxX)
-c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(_iob.XXo)
-                              c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(printf_s.XXo) (_iob)
-c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(doprnt_s.XXo)
-                              c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(printf_s.XXo) (_vfprintf_s)
-c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(doprnt_cdnopuxX.XXo)
-                              c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(printf_cdnopuxX.XXo) (_vfprintf_cdnopuxX)
-c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(fputc.XXo)
-                              c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(doprnt_s.XXo) (fputc)
-c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(flsbuf.XXo)
-                              c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(fputc.XXo) (_flsbuf)
-c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libpic30-coff.a(write.o)
-                              c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(fputc.XXo) (write)
-c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libpic30-coff.a(c30_uart.o)
-                              c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libpic30-coff.a(write.o) (__C30_UART)
-c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libm-coff.a(divmoddi3.o)
-                              c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(doprnt_s.XXo) (__udivdi3)
-c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(doprnt_cdnopsuxX.XXo)
-                              (_vfprintf_cdnopsuxX)
 
 
 Program Memory  [Origin = 0x200, Length = 0xa9f6]
 
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
-.text                        0x200               0x9b2           0xe8b  (3723)
-.const                       0xbb2               0x54e           0x7f5  (2037)
-.text                       0x1100              0x287e          0x3cbd  (15549)
-.dinit                      0x397e                0xf0           0x168  (360)
-.text                       0x3a6e               0x328           0x4bc  (1212)
+.text                        0x200                0x94            0xde  (222)
+.const                       0x294               0x4ea           0x75f  (1887)
+.text                        0x77e              0x2a08          0x3f0c  (16140)
+.dinit                      0x3186                0x3c            0x5a  (90)
+.text                       0x31c2                0x34            0x4e  (78)
 
-                     Total program memory used (bytes):         0x5961  (22881) 35%
+                     Total program memory used (bytes):         0x47f1  (18417) 28%
 
 
 Data Memory  [Origin = 0x800, Length = 0x2000]
@@ -95,15 +71,10 @@ Data Memory  [Origin = 0x800, Length = 0x2000]
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
 .nbss                        0x800                   0           0x1cc  (460)
-.ndata                       0x9cc                   0             0x8  (8)
-.nbss                        0x9d4                   0             0x6  (6)
-.data                        0x9da                   0            0xa0  (160)
-.dconst                      0xa7a                   0            0x2a  (42)
-.data                        0xaa4                   0            0x26  (38)
-.bss                         0xaca                   0             0x6  (6)
-.data                        0xad0                   0             0x2  (2)
+.ndata                       0x9cc                   0            0x12  (18)
+.nbss                        0x9de                   0             0x6  (6)
 
-                        Total data memory used (bytes):          0x2d2  (722) 8%
+                        Total data memory used (bytes):          0x1e4  (484) 5%
 
 
 Dynamic Memory Usage
@@ -111,9 +82,9 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                        0xad2                              0x1d2e  (7470)
+stack                        0x9e4                              0x1e1c  (7708)
 
-                        Maximum dynamic memory (bytes):         0x1d2e  (7470)
+                        Maximum dynamic memory (bytes):         0x1e1c  (7708)
 
 
 External Symbols in Data Memory (by address):
@@ -143,30 +114,26 @@ External Symbols in Data Memory (by address):
                     0x09c5                  _LatestConnection
                     0x09c6                  _ActiveScanResultIndex
                     0x09c8                  _DataRequestTimer
-                    0x09cc                  _IRQ1_Received
-                    0x09ce                  _hasAck
-                    0x09d0                  _myLongAddress
-                    0x09d2                  _currentChannel
-                    0x09d3                  _ConnMode
-                    0x09d4                  _tmpBlock
-                    0x09d8                  _timerExtension1
-                    0x09d9                  _timerExtension2
-                    0x0aa4                  __Files
-                    0x0aa6                  __iob
-                    0x0aca                  __sobuf
-                    0x0acc                  __sibuf
-                    0x0ace                  __outdone
-                    0x0ad0                  ___C30_UART
+                    0x09cc                  _myChannel
+                    0x09cd                  _tempAddr
+                    0x09d6                  _IRQ1_Received
+                    0x09d8                  _hasAck
+                    0x09da                  _myLongAddress
+                    0x09dc                  _currentChannel
+                    0x09dd                  _ConnMode
+                    0x09de                  _tmpBlock
+                    0x09e2                  _timerExtension1
+                    0x09e3                  _timerExtension2
 
 External Symbols in Data Memory (by name):
 
                     0x0880                  _AckInfo
                     0x09c6                  _ActiveScanResultIndex
                     0x0906                  _ActiveScanResults
-                    0x09d3                  _ConnMode
+                    0x09dd                  _ConnMode
                     0x0900                  _ConnectionTable
                     0x09c8                  _DataRequestTimer
-                    0x09cc                  _IRQ1_Received
+                    0x09d6                  _IRQ1_Received
                     0x08f8                  _IncomingFrameCounter
                     0x09c5                  _LatestConnection
                     0x0876                  _MACInitParams
@@ -184,237 +151,193 @@ External Symbols in Data Memory (by name):
                     0x093a                  _TxBuffer
                     0x0962                  _TxData
                     0x087a                  _TxMACSeq
-                    0x0aa4                  __Files
-                    0x0ad0                  ___C30_UART
-                    0x0aa6                  __iob
-                    0x0ace                  __outdone
-                    0x0acc                  __sibuf
-                    0x0aca                  __sobuf
-                    0x09d2                  _currentChannel
-                    0x09ce                  _hasAck
+                    0x09dc                  _currentChannel
+                    0x09d8                  _hasAck
                     0x0964                  _indirectMessages
                     0x08ac                  _key
-                    0x09d0                  _myLongAddress
+                    0x09cc                  _myChannel
+                    0x09da                  _myLongAddress
                     0x092e                  _rxMessage
-                    0x09d8                  _timerExtension1
-                    0x09d9                  _timerExtension2
-                    0x09d4                  _tmpBlock
+                    0x09cd                  _tempAddr
+                    0x09e2                  _timerExtension1
+                    0x09e3                  _timerExtension2
+                    0x09de                  _tmpBlock
 
 External Symbols in Program Memory (by address):
 
                   0x000200                  __resetPRI
                   0x000222                  __psv_init
-                  0x000232                  __data_init
                   0x000232                  __data_init_standard
+                  0x000232                  __data_init
                   0x000290                  __DefaultInterrupt
-                  0x000328                  ___udivmoddi3
-                  0x0003f6                  ___udivdi3
-                  0x000404                  ___umoddi3
-                  0x00040c                  ___divdi3
-                  0x000446                  ___moddi3
-                  0x000518                  __printf_0
-                  0x000518                  __printf_s
-                  0x000526                  __printf_cdnopuxX
-                  0x000648                  __vfprintf_0
-                  0x000648                  __vfprintf_cdnopsuxX
-                  0x000648                  __vfprintf_cdnopuxX
-                  0x000648                  __vfprintf_s
-                  0x000bb2                  _MiWi
-                  0x000c30                  _DE
-                  0x000e6a                  _ScanTime
-                  0x00103c                  _PVALUE
-                  0x00105c                  _SVALUE
-                  0x00107c                  _InitConfigRegs
-                  0x0010e4                  _CharacterArray
-                  0x0010f4                  _mySecurityKey
-                  0x0010fc                  _LCD_INIT_STRING
-                  0x001100                  _MacroNop
-                  0x001108                  _P2PTasks
-                  0x00170e                  _MiApp_ProtocolInit
-                  0x0017ca                  _MiApp_TransceiverPowerState
-                  0x001848                  _CheckForData
-                  0x0018a4                  _IndirectPacket
-                  0x001a68                  _SendPacket
-                  0x001b2e                  _MiApp_BroadcastPacket
-                  0x001b7e                  _MiApp_UnicastConnection
-                  0x001bfe                  _MiApp_UnicastAddress
-                  0x001c6a                  _isSameAddress
-                  0x001ca6                  _MiApp_StartConnection
-                  0x001d06                  _MiApp_EstablishConnection
-                  0x001e28                  _MiApp_DiscardMessage
-                  0x001e32                  _MiApp_SetChannel
-                  0x001e54                  _MiApp_MessageAvailable
-                  0x001e66                  _DumpConnection
-                  0x001f6c                  _AddConnection
-                  0x002060                  _MiApp_SearchConnection
-                  0x002186                  _MiApp_NoiseDetection
-                  0x0022bc                  _StartChannelHopping
-                  0x00234a                  _MiApp_ResyncConnection
-                  0x002498                  _MiApp_InitChannelHopping
-                  0x0024e8                  _MiApp_RemoveConnection
-                  0x0025c8                  _MiApp_ConnectionMode
-                  0x0025e8                  _getReceiverBW
-                  0x0025fc                  _RegisterSet
-                  0x002632                  _RegisterRead
-                  0x002672                  _WriteFIFO
-                  0x0026a2                  _TxPacket
-                  0x0027c8                  _MiMAC_SetAltAddress
-                  0x0027d4                  _MiMAC_SetChannel
-                  0x002828                  _MiMAC_SetPower
-                  0x00284e                  _MiMAC_Init
-                  0x0028e6                  _SetRFMode
-                  0x002954                  _MiMAC_SendPacket
-                  0x002b02                  _MiMAC_ReceivedPacket
-                  0x002daa                  _MiMAC_DiscardPacket
-                  0x002dcc                  _MiMAC_ChannelAssessment
-                  0x002e5e                  _MiMAC_PowerState
-                  0x002eba                  _IRQ1_Handler
-                  0x003208                  _encode
-                  0x00329e                  _CTR
-                  0x003342                  _CBC_MAC
-                  0x0033dc                  _CCM_Enc
-                  0x003470                  _CCM_Dec
-                  0x003514                  _DemoOutput_Greeting
-                  0x00355a                  _DemoOutput_Channel
-                  0x0035f0                  _DemoOutput_HandleMessage
-                  0x003676                  _DemoOutput_UpdateTxRx
-                  0x0036be                  _DemoOutput_ChannelError
-                  0x0036d2                  _DemoOutput_UnicastFail
-                  0x003700                  _LCD_send_nibble
-                  0x003776                  _LCD_send_byte
-                  0x0037aa                  _LCD_Init
-                  0x0037f6                  _LCD_gotoxy
-                  0x003820                  _LCD_putc
-                  0x00385e                  _HardwareCfg_Init
-                  0x003874                  _Cfg_PPS
-                  0x00394a                  _Cfg_Ports
-                  0x003a6e                  _ConsoleInit
-                  0x003a86                  _ConsolePutROMString
-                  0x003ab4                  _ConsolePut
-                  0x003ac8                  _ConsoleGet
-                  0x003ae0                  _PrintChar
-                  0x003b10                  _PrintDec
-                  0x003b3a                  _Delay10us
-                  0x003b86                  _DelayMs
-                  0x003bb4                  _ADC_Init
-                  0x003c26                  _Oscillator_Init
-                  0x003c7c                  _Interrupts_Init
-                  0x003cac                  __INT1Interrupt
-                  0x003ccc                  _main
-                  0x003d16                  _SPI_Init
-                  0x003d2c                  _SPIPut
-                  0x003d48                  _SPIGet
-                  0x003d56                  _InitSymbolTimer
-                  0x003d62                  _MiWi_TickGet
-                  0x003d8a                  __user_putc
+                  0x000294                  _MiWi
+                  0x000312                  _DE
+                  0x00050e                  _ScanTime
+                  0x0006e0                  _PVALUE
+                  0x000700                  _SVALUE
+                  0x000720                  _InitConfigRegs
+                  0x000766                  _CharacterArray
+                  0x000776                  _mySecurityKey
+                  0x00077e                  _MacroNop
+                  0x000786                  _P2PTasks
+                  0x000d8c                  _MiApp_ProtocolInit
+                  0x000e48                  _MiApp_TransceiverPowerState
+                  0x000ec6                  _CheckForData
+                  0x000f22                  _IndirectPacket
+                  0x0010e6                  _SendPacket
+                  0x0011ac                  _MiApp_BroadcastPacket
+                  0x0011fc                  _MiApp_UnicastConnection
+                  0x00127c                  _MiApp_UnicastAddress
+                  0x0012e8                  _isSameAddress
+                  0x001324                  _MiApp_StartConnection
+                  0x001384                  _MiApp_EstablishConnection
+                  0x0014a6                  _MiApp_DiscardMessage
+                  0x0014b0                  _MiApp_SetChannel
+                  0x0014d2                  _MiApp_MessageAvailable
+                  0x0014e4                  _DumpConnection
+                  0x0015ea                  _AddConnection
+                  0x0016de                  _MiApp_SearchConnection
+                  0x001804                  _MiApp_NoiseDetection
+                  0x00193a                  _StartChannelHopping
+                  0x0019c8                  _MiApp_ResyncConnection
+                  0x001b16                  _MiApp_InitChannelHopping
+                  0x001b66                  _MiApp_RemoveConnection
+                  0x001c46                  _MiApp_ConnectionMode
+                  0x001c66                  _getReceiverBW
+                  0x001c7a                  _RegisterSet
+                  0x001cb0                  _RegisterRead
+                  0x001cf0                  _WriteFIFO
+                  0x001d20                  _TxPacket
+                  0x001e46                  _MiMAC_SetAltAddress
+                  0x001e52                  _MiMAC_SetChannel
+                  0x001ea6                  _MiMAC_SetPower
+                  0x001ecc                  _MiMAC_Init
+                  0x001f64                  _SetRFMode
+                  0x001fd2                  _MiMAC_SendPacket
+                  0x002180                  _MiMAC_ReceivedPacket
+                  0x002428                  _MiMAC_DiscardPacket
+                  0x00244a                  _MiMAC_ChannelAssessment
+                  0x0024dc                  _MiMAC_PowerState
+                  0x002538                  _IRQ1_Handler
+                  0x002886                  _encode
+                  0x00291c                  _CTR
+                  0x0029c0                  _CBC_MAC
+                  0x002a5a                  _CCM_Enc
+                  0x002aee                  _CCM_Dec
+                  0x002b92                  _main
+                  0x002cdc                  _HardwareCfg_Init
+                  0x002cee                  _Cfg_PPS
+                  0x002dc4                  _Cfg_Ports
+                  0x002df8                  _DemoOutput_Greeting
+                  0x002e1a                  _DemoOutput_Channel
+                  0x002e44                  _DemoOutput_HandleMessage
+                  0x002eca                  _DemoOutput_ChannelError
+                  0x002ede                  _DemoOutput_UnicastFail
+                  0x002ee8                  _ConsoleInit
+                  0x002f00                  _ConsolePutROMString
+                  0x002f2e                  _ConsolePut
+                  0x002f42                  _ConsoleGet
+                  0x002f5a                  _PrintChar
+                  0x002f8a                  _PrintDec
+                  0x002fb4                  _Delay10us
+                  0x003000                  _DelayMs
+                  0x00302e                  _ADC_Init
+                  0x0030a4                  _Oscillator_Init
+                  0x0030fa                  _Interrupts_Init
+                  0x003126                  __INT1Interrupt
+                  0x003146                  _SPI_Init
+                  0x00315c                  _SPIPut
+                  0x003178                  _SPIGet
+                  0x0031c2                  _InitSymbolTimer
+                  0x0031ce                  _MiWi_TickGet
 
 External Symbols in Program Memory (by name):
 
-                  0x003bb4                  _ADC_Init
-                  0x001f6c                  _AddConnection
-                  0x003342                  _CBC_MAC
-                  0x003470                  _CCM_Dec
-                  0x0033dc                  _CCM_Enc
-                  0x00329e                  _CTR
-                  0x003874                  _Cfg_PPS
-                  0x00394a                  _Cfg_Ports
-                  0x0010e4                  _CharacterArray
-                  0x001848                  _CheckForData
-                  0x003ac8                  _ConsoleGet
-                  0x003a6e                  _ConsoleInit
-                  0x003ab4                  _ConsolePut
-                  0x003a86                  _ConsolePutROMString
-                  0x000c30                  _DE
-                  0x003b3a                  _Delay10us
-                  0x003b86                  _DelayMs
-                  0x00355a                  _DemoOutput_Channel
-                  0x0036be                  _DemoOutput_ChannelError
-                  0x003514                  _DemoOutput_Greeting
-                  0x0035f0                  _DemoOutput_HandleMessage
-                  0x0036d2                  _DemoOutput_UnicastFail
-                  0x003676                  _DemoOutput_UpdateTxRx
-                  0x001e66                  _DumpConnection
-                  0x00385e                  _HardwareCfg_Init
-                  0x002eba                  _IRQ1_Handler
-                  0x0018a4                  _IndirectPacket
-                  0x00107c                  _InitConfigRegs
-                  0x003d56                  _InitSymbolTimer
-                  0x003c7c                  _Interrupts_Init
-                  0x0010fc                  _LCD_INIT_STRING
-                  0x0037aa                  _LCD_Init
-                  0x0037f6                  _LCD_gotoxy
-                  0x003820                  _LCD_putc
-                  0x003776                  _LCD_send_byte
-                  0x003700                  _LCD_send_nibble
-                  0x001100                  _MacroNop
-                  0x001b2e                  _MiApp_BroadcastPacket
-                  0x0025c8                  _MiApp_ConnectionMode
-                  0x001e28                  _MiApp_DiscardMessage
-                  0x001d06                  _MiApp_EstablishConnection
-                  0x002498                  _MiApp_InitChannelHopping
-                  0x001e54                  _MiApp_MessageAvailable
-                  0x002186                  _MiApp_NoiseDetection
-                  0x00170e                  _MiApp_ProtocolInit
-                  0x0024e8                  _MiApp_RemoveConnection
-                  0x00234a                  _MiApp_ResyncConnection
-                  0x002060                  _MiApp_SearchConnection
-                  0x001e32                  _MiApp_SetChannel
-                  0x001ca6                  _MiApp_StartConnection
-                  0x0017ca                  _MiApp_TransceiverPowerState
-                  0x001bfe                  _MiApp_UnicastAddress
-                  0x001b7e                  _MiApp_UnicastConnection
-                  0x002dcc                  _MiMAC_ChannelAssessment
-                  0x002daa                  _MiMAC_DiscardPacket
-                  0x00284e                  _MiMAC_Init
-                  0x002e5e                  _MiMAC_PowerState
-                  0x002b02                  _MiMAC_ReceivedPacket
-                  0x002954                  _MiMAC_SendPacket
-                  0x0027c8                  _MiMAC_SetAltAddress
-                  0x0027d4                  _MiMAC_SetChannel
-                  0x002828                  _MiMAC_SetPower
-                  0x000bb2                  _MiWi
-                  0x003d62                  _MiWi_TickGet
-                  0x003c26                  _Oscillator_Init
-                  0x001108                  _P2PTasks
-                  0x00103c                  _PVALUE
-                  0x003ae0                  _PrintChar
-                  0x003b10                  _PrintDec
-                  0x002632                  _RegisterRead
-                  0x0025fc                  _RegisterSet
-                  0x003d48                  _SPIGet
-                  0x003d2c                  _SPIPut
-                  0x003d16                  _SPI_Init
-                  0x00105c                  _SVALUE
-                  0x000e6a                  _ScanTime
-                  0x001a68                  _SendPacket
-                  0x0028e6                  _SetRFMode
-                  0x0022bc                  _StartChannelHopping
-                  0x0026a2                  _TxPacket
-                  0x002672                  _WriteFIFO
+                  0x00302e                  _ADC_Init
+                  0x0015ea                  _AddConnection
+                  0x0029c0                  _CBC_MAC
+                  0x002aee                  _CCM_Dec
+                  0x002a5a                  _CCM_Enc
+                  0x00291c                  _CTR
+                  0x002cee                  _Cfg_PPS
+                  0x002dc4                  _Cfg_Ports
+                  0x000766                  _CharacterArray
+                  0x000ec6                  _CheckForData
+                  0x002f42                  _ConsoleGet
+                  0x002ee8                  _ConsoleInit
+                  0x002f2e                  _ConsolePut
+                  0x002f00                  _ConsolePutROMString
+                  0x000312                  _DE
+                  0x002fb4                  _Delay10us
+                  0x003000                  _DelayMs
+                  0x002e1a                  _DemoOutput_Channel
+                  0x002eca                  _DemoOutput_ChannelError
+                  0x002df8                  _DemoOutput_Greeting
+                  0x002e44                  _DemoOutput_HandleMessage
+                  0x002ede                  _DemoOutput_UnicastFail
+                  0x0014e4                  _DumpConnection
+                  0x002cdc                  _HardwareCfg_Init
+                  0x002538                  _IRQ1_Handler
+                  0x000f22                  _IndirectPacket
+                  0x000720                  _InitConfigRegs
+                  0x0031c2                  _InitSymbolTimer
+                  0x0030fa                  _Interrupts_Init
+                  0x00077e                  _MacroNop
+                  0x0011ac                  _MiApp_BroadcastPacket
+                  0x001c46                  _MiApp_ConnectionMode
+                  0x0014a6                  _MiApp_DiscardMessage
+                  0x001384                  _MiApp_EstablishConnection
+                  0x001b16                  _MiApp_InitChannelHopping
+                  0x0014d2                  _MiApp_MessageAvailable
+                  0x001804                  _MiApp_NoiseDetection
+                  0x000d8c                  _MiApp_ProtocolInit
+                  0x001b66                  _MiApp_RemoveConnection
+                  0x0019c8                  _MiApp_ResyncConnection
+                  0x0016de                  _MiApp_SearchConnection
+                  0x0014b0                  _MiApp_SetChannel
+                  0x001324                  _MiApp_StartConnection
+                  0x000e48                  _MiApp_TransceiverPowerState
+                  0x00127c                  _MiApp_UnicastAddress
+                  0x0011fc                  _MiApp_UnicastConnection
+                  0x00244a                  _MiMAC_ChannelAssessment
+                  0x002428                  _MiMAC_DiscardPacket
+                  0x001ecc                  _MiMAC_Init
+                  0x0024dc                  _MiMAC_PowerState
+                  0x002180                  _MiMAC_ReceivedPacket
+                  0x001fd2                  _MiMAC_SendPacket
+                  0x001e46                  _MiMAC_SetAltAddress
+                  0x001e52                  _MiMAC_SetChannel
+                  0x001ea6                  _MiMAC_SetPower
+                  0x000294                  _MiWi
+                  0x0031ce                  _MiWi_TickGet
+                  0x0030a4                  _Oscillator_Init
+                  0x000786                  _P2PTasks
+                  0x0006e0                  _PVALUE
+                  0x002f5a                  _PrintChar
+                  0x002f8a                  _PrintDec
+                  0x001cb0                  _RegisterRead
+                  0x001c7a                  _RegisterSet
+                  0x003178                  _SPIGet
+                  0x00315c                  _SPIPut
+                  0x003146                  _SPI_Init
+                  0x000700                  _SVALUE
+                  0x00050e                  _ScanTime
+                  0x0010e6                  _SendPacket
+                  0x001f64                  _SetRFMode
+                  0x00193a                  _StartChannelHopping
+                  0x001d20                  _TxPacket
+                  0x001cf0                  _WriteFIFO
                   0x000290                  __DefaultInterrupt
-                  0x003cac                  __INT1Interrupt
-                  0x00040c                  ___divdi3
-                  0x000446                  ___moddi3
-                  0x0003f6                  ___udivdi3
-                  0x000328                  ___udivmoddi3
-                  0x000404                  ___umoddi3
+                  0x003126                  __INT1Interrupt
                   0x000232                  __data_init
                   0x000232                  __data_init_standard
-                  0x000518                  __printf_0
-                  0x000526                  __printf_cdnopuxX
-                  0x000518                  __printf_s
                   0x000222                  __psv_init
                   0x000200                  __resetPRI
-                  0x003d8a                  __user_putc
-                  0x000648                  __vfprintf_0
-                  0x000648                  __vfprintf_cdnopsuxX
-                  0x000648                  __vfprintf_cdnopuxX
-                  0x000648                  __vfprintf_s
-                  0x003208                  _encode
-                  0x0025e8                  _getReceiverBW
-                  0x001c6a                  _isSameAddress
-                  0x003ccc                  _main
-                  0x0010f4                  _mySecurityKey
+                  0x002886                  _encode
+                  0x001c66                  _getReceiverBW
+                  0x0012e8                  _isSameAddress
+                  0x002b92                  _main
+                  0x000776                  _mySecurityKey
 
 Memory Configuration
 
@@ -434,21 +357,19 @@ CONFIG1          0x00abfe           0x000002
 Linker script and memory map
 
 LOAD ADC_Handler.o
-LOAD _user_putc.o
-LOAD HardwareConfig.o
 LOAD SPI_Handler.o
+LOAD SymbolTime.o
+LOAD TimeDelay.o
+LOAD HardwareConfig.o
+LOAD Oscillator.o
 LOAD Interrupts.o
-LOAD LCD_Handler.o
-LOAD main.o
+LOAD UART_Handler.o
 LOAD MiWi_MRF89XA.o
 LOAD MiWi_NVM.o
 LOAD MiWi_P2P.o
 LOAD MiWi_Security.o
-LOAD Oscillator.o
-LOAD SymbolTime.o
-LOAD TimeDelay.o
-LOAD UART_Handler.o
 LOAD DemoOutput.o
+LOAD main.o
 LOAD c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib/PIC24F\libpPIC24Fxxx-coff.a
                     0xabf8                  __CONFIG4 = 0xabf8
                     0xabfa                  __CONFIG3 = 0xabfa
@@ -468,7 +389,7 @@ LOAD c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib/PIC24F\libpPIC
                   0x000002          0x2 SHORT 0x0 ((ABSOLUTE (__reset) >> 0x10) & 0x7f)
                   0x000003          0x2 SHORT 0x0
 
-.text             0x000200        0x9b2
+.text             0x000200         0x94
  *(.init)
  .init            0x000200         0x32 c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libpic30-coff.a(crt0_standard.o)
                   0x000200                  _resetPRI
@@ -483,34 +404,9 @@ LOAD c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib/PIC24F\libpPIC
  .isr             0x000290          0x4 default_isr
                   0x000290                  _DefaultInterrupt
  *(.libc)
- .libc            0x000294         0x6e c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libpic30-coff.a(write.o)
-                  0x000294                  write
  *(.libm)
- .libm            0x000302        0x216 c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libm-coff.a(divmoddi3.o)
-                  0x000328                  __udivmoddi3
-                  0x0003f6                  __udivdi3
-                  0x000404                  __umoddi3
-                  0x00040c                  __divdi3
-                  0x000446                  __moddi3
  *(.libdsp)
  *(.lib*)
- .libc._printf_s
-                  0x000518          0xe c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(printf_s.XXo)
-                  0x000518                  _printf_s
-                  0x000518                  _printf_0
- .libc._printf_cdnopuxX
-                  0x000526          0xe c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(printf_cdnopuxX.XXo)
-                  0x000526                  _printf_cdnopuxX
- .libc.fputc      0x000534         0x8e c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(fputc.XXo)
-                  0x000534                  fputc
- .libc._flsbuf    0x0005c2         0x86 c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(flsbuf.XXo)
-                  0x0005c2                  _flsbuf
- .libc._vfprintf_cdnopsuxX
-                  0x000648        0x56a c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(doprnt_cdnopsuxX.XXo)
-                  0x000648                  _vfprintf_cdnopuxX
-                  0x000648                  _vfprintf_cdnopsuxX
-                  0x000648                  _vfprintf_0
-                  0x000648                  _vfprintf_s
 
 usercode
  *(usercode)
@@ -594,7 +490,7 @@ __CONFIG1         0x00abfe          0x2
                   0x000036          0x4 LONG 0x290 DEFINED (__MI2C1Interrupt)?ABSOLUTE (__MI2C1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000038          0x4 LONG 0x290 DEFINED (__CompInterrupt)?ABSOLUTE (__CompInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00003a          0x4 LONG 0x290 DEFINED (__CNInterrupt)?ABSOLUTE (__CNInterrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00003c          0x4 LONG 0x3cac DEFINED (__INT1Interrupt)?ABSOLUTE (__INT1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00003c          0x4 LONG 0x3126 DEFINED (__INT1Interrupt)?ABSOLUTE (__INT1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00003e          0x4 LONG 0x290 DEFINED (__Interrupt21)?ABSOLUTE (__Interrupt21):ABSOLUTE (__DefaultInterrupt)
                   0x000040          0x4 LONG 0x290 DEFINED (__Interrupt22)?ABSOLUTE (__Interrupt22):ABSOLUTE (__DefaultInterrupt)
                   0x000042          0x4 LONG 0x290 DEFINED (__Interrupt23)?ABSOLUTE (__Interrupt23):ABSOLUTE (__DefaultInterrupt)
@@ -722,7 +618,7 @@ __CONFIG1         0x00abfe          0x2
                   0x000136          0x4 LONG 0x290 DEFINED (__AltMI2C1Interrupt)?ABSOLUTE (__AltMI2C1Interrupt):DEFINED (__MI2C1Interrupt)?ABSOLUTE (__MI2C1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000138          0x4 LONG 0x290 DEFINED (__AltCompInterrupt)?ABSOLUTE (__AltCompInterrupt):DEFINED (__CompInterrupt)?ABSOLUTE (__CompInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00013a          0x4 LONG 0x290 DEFINED (__AltCNInterrupt)?ABSOLUTE (__AltCNInterrupt):DEFINED (__CNInterrupt)?ABSOLUTE (__CNInterrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00013c          0x4 LONG 0x3cac DEFINED (__AltINT1Interrupt)?ABSOLUTE (__AltINT1Interrupt):DEFINED (__INT1Interrupt)?ABSOLUTE (__INT1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00013c          0x4 LONG 0x3126 DEFINED (__AltINT1Interrupt)?ABSOLUTE (__AltINT1Interrupt):DEFINED (__INT1Interrupt)?ABSOLUTE (__INT1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00013e          0x4 LONG 0x290 DEFINED (__AltInterrupt21)?ABSOLUTE (__AltInterrupt21):DEFINED (__Interrupt21)?ABSOLUTE (__Interrupt21):ABSOLUTE (__DefaultInterrupt)
                   0x000140          0x4 LONG 0x290 DEFINED (__AltInterrupt22)?ABSOLUTE (__AltInterrupt22):DEFINED (__Interrupt22)?ABSOLUTE (__Interrupt22):ABSOLUTE (__DefaultInterrupt)
                   0x000142          0x4 LONG 0x290 DEFINED (__AltInterrupt23)?ABSOLUTE (__AltInterrupt23):DEFINED (__Interrupt23)?ABSOLUTE (__Interrupt23):ABSOLUTE (__DefaultInterrupt)
@@ -1525,66 +1421,44 @@ LOAD c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libpic30-coff.
 LOAD c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libm-coff.a
 LOAD c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a
 END GROUP
-OUTPUT(..\Test Version - Reciever\OutPut\Test Reciever - PIC24.cof coff-pic30)
+OUTPUT(..\Test Version - Reciever\OutPut\Glucometer - I.C. - PIC24.cof coff-pic30)
 LOAD data_init
 LOAD default_isr
 
 __c30_signature
-                  0x000000         0xa2
+                  0x000000         0x60
  __c30_signature
                   0x000000          0x6 ADC_Handler.o
  __c30_signature
-                  0x000006          0x6 _user_putc.o
+                  0x000006          0x6 SPI_Handler.o
  __c30_signature
-                  0x00000c          0x6 HardwareConfig.o
+                  0x00000c          0x6 SymbolTime.o
  __c30_signature
-                  0x000012          0x6 SPI_Handler.o
+                  0x000012          0x6 TimeDelay.o
  __c30_signature
-                  0x000018          0x6 Interrupts.o
+                  0x000018          0x6 HardwareConfig.o
  __c30_signature
-                  0x00001e          0x6 LCD_Handler.o
+                  0x00001e          0x6 Oscillator.o
  __c30_signature
-                  0x000024          0x6 main.o
+                  0x000024          0x6 Interrupts.o
  __c30_signature
-                  0x00002a          0x6 MiWi_MRF89XA.o
+                  0x00002a          0x6 UART_Handler.o
  __c30_signature
-                  0x000030          0x6 MiWi_NVM.o
+                  0x000030          0x6 MiWi_MRF89XA.o
  __c30_signature
-                  0x000036          0x6 MiWi_P2P.o
+                  0x000036          0x6 MiWi_NVM.o
  __c30_signature
-                  0x00003c          0x6 MiWi_Security.o
+                  0x00003c          0x6 MiWi_P2P.o
  __c30_signature
-                  0x000042          0x6 Oscillator.o
+                  0x000042          0x6 MiWi_Security.o
  __c30_signature
-                  0x000048          0x6 SymbolTime.o
+                  0x000048          0x6 DemoOutput.o
  __c30_signature
-                  0x00004e          0x6 TimeDelay.o
+                  0x00004e          0x6 main.o
  __c30_signature
-                  0x000054          0x6 UART_Handler.o
+                  0x000054          0x6 c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libpic30-coff.a(crt0_standard.o)
  __c30_signature
-                  0x00005a          0x6 DemoOutput.o
- __c30_signature
-                  0x000060          0x6 c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libpic30-coff.a(crt0_standard.o)
- __c30_signature
-                  0x000066          0x6 c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libpic30-coff.a(data_init_standard.o)
- __c30_signature
-                  0x00006c          0x6 c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(printf_s.XXo)
- __c30_signature
-                  0x000072          0x6 c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(printf_cdnopuxX.XXo)
- __c30_signature
-                  0x000078          0x6 c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(_iob.XXo)
- __c30_signature
-                  0x00007e          0x6 c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(fputc.XXo)
- __c30_signature
-                  0x000084          0x6 c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(flsbuf.XXo)
- __c30_signature
-                  0x00008a          0x6 c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libpic30-coff.a(write.o)
- __c30_signature
-                  0x000090          0x6 c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libpic30-coff.a(c30_uart.o)
- __c30_signature
-                  0x000096          0x6 c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libm-coff.a(divmoddi3.o)
- __c30_signature
-                  0x00009c          0x6 c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(doprnt_cdnopsuxX.XXo)
+                  0x00005a          0x6 c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libpic30-coff.a(data_init_standard.o)
 
 .nbss               0x0800        0x1cc
  .nbss              0x0800         0xee MiWi_MRF89XA.o
@@ -1615,158 +1489,128 @@ __c30_signature
                     0x09c6                  ActiveScanResultIndex
                     0x09c8                  DataRequestTimer
 
-.ndata              0x09cc          0x8
- .ndata             0x09cc          0x4 MiWi_MRF89XA.o
-                    0x09cc                  IRQ1_Received
-                    0x09ce                  hasAck
- .ndata             0x09d0          0x4 MiWi_P2P.o
-                    0x09d0                  myLongAddress
-                    0x09d2                  currentChannel
-                    0x09d3                  ConnMode
+.ndata              0x09cc         0x12
+ .ndata             0x09cc          0xa main.o
+                    0x09cc                  myChannel
+                    0x09cd                  tempAddr
+ .ndata             0x09d6          0x4 MiWi_MRF89XA.o
+                    0x09d6                  IRQ1_Received
+                    0x09d8                  hasAck
+ .ndata             0x09da          0x4 MiWi_P2P.o
+                    0x09da                  myLongAddress
+                    0x09dc                  currentChannel
+                    0x09dd                  ConnMode
 
-.nbss               0x09d4          0x6
- .nbss              0x09d4          0x4 MiWi_Security.o
-                    0x09d4                  tmpBlock
- .nbss              0x09d8          0x2 SymbolTime.o
-                    0x09d8                  timerExtension1
-                    0x09d9                  timerExtension2
+.nbss               0x09de          0x6
+ .nbss              0x09de          0x4 MiWi_Security.o
+                    0x09de                  tmpBlock
+ .nbss              0x09e2          0x2 SymbolTime.o
+                    0x09e2                  timerExtension1
+                    0x09e3                  timerExtension2
 
-.data               0x09da         0xa0
- .data              0x09da         0xa0 c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(doprnt_cdnopsuxX.XXo)
+.const              0x8294        0x4ea load address 0x000294  
+ .const             0x8294        0x27a DemoOutput.o
+                    0x8294                  MiWi
+                    0x8312                  DE
+ .const             0x850e        0x1d2 MiWi_P2P.o
+                    0x850e                  ScanTime
+ .const             0x86e0         0x86 MiWi_MRF89XA.o
+                    0x86e0                  PVALUE
+                    0x8700                  SVALUE
+                    0x8720                  InitConfigRegs
+ .const             0x8766         0x10 UART_Handler.o
+                    0x8766                  CharacterArray
+ .const             0x8776          0x8 MiWi_Security.o
+                    0x8776                  mySecurityKey
 
-.dconst             0x0a7a         0x2a
- .dconst            0x0a7a         0x2a c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(doprnt_cdnopsuxX.XXo)
+.text             0x00077e       0x2a08
+ .text            0x00077e       0x14e8 MiWi_P2P.o
+                  0x00077e                  MacroNop
+                  0x000786                  P2PTasks
+                  0x000d8c                  MiApp_ProtocolInit
+                  0x000e48                  MiApp_TransceiverPowerState
+                  0x000ec6                  CheckForData
+                  0x000f22                  IndirectPacket
+                  0x0010e6                  SendPacket
+                  0x0011ac                  MiApp_BroadcastPacket
+                  0x0011fc                  MiApp_UnicastConnection
+                  0x00127c                  MiApp_UnicastAddress
+                  0x0012e8                  isSameAddress
+                  0x001324                  MiApp_StartConnection
+                  0x001384                  MiApp_EstablishConnection
+                  0x0014a6                  MiApp_DiscardMessage
+                  0x0014b0                  MiApp_SetChannel
+                  0x0014d2                  MiApp_MessageAvailable
+                  0x0014e4                  DumpConnection
+                  0x0015ea                  AddConnection
+                  0x0016de                  MiApp_SearchConnection
+                  0x001804                  MiApp_NoiseDetection
+                  0x00193a                  StartChannelHopping
+                  0x0019c8                  MiApp_ResyncConnection
+                  0x001b16                  MiApp_InitChannelHopping
+                  0x001b66                  MiApp_RemoveConnection
+                  0x001c46                  MiApp_ConnectionMode
+ .text            0x001c66        0xc20 MiWi_MRF89XA.o
+                  0x001c66                  getReceiverBW
+                  0x001c7a                  RegisterSet
+                  0x001cb0                  RegisterRead
+                  0x001cf0                  WriteFIFO
+                  0x001d20                  TxPacket
+                  0x001e46                  MiMAC_SetAltAddress
+                  0x001e52                  MiMAC_SetChannel
+                  0x001ea6                  MiMAC_SetPower
+                  0x001ecc                  MiMAC_Init
+                  0x001f64                  SetRFMode
+                  0x001fd2                  MiMAC_SendPacket
+                  0x002180                  MiMAC_ReceivedPacket
+                  0x002428                  MiMAC_DiscardPacket
+                  0x00244a                  MiMAC_ChannelAssessment
+                  0x0024dc                  MiMAC_PowerState
+                  0x002538                  IRQ1_Handler
+ .text            0x002886        0x30c MiWi_Security.o
+                  0x002886                  encode
+                  0x00291c                  CTR
+                  0x0029c0                  CBC_MAC
+                  0x002a5a                  CCM_Enc
+                  0x002aee                  CCM_Dec
+ .text            0x002b92        0x14a main.o
+                  0x002b92                  main
+ .text            0x002cdc        0x11c HardwareConfig.o
+                  0x002cdc                  HardwareCfg_Init
+                  0x002cee                  Cfg_PPS
+                  0x002dc4                  Cfg_Ports
+ .text            0x002df8         0xf0 DemoOutput.o
+                  0x002df8                  DemoOutput_Greeting
+                  0x002e1a                  DemoOutput_Channel
+                  0x002e44                  DemoOutput_HandleMessage
+                  0x002eca                  DemoOutput_ChannelError
+                  0x002ede                  DemoOutput_UnicastFail
+ .text            0x002ee8         0xcc UART_Handler.o
+                  0x002ee8                  ConsoleInit
+                  0x002f00                  ConsolePutROMString
+                  0x002f2e                  ConsolePut
+                  0x002f42                  ConsoleGet
+                  0x002f5a                  PrintChar
+                  0x002f8a                  PrintDec
+ .text            0x002fb4         0x7a TimeDelay.o
+                  0x002fb4                  Delay10us
+                  0x003000                  DelayMs
+ .text            0x00302e         0x76 ADC_Handler.o
+                  0x00302e                  ADC_Init
+ .text            0x0030a4         0x56 Oscillator.o
+                  0x0030a4                  Oscillator_Init
+ .text            0x0030fa         0x4c Interrupts.o
+                  0x0030fa                  Interrupts_Init
+                  0x003126                  _INT1Interrupt
+ .text            0x003146         0x40 SPI_Handler.o
+                  0x003146                  SPI_Init
+                  0x00315c                  SPIPut
+                  0x003178                  SPIGet
 
-.data               0x0aa4         0x26
- .data              0x0aa4         0x26 c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(_iob.XXo)
-                    0x0aa4                  _Files
-                    0x0aa6                  _iob
+.dinit            0x003186         0x3c
+ .dinit           0x003186         0x3c data_init
 
-.bss                0x0aca          0x6
- .bss               0x0aca          0x6 c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(_iob.XXo)
-                    0x0aca                  _sobuf
-                    0x0acc                  _sibuf
-                    0x0ace                  _outdone
-
-.data               0x0ad0          0x2
- .data              0x0ad0          0x2 c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libpic30-coff.a(c30_uart.o)
-                    0x0ad0                  __C30_UART
-
-.const              0x8bb2        0x54e load address 0x000bb2  
- .const             0x8bb2        0x2b8 DemoOutput.o
-                    0x8bb2                  MiWi
-                    0x8c30                  DE
- .const             0x8e6a        0x1d2 MiWi_P2P.o
-                    0x8e6a                  ScanTime
- .const             0x903c         0x86 MiWi_MRF89XA.o
-                    0x903c                  PVALUE
-                    0x905c                  SVALUE
-                    0x907c                  InitConfigRegs
- .const             0x90c2         0x22 main.o
- .const             0x90e4         0x10 UART_Handler.o
-                    0x90e4                  CharacterArray
- .const             0x90f4          0x8 MiWi_Security.o
-                    0x90f4                  mySecurityKey
- .const             0x90fc          0x4 LCD_Handler.o
-                    0x90fc                  LCD_INIT_STRING
-
-.text             0x001100       0x287e
- .text            0x001100       0x14e8 MiWi_P2P.o
-                  0x001100                  MacroNop
-                  0x001108                  P2PTasks
-                  0x00170e                  MiApp_ProtocolInit
-                  0x0017ca                  MiApp_TransceiverPowerState
-                  0x001848                  CheckForData
-                  0x0018a4                  IndirectPacket
-                  0x001a68                  SendPacket
-                  0x001b2e                  MiApp_BroadcastPacket
-                  0x001b7e                  MiApp_UnicastConnection
-                  0x001bfe                  MiApp_UnicastAddress
-                  0x001c6a                  isSameAddress
-                  0x001ca6                  MiApp_StartConnection
-                  0x001d06                  MiApp_EstablishConnection
-                  0x001e28                  MiApp_DiscardMessage
-                  0x001e32                  MiApp_SetChannel
-                  0x001e54                  MiApp_MessageAvailable
-                  0x001e66                  DumpConnection
-                  0x001f6c                  AddConnection
-                  0x002060                  MiApp_SearchConnection
-                  0x002186                  MiApp_NoiseDetection
-                  0x0022bc                  StartChannelHopping
-                  0x00234a                  MiApp_ResyncConnection
-                  0x002498                  MiApp_InitChannelHopping
-                  0x0024e8                  MiApp_RemoveConnection
-                  0x0025c8                  MiApp_ConnectionMode
- .text            0x0025e8        0xc20 MiWi_MRF89XA.o
-                  0x0025e8                  getReceiverBW
-                  0x0025fc                  RegisterSet
-                  0x002632                  RegisterRead
-                  0x002672                  WriteFIFO
-                  0x0026a2                  TxPacket
-                  0x0027c8                  MiMAC_SetAltAddress
-                  0x0027d4                  MiMAC_SetChannel
-                  0x002828                  MiMAC_SetPower
-                  0x00284e                  MiMAC_Init
-                  0x0028e6                  SetRFMode
-                  0x002954                  MiMAC_SendPacket
-                  0x002b02                  MiMAC_ReceivedPacket
-                  0x002daa                  MiMAC_DiscardPacket
-                  0x002dcc                  MiMAC_ChannelAssessment
-                  0x002e5e                  MiMAC_PowerState
-                  0x002eba                  IRQ1_Handler
- .text            0x003208        0x30c MiWi_Security.o
-                  0x003208                  encode
-                  0x00329e                  CTR
-                  0x003342                  CBC_MAC
-                  0x0033dc                  CCM_Enc
-                  0x003470                  CCM_Dec
- .text            0x003514        0x1ec DemoOutput.o
-                  0x003514                  DemoOutput_Greeting
-                  0x00355a                  DemoOutput_Channel
-                  0x0035f0                  DemoOutput_HandleMessage
-                  0x003676                  DemoOutput_UpdateTxRx
-                  0x0036be                  DemoOutput_ChannelError
-                  0x0036d2                  DemoOutput_UnicastFail
- .text            0x003700        0x15e LCD_Handler.o
-                  0x003700                  LCD_send_nibble
-                  0x003776                  LCD_send_byte
-                  0x0037aa                  LCD_Init
-                  0x0037f6                  LCD_gotoxy
-                  0x003820                  LCD_putc
- .text            0x00385e        0x120 HardwareConfig.o
-                  0x00385e                  HardwareCfg_Init
-                  0x003874                  Cfg_PPS
-                  0x00394a                  Cfg_Ports
-
-.dinit            0x00397e         0xf0
- .dinit           0x00397e         0xf0 data_init
-
-.text             0x003a6e        0x328
- .text            0x003a6e         0xcc UART_Handler.o
-                  0x003a6e                  ConsoleInit
-                  0x003a86                  ConsolePutROMString
-                  0x003ab4                  ConsolePut
-                  0x003ac8                  ConsoleGet
-                  0x003ae0                  PrintChar
-                  0x003b10                  PrintDec
- .text            0x003b3a         0x7a TimeDelay.o
-                  0x003b3a                  Delay10us
-                  0x003b86                  DelayMs
- .text            0x003bb4         0x72 ADC_Handler.o
-                  0x003bb4                  ADC_Init
- .text            0x003c26         0x56 Oscillator.o
-                  0x003c26                  Oscillator_Init
- .text            0x003c7c         0x50 Interrupts.o
-                  0x003c7c                  Interrupts_Init
-                  0x003cac                  _INT1Interrupt
- .text            0x003ccc         0x4a main.o
-                  0x003ccc                  main
- .text            0x003d16         0x40 SPI_Handler.o
-                  0x003d16                  SPI_Init
-                  0x003d2c                  SPIPut
-                  0x003d48                  SPIGet
- .text            0x003d56         0x34 SymbolTime.o
-                  0x003d56                  InitSymbolTimer
-                  0x003d62                  MiWi_TickGet
- .text            0x003d8a          0xc _user_putc.o
-                  0x003d8a                  _user_putc
+.text             0x0031c2         0x34
+ .text            0x0031c2         0x34 SymbolTime.o
+                  0x0031c2                  InitSymbolTimer
+                  0x0031ce                  MiWi_TickGet

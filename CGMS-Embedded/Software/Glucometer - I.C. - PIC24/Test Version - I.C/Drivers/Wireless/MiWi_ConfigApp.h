@@ -38,7 +38,7 @@
 // ENABLE_CONSOLE will enable the print out on the hyper terminal
 // this definition is very helpful in the debugging process
 /*********************************************************************/
-//#define ENABLE_UART
+#define ENABLE_UART
 
 /*********************************************************************/
 // HARDWARE_SPI enables the hardware SPI implementation on MCU
@@ -116,7 +116,7 @@
 // Network freezer feature needs definition of NVM kind to be 
 // used, which is specified in HardwareConfig.h
 /*********************************************************************/
-#define ENABLE_NETWORK_FREEZER
+//#define ENABLE_NETWORK_FREEZER
 
 
 /*********************************************************************/
@@ -164,7 +164,7 @@
 // on the P2P connection. The additional payload will be defined by 
 // the application and defined in main.c
 /*********************************************************************/
-#define ADDITIONAL_NODE_ID_SIZE   1
+#define ADDITIONAL_NODE_ID_SIZE   0
 
 /*********************************************************************/
 // P2P_CONNECTION_SIZE defines the maximum P2P connections that this 

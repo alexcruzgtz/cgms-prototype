@@ -48,10 +48,11 @@
 #if !defined(__MIWI_MRF89XA_H) && defined(MRF89XA)
 #define __MIWI_MRF89XA_H
 	#include <p24fxxxx.h>
-	#include "Drivers/GenericTypeDefs.h"
+	#include <GenericTypeDefs.h>
     #include "Drivers/SymbolTime.h"
     #include "Drivers/TimeDelay.h"
     #include "Drivers/UART_Handler.h"
+	#include "Drivers/SPI_Handler.h"
 	#include "Scheduler/HardwareConfig.h"
     #include "Drivers/Wireless/MiWi_ConfigMRF89XA.h"
     #include "Drivers/Wireless/MiWi_Security.h"

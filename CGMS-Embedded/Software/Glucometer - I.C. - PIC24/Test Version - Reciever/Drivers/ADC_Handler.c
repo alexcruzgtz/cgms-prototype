@@ -4,7 +4,7 @@
 
 #include "Drivers/ADC_Handler.h"
 #include <p24fxxxx.h>
-#include "Drivers/GenericTypeDefs.h"
+#include <GenericTypeDefs.h>
 #include "Scheduler/HardwareConfig.h"
 #include "Drivers/Interrupts.h"
 

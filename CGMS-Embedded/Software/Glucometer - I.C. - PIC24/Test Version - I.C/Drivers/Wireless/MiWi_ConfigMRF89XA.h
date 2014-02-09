@@ -47,7 +47,7 @@
 
 
 /*-----------------------------------------------------------------------------------------*/    
-    #include "MiWi_MRF89XA.h"
+    #include "Drivers/Wireless/MiWi_MRF89XA.h"
 
     /*********************************************************************/
     // BAND_902, BAND_915 or BAND_863 (or BAND_950 - circuit dependent) are three supported frequency

@@ -42,9 +42,11 @@
 *  3.1   5/28/2010    yfy       MiWi DE 3.1
 *  4.1   6/3/2011     yfy       MAL v2011-06
 ********************************************************************/
+
+
 #include "Drivers/Wireless/MiWi_NVM.h"
 #include "Drivers/Wireless/MiWi_ConfigApp.h"
-#include "Drivers/GenericTypeDefs.h"
+#include <GenericTypeDefs.h>
 #include "Drivers/Compiler.h"
 #include "Drivers/UART_Handler.h"
 #include "Drivers/Wireless/MiWi_MCHP_API.h"
@@ -52,89 +54,110 @@
 
 /*-----------------------------------------------------------------------------------------*/
 #if defined(ENABLE_NVM)
-    
-/*-----------------------------------------------------------------------------------------*/
-    WORD    nvmMyPANID;
-    WORD    nvmCurrentChannel;
-    WORD    nvmConnMode;
-    WORD    nvmConnectionTable;
-    WORD	nvmOutFrameCounter;
-  	WORD 	nextEEPosition;
 
 /*-----------------------------------------------------------------------------------------*/
-    extern void MacroNop(void);
+    ROM BYTE filler[ERASE_BLOCK_SIZE] = {0x00};
+    ROM WORD_VAL            nvmMyPANID;
+    ROM BYTE                nvmCurrentChannel;
+    ROM BYTE                nvmConnMode;
+    ROM CONNECTION_ENTRY    nvmConnectionTable[CONNECTION_SIZE];
+    ROM DWORD_VAL           nvmOutFrameCounter;               
+    ROM BYTE filler2[ERASE_BLOCK_SIZE] = {0x00};
 
-/*.........................................................................................*/
-    void NVMRead(BYTE *dest, WORD addr, WORD count)
+/*-----------------------------------------------------------------------------------------*/
+	extern void MacroNop(void);
+  	
+	void NVMWrite(BYTE *src, ROM BYTE* dest, WORD count)
     {
-	   /* while( count )
-        {
-        	EEADRH = addr >> 8;
-            EEADR = addr;
-            EECON1bits.EEPGD = 0;
-            EECON1bits.CFGS = 0;
-            EECON1bits.RD = 1;   
-            MacroNop();
-            *dest++ = EEDATA;
-            count--;
-            addr++;
-        }*/            
-    }
-
-/*.........................................................................................*/
-    void NVMWrite(BYTE *source, WORD addr, WORD count)
-    {
-    /*	BYTE oldGIEH;
-        while(count)
-        {   
-        	EEADRH = addr >> 8;
-            EEADR = addr;
-            EEDATA = *source++;   
-            EECON1bits.EEPGD = 0;
-            EECON1bits.CFGS = 0;
-            EECON1bits.WREN = 1;
-            oldGIEH = INTCONbits.GIEH;
-            INTCONbits.GIEH = 0; 
-            EECON2 = 0x55;
-            EECON2 = 0xAA;
-            EECON1bits.WR = 1;
-            INTCONbits.GIEH = oldGIEH;
-            while(EECON1bits.WR) ;
-            EECON1bits.WREN = 0;
-            count--;
-            addr++;
-        }*/
-    }
-
-/*.........................................................................................*/
-    BOOL NVMalloc(WORD size, WORD *location)
-    {
-    /*	//WORD retval;
-        if ((nextEEPosition + size) > TOTAL_NVM_BYTES)
-        {
-        	return FALSE;
-        }
-        *location = nextEEPosition;
-        nextEEPosition += size;
-        return TRUE;*/
-    }
+	    ROM char *pEraseBlock;
+        static BYTE memBlock[ERASE_BLOCK_SIZE];
+        BYTE *pMemBlock;
+        BYTE writeIndex;
+        BYTE writeStart;
+        BYTE writeCount;
+        BYTE oldGIEH;
+        DWORD oldTBLPTR;
         
-/*.........................................................................................*/
-    BOOL NVMInit(void)
-    {
-    /*	BOOL result = TRUE;
-        nextEEPosition = 0;
-        result &= NVMalloc(2, &nvmMyPANID);
-        result &= NVMalloc(1, &nvmCurrentChannel);
-        result &= NVMalloc(1, &nvmConnMode);
-        result &= NVMalloc(sizeof(CONNECTION_ENTRY) * CONNECTION_SIZE, &nvmConnectionTable);
-        result &= NVMalloc(4, &nvmOutFrameCounter);
-        return result;*/
-    }
+        #if defined(VERIFY_WRITE)
+      	  while( memcmppgm2ram( src, (MEM_MODEL ROM void *)dest, count))
+        #elif defined(CHECK_BEFORE_WRITE)
+          if (memcmppgm2ram( src, (MEM_MODEL ROM void *)dest, count ))
+        #endif
+        {
+        	// First of all get nearest "left" erase block boundary
+            pEraseBlock = (ROM char*)((long)dest & (long)(~(ERASE_BLOCK_SIZE-1)));
+            writeStart = (BYTE)((BYTE)dest & (BYTE)(ERASE_BLOCK_SIZE-1));
+            while( count )
+            {
+	            // Now read the entire erase block size into RAM.
+                NVMRead(memBlock, (far ROM void*)pEraseBlock, ERASE_BLOCK_SIZE);
+                // Erase the block.
+                // Erase flash memory, enable write control.
+                EECON1 = 0x94;
+                oldGIEH = INTCONbits.GIEH;
+                INTCONbits.GIEH = 0;
+                EECON2 = 0x55;
+                EECON2 = 0xaa;
+                EECON1bits.WR = 1;
+                MacroNop();
+                EECON1bits.WREN = 0;
+                oldTBLPTR = TBLPTR;
+                INTCONbits.GIEH = oldGIEH;
+        
+                // Modify 64-byte block of RAM buffer as per what is required.
+                pMemBlock = &memBlock[writeStart];
+                while( writeStart < ERASE_BLOCK_SIZE && count )
+                {
+                	*pMemBlock++ = *src++;
+                    count--;
+                    writeStart++;
+                }
+                // After first block write, next start would start from 0.
+                writeStart = 0;
+                // Now write entire 64 byte block in one write block at a time.
+                writeIndex = ERASE_BLOCK_SIZE / WRITE_BLOCK_SIZE;
+                pMemBlock = memBlock;
+                while( writeIndex )
+                {
+	                oldGIEH = INTCONbits.GIEH;
+                    INTCONbits.GIEH = 0;
+                    TBLPTR = oldTBLPTR;
+                    // Load individual block
+                    writeCount = WRITE_BLOCK_SIZE;
+                    while( writeCount-- )
+                    {
+	                    TABLAT = *pMemBlock++;
+                        //TBLWTPOSTINC();
+                        _asm tblwtpostinc _endasm
+                    }
+                    // Start the write process: reposition tblptr back into memory block that we want to write to.
+                    // Write flash memory, enable write control.
+                    EECON1 = 0x84;
+                    EECON2 = 0x55;
+                    EECON2 = 0xaa;
+                    EECON1bits.WR = 1;
+                    MacroNop();
+                    EECON1bits.WREN = 0;
+                    // One less block to write
+                    writeIndex--;
+                    TBLPTR++;
+                    oldTBLPTR = TBLPTR;
+                    INTCONbits.GIEH = oldGIEH;
+                }
+                // Go back and do it all over again until we write all
+                // data bytes - this time the next block.
+                #if !defined(WIN32)
+	                pEraseBlock += ERASE_BLOCK_SIZE;
+                #endif
+            }
+        }
+     }
+
 
 /*-----------------------------------------------------------------------------------------*/
 #else
     extern char bogusVar;
-    
-/*-----------------------------------------------------------------------------------------*/
+
+
+/*-----------------------------------------------------------------------------------------*/    
 #endif   

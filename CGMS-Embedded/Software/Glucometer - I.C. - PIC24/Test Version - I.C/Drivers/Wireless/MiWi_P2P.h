@@ -51,12 +51,18 @@
 #ifndef __MIWI_P2P_H_
 #define __MIWI_P2P_H_
 
-#include "MiWi_ConfigApp.h"
+#include "Drivers/Wireless/MiWi_ConfigApp.h"
 #if defined(PROTOCOL_P2P)
-	#include "SymbolTime.h"
-	#include "MiWi_ConfigP2P.h"
-	#include "MiWi_MRF89XA.h"
-	#include "MiWi_MCHP_MAC.h"
+	#include "Drivers/Compiler.h"
+	#include "Drivers/GenericTypeDefs.h"
+	#include "Drivers/SymbolTime.h"
+	#include "Drivers/SPI_Handler.h"
+	#include "Drivers/UART_Handler.h"
+	#include "Drivers/Wireless/MiWi_NVM.h"
+	#include "Drivers/Wireless/MiWi_MCHP_MAC.h"
+	#include "Drivers/Wireless/MiWi_MCHP_API.h"
+	#include "Drivers/Wireless/MiWi_MRF89XA.h"
+	#include "Drivers/Wireless/MiWi_ConfigP2P.h"
 	#define SOFTWARE_SECURITY
 
 

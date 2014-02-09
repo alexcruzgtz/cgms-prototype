@@ -34,7 +34,7 @@ Date        Comments
 2010.10.13  Added support for PICC compiler
 *******************************************************************************/
 
-#include "Drivers/GenericTypeDefs.h"
+#include <GenericTypeDefs.h>
 #include "Drivers/Compiler.h"
 #include "Drivers/Oscillator.h"
 

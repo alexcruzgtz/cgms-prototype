@@ -6,7 +6,7 @@
 #include <p24fxxxx.h>
 #include <p24fj64ga102.h>
 #include <PPS.h>
-#include "Drivers/GenericTypeDefs.h"
+#include <GenericTypeDefs.h>
 #include "Drivers/Interrupts.h"
 #include "Drivers/Oscillator.h"
 #include "Drivers/ADC_Handler.h"
@@ -28,7 +28,7 @@ ADC_Init();
 SPI_Init();
 //I2C_Init();
 LCD_Init();
-//ConsoleInit();
+ConsoleInit();
 }
 
 

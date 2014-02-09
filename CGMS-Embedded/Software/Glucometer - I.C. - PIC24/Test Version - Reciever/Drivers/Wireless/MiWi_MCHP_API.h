@@ -53,7 +53,7 @@
     #include "Drivers/Wireless/MiWi_ConfigApp.h"
 	#include "Drivers/Wireless/MiWi_ConfigP2P.h"
 	#include "Drivers/Wireless/MiWi_P2P.h"
-	#include "Drivers/GenericTypeDefs.h"
+	#include <GenericTypeDefs.h>
 
 /*.........................................................................................*/    
     #define INPUT

@@ -48,10 +48,9 @@
 #define __DEMOOUTPUT_H
 
 
-#include <GenericTypeDefs.h>
+#include "Drivers/GenericTypeDefs.h"
 #include "Scheduler/HardwareConfig.h"
 #include "Drivers/UART_Handler.h"
-#include "Drivers/LCD_Handler.h"
 #include "Drivers/Wireless/MiWi_ConfigApp.h"
 #include "Drivers/Wireless/MiWi_MCHP_API.h"
 #include <stdio.h>

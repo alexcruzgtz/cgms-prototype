@@ -47,8 +47,13 @@
 *  4.1   6/3/2011     yfy       MAL v2011-06
 ********************************************************************/
 
-#include "SymbolTime.h"
-#include "GenericTypeDefs.h"
+#include "Drivers/SymbolTime.h"
+#include "Drivers/Compiler.h"
+#include "Drivers/GenericTypeDefs.h"
+#include "Drivers/Oscillator.h"
+#include "Drivers/UART_Handler.h"
+//#include "Drivers/Wireless/MiWi_ConfigApp.h"
+//#include "Drivers/Wireless/MiWi_P2P.h"
 
 
 /*-----------------------------------------------------------------------------------------*/

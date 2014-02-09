@@ -2,13 +2,16 @@
 /**/
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-#include "p24fxxxx.h"
-#include "GenericTypeDefs.h"
-#include "MiWi_MRF89XA.h"
-#include "ADC_Handler.h"
 
 #ifndef __INTERRUPTS_H
 #define __INTERRUPTS_H
+
+
+/*-----------------------------------------------------------------------------------------*/
+#include <p24fxxxx.h>
+#include "Drivers/GenericTypeDefs.h"
+#include "Drivers/Wireless/MiWi_MRF89XA.h"
+//#include "ADC_Handler.h"
 
 
 /*-----------------------------------------------------------------------------------------*/
@@ -73,7 +76,7 @@
 #define INT0_IRQ_En				IEC0bits.INT0IE
 #define INT0_IRQ_ON				IEC0bits.INT0IE=SET;
 #define INT0_IRQ_OFF			IEC0bits.INT0IE=CLEAR;
-#define INT2_IRQ_En				IEC1bits.INT1IE
+#define INT1_IRQ_En				IEC1bits.INT1IE
 #define INT1_IRQ_ON				IEC1bits.INT1IE=SET;
 #define INT1_IRQ_OFF			IEC1bits.INT1IE=CLEAR;
 #define INT2_IRQ_En				IEC1bits.INT2IE
@@ -305,6 +308,7 @@
 
 /*-----------------------------------------------------------------------------------------*/
 void Interrupts_Init(void);
+
 
 /*-----------------------------------------------------------------------------------------*/
 #endif

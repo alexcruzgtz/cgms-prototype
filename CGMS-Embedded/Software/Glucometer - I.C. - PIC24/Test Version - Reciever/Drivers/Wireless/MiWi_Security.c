@@ -59,7 +59,7 @@
 
 #if defined(SOFTWARE_SECURITY) && defined(ENABLE_SECURITY)
     #include "Drivers/Wireless/MiWi_Security.h"
-	#include "Drivers/GenericTypeDefs.h"
+	#include <GenericTypeDefs.h>
 	#include "Drivers/UART_Handler.h"
 
 /*-----------------------------------------------------------------------------------------*/    

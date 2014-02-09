@@ -53,7 +53,7 @@
 	#include "Drivers/Wireless/MiWi_ConfigApp.h"
 	#include "Drivers/Wireless/MiWi_P2P.h"
 	#include "Drivers/Wireless/MiWi_MRF89XA.h"
-	#include "Drivers/GenericTypeDefs.h"
+	#include <GenericTypeDefs.h>
 	#include "Drivers/UART_Handler.h"
 
 /*-----------------------------------------------------------------------------------------*/   
