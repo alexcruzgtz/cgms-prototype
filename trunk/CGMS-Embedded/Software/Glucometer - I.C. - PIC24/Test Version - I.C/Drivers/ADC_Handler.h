@@ -1,11 +1,11 @@
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-/**/
+/**/	
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-#include "p24fxxxx.h"
-#include "GenericTypeDefs.h"
-#include "HardwareConfig.h"
-#include "Interrupts.h"
+#include <p24fxxxx.h>
+#include "Drivers/GenericTypeDefs.h"
+#include "Scheduler/HardwareConfig.h"
+#include "Drivers/Interrupts.h"
 
 #ifndef __ADC_HANDLER_H
 #define __ADC_HANDLER_H
@@ -28,7 +28,7 @@
 #define _32_TCY		31
 #define _64_TCY		63
 
-#define ADC_NUM_INPUTS			4;
+#define ADC_NUM_INPUTS			1;
 #define ANALOG_SCANCHANNELS		ANALOGPINS_CFG
 #define ADC_BUF2_OFFSET			0x0008
 #define ADC_Buf_Status 			AD1CON2bits.BUFS /*If 1: AD filling upper buffer. If 0: AD filling lower buffer*/
@@ -85,8 +85,8 @@
 /*............. AD1PCFG A/D Port Configuration Register Macros ............................*/
 #define	ADC_BAND_GAP_REF_ENABLED		AD1PCFGbits.PCFG15=CLEAR;
 #define	ADC_BAND_GAP_REF_DISABLED		AD1PCFGbits.PCFG15=SET;
-#define ADC_HAlF_BAND_REF_ENABLED		AD1PCFGbits.PCFG14=CLEAR;
-#define ADC_HAlF_BAND_REF_DISABLED		AD1PCFGbits.PCFG14=SET;
+#define ADC_HAlFBAND_REF_ENABLED		AD1PCFGbits.PCFG14=CLEAR;
+#define ADC_HAlFBAND_REF_DISABLED		AD1PCFGbits.PCFG14=SET;
 #define ADC_INT_VREG_CH_ENABLED			AD1PCFGbits.PCFG13=CLEAR;
 #define ADC_INT_VREG_CH_DISABLED		AD1PCFGbits.PCFG13=SET;
 #define ADC_Analog_Pins_Cfg				AD1PCFGbits.PCFG
@@ -102,13 +102,13 @@
 
 
 /*-----------------------------------------------------------------------------------------*/
-extern void 	ADC_Init(void);
-extern void 	ADC_ReadAll(UINT16 *ADCBufAddress);
-extern UINT16 	ADC_ReadOne(UINT16 ADCAnalogInpit);
-extern void		ADC_StartAll(void);
-extern void		ADC_StopAll(void);
+void 	ADC_Init(void);
+//void 	ADC_ReadAll(UINT16 *ADCBufAddress);
+//UINT16 	ADC_ReadOne(UINT16 ADCAnalogInpit);
+//void	ADC_StartAll(void);
+//void	ADC_StopAll(void);
 
-UINT16 	*ptr_ADC8Buffer
+//UINT16 	*ptr_ADC8Buffer
 
 
 /*-----------------------------------------------------------------------------------------*/

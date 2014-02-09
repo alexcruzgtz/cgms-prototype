@@ -51,11 +51,11 @@
 
 
 /*-----------------------------------------------------------------------------------------*/
-    #include "MiWi_ConfigApp.h"
-    #include "GenericTypeDefs.h"
-    #include "MiWi_ConfigP2P.h"
-	#include "MiWi_MRF89XA.h"
-    #define  SOFTWARE_SECURITY
+    #include "Drivers/GenericTypeDefs.h"
+	#include "Drivers/Wireless/MiWi_ConfigApp.h"
+	#include "Drivers/Wireless/MiWi_ConfigP2P.h"
+	#include "Drivers/Wireless/MiWi_MRF89XA.h"
+    
 
 /*.........................................................................................*/    
     #define CHANNEL_ASSESSMENT_CARRIER_SENSE    0x00

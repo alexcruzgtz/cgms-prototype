@@ -51,7 +51,7 @@
 
 
 /*-----------------------------------------------------------------------------------------*/
-    #include "Drivers/GenericTypeDefs.h"
+    #include <GenericTypeDefs.h>
 	#include "Drivers/Wireless/MiWi_ConfigApp.h"
 	#include "Drivers/Wireless/MiWi_ConfigP2P.h"
 	#include "Drivers/Wireless/MiWi_MRF89XA.h"

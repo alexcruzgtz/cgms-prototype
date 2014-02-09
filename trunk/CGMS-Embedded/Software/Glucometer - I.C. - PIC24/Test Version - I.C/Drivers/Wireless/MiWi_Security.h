@@ -50,13 +50,14 @@
 
 
 /*-----------------------------------------------------------------------------------------*/   
-	#include "MiWi_ConfigApp.h"
-	#include "MiWi_P2P.h"
-	#include "MiWi_MRF89XA.h"
-	#define SOFTWARE_SECURITY
-	
+	#include "Drivers/Wireless/MiWi_ConfigApp.h"
+	#include "Drivers/Wireless/MiWi_P2P.h"
+	#include "Drivers/Wireless/MiWi_MRF89XA.h"
+	#include "Drivers/GenericTypeDefs.h"
+	#include "Drivers/UART_Handler.h"
+
 /*-----------------------------------------------------------------------------------------*/   
-    #if defined(SOFTWARE_SECURITY)
+    //#if defined(SOFTWARE_SECURITY)
         //#define XTEA_128
         #define XTEA_64
         #define XTEA_ROUND  32
@@ -101,7 +102,7 @@
         void CBC_MAC(BYTE *text, BYTE len, BYTE *key, BYTE *MIC);
         void CCM_Enc(BYTE *text, BYTE headerLen, BYTE payloadLen, BYTE *key);
         BOOL CCM_Dec(BYTE *text, BYTE headerLen, BYTE payloadLen, BYTE *key);
-    #endif
+    //#endif
 
 
 /*-----------------------------------------------------------------------------------------*/   

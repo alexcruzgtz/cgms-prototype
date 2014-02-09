@@ -47,15 +47,15 @@
 #define __MIWI_NVM_H
 
 /*-----------------------------------------------------------------------------------------*/
-#include "MiWi_ConfigApp.h"
-#include "MiWi_P2P.h"
+#include "Drivers/Wireless/MiWi_ConfigApp.h"
+#include "Drivers/Wireless/MiWi_P2P.h"
     
 /*.........................................................................................*/
 #if defined(ENABLE_NVM)
-	#include "GenericTypeDefs.h"
-    #include "Compiler.h"
-	#include "UART_Handler.h"
-    #include "MiWi_MCHP_API.h"
+	#include "Drivers/GenericTypeDefs.h"
+	#include "Drivers/Compiler.h"
+	#include "Drivers/UART_Handler.h"
+    #include "Drivers/Wireless/MiWi_MCHP_API.h"
 
 /*-----------------------------------------------------------------------------------------*/
   	#define TOTAL_NVM_BYTES     1024
@@ -82,6 +82,8 @@
     #define nvmGetOutFrameCounter( x )          NVMRead( (BYTE *)x, nvmOutFrameCounter, 4)
     #define nvmPutOutFrameCounter( x )          NVMWrite((BYTE *)x, nvmOutFrameCounter, 4)
             
+#endif
+
     
 /*-----------------------------------------------------------------------------------------*/
 #endif

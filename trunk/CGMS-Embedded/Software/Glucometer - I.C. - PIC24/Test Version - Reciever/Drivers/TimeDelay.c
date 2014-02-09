@@ -41,7 +41,7 @@ Date        Comments
 *******************************************************************************/
 
 #include "Drivers/TimeDelay.h"
-#include "Drivers/GenericTypeDefs.h"
+#include <GenericTypeDefs.h>
 #include "Drivers/Compiler.h"
 #include "Drivers/Oscillator.h"
 

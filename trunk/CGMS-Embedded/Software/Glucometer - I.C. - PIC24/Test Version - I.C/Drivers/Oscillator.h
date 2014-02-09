@@ -2,16 +2,16 @@
 /**/
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-#include "p24fxxxx.h"
-#include "GenericTypeDefs.h"
+#include <p24fxxxx.h>
+#include "Drivers/GenericTypeDefs.h"
 
 #ifndef __OSCILLATOR_H
 #define __OSCILLATOR_H
 
 
 /*-----------------------------------------------------------------------------------------*/
-#define FOSC	(8000000);
-#define FYC		(FOSC/2);
+#define FOSC	(8000000)
+#define FCY		 4000000//(FOSC/2)
 
 /*.........................................................................................*/
 
@@ -66,14 +66,14 @@
 #define OSC_CurrentOsc			OSCCONbits.COSC
 #define OSC_NewOsc				OSCCONbits.NOSC	
 #define OSC_CLKLOCK_ON			OSCCONbits.CLKLOCK=SET;
-#define OSC_CLOKLOCK_OFF		OSCCONbits.CLKLOCK=CLEAR;
+#define OSC_CLKLOCK_OFF		OSCCONbits.CLKLOCK=CLEAR;
 #define OSC_IOLOCK_ON			OSCCONbits.IOLOCK=SET;
 #define OSC_IOLOCK_OFF			OSCCONbits.IOLOCK=CLEAR;
 #define OSC_PllLock_Status		OSCCONbits.LOCK
 #define OSC_CLKFail_Status		OSCCONbits.CF
 #define OSC_CLEAR_CLKFAIL		OSCCONbits.CF=CLEAR;
 #define	OSC_POSCSLEEP_ON		OSCCONbits.POSCEN=SET;		//Primary Oscillator continues to operate during Sleep mode
-#define OSC_POSCSLEEEP_OFF		OSCCONbits.POSCEN=CLEAR;	//Primary Oscillator disabled during Sleep mode
+#define OSC_POSCSLEEP_OFF		OSCCONbits.POSCEN=CLEAR;	//Primary Oscillator disabled during Sleep mode
 #define OSC_32KSOSC_ENABLE		OSCCONbits.SOSCEN=SET;
 #define OSC_32KSOSC_DISABLE		OSCCONbits.SOSCEN=CLEAR;
 #define OSC_OscSwitch_Status	OSCCONbits.OSWEN
@@ -115,7 +115,7 @@
 
 
 /*-----------------------------------------------------------------------------------------*/
-void Ooscillator_Init(void);
+void Oscillator_Init(void);
 
 
 /*-----------------------------------------------------------------------------------------*/

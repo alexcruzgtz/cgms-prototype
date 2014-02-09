@@ -52,11 +52,13 @@
 
 
 /*-----------------------------------------------------------------------------------------*/
-#include "GenericTypeDefs.h"
-#include "Compiler.h"
-#include "HardwareConfig.h"
-#include "MiWi_ConfigApp.h"
-#include "MiWi_P2P.h"
+#include <p24fxxxx.h>
+#include "Drivers/GenericTypeDefs.h"
+#include "Drivers/Compiler.h"
+#include "Drivers/Oscillator.h"
+//#include "Scheduler/HardwareConfig.h"
+#include "Drivers/Wireless/MiWi_ConfigApp.h"
+//#include "Drivers/Wireless/MiWi_P2P.h"
 
 /*.........................................................................................*/
 #define BAUD_RATE 19200
@@ -93,5 +95,3 @@
 
 /*-----------------------------------------------------------------------------------------*/
 #endif
-
-

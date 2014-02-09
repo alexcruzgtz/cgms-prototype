@@ -44,19 +44,22 @@
 *  3.1   5/28/2010    SM        MiWi DE 3.1
 ********************************************************************/
 
-#include "MiWi_ConfigApp.h"
+#include "Drivers/Wireless/MiWi_ConfigApp.h"
 #if !defined(__MIWI_MRF89XA_H) && defined(MRF89XA)
 #define __MIWI_MRF89XA_H
-
-    #include "GenericTypeDefs.h"
-    #include "Compiler.h"
-    #include "SymbolTime.h"
-    #include "TimeDelay.h"
-	#include "HardwareConfig.h"
-   	#include "MiWi_P2P.h"
-    #include "MiWi_ConfigMRF89XA.h"
-    #include "MiWi_Security.h"
-    #include "MiWi_MCHP_MAC.h"
+	#include <p24fxxxx.h>
+	#include "Drivers/GenericTypeDefs.h"
+    #include "Drivers/SymbolTime.h"
+    #include "Drivers/TimeDelay.h"
+    #include "Drivers/UART_Handler.h"
+	#include "Drivers/SPI_Handler.h"
+	#include "Scheduler/HardwareConfig.h"
+    #include "Drivers/Wireless/MiWi_ConfigMRF89XA.h"
+    #include "Drivers/Wireless/MiWi_Security.h"
+    #include "Drivers/Wireless/MiWi_MCHP_MAC.h"
+    #include "Drivers/Wireless/MiWi_MCHP_API.h"
+    #include "Drivers/Wireless/MiWi_NVM.h"
+	#include "Drivers/Wireless/MiWi_P2P.h"
 
 
 /*-----------------------------------------------------------------------------------------*/       

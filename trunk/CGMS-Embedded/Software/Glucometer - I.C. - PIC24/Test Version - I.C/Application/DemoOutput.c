@@ -44,20 +44,15 @@
 *  4.1   1/31/2012    yfy       MiWi DE 4.2, simplified demo interface
 **************************************************************************/
 
-/*-----------------------------------------------------------------------------------------*/
-
 #include "Application/DemoOutput.h"
-#include <GenericTypeDefs.h>
-#include <stdio.h>
-//#include <string.h>
+#include "Drivers/GenericTypeDefs.h"
 #include "Scheduler/HardwareConfig.h"
 #include "Drivers/UART_Handler.h"
-#include "Drivers/LCD_Handler.h"
 #include "Drivers/Wireless/MiWi_ConfigApp.h"
 #include "Drivers/Wireless/MiWi_MCHP_API.h"
+#include <stdio.h>
+//#include <string.h>
 
-
-/*-----------------------------------------------------------------------------------------*/
 /*************************************************************************/
 // the following two variable arrays are the data to be transmitted
 // in this demo. They are bit map of English word "MiWi" and "DE"
@@ -72,9 +67,8 @@ ROM const BYTE MiWi[6][21] =
     {0xB2,0x20,0x20,0xB2,0x20,0x20,0xB2,0x20,0xB2,0x20,0x20,0x20,0xB2,0x20,0xB2,0x20,0x20,0x20,0xB2,0x0D,0x0A},
     {0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x0D,0x0A}
     
-};
+};   
 
-/*.........................................................................................*/
 ROM const BYTE DE[6][11] = 
 {
     {0xB2,0xB2,0xB2,0x20,0x20,0xB2,0xB2,0xB2,0xB2,0x0D,0x0A},
@@ -84,18 +78,8 @@ ROM const BYTE DE[6][11] =
     {0xB2,0xB2,0xB2,0x20,0x20,0xB2,0xB2,0xB2,0xB2,0x0D,0x0A},
     {0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x20,0x0D,0x0A}
 }; 
-
-/*-----------------------------------------------------------------------------------------*/
 void DemoOutput_Greeting(void)
 {
-	BYTE i=0;
-	//stdout =_H_USER;
-	LCD_send_byte(0x80,0);
-	printf("Simple P2P Demo");
-	for (i=0 ; i<4 ; i++ )
-	{
-		DelayMs(250);
-	}
     Printf("\r\nStarting Node 1 of Simple Demo for MiWi(TM) P2P Stack ...");  
     Printf("\r\nInput Configuration:");
     Printf("\r\n           Button: RB15");
@@ -105,36 +89,16 @@ void DemoOutput_Greeting(void)
     Printf("\r\n     RF Transceiver: MRF89XA");
 }        
 
-/*.........................................................................................*/
 void DemoOutput_Channel(BYTE channel, BYTE Step)
 {
-	BYTE i=0;
     if( Step == 0 )
     {
-		//stdout =_H_USER;
-		LCD_send_byte(0x80,0);
-		printf("Conn Peer Chann");
-		LCD_send_byte(0xC0,0);
-		printf("%d",channel);
-		for (i=0 ; i<4 ; i++ )
-		{
-			DelayMs(250);
-		}
         Printf("\r\nConnecting Peer on Channel ");
         PrintDec(channel);
         Printf("\r\n");
     }
     else
     {    
-        //stdout =_H_USER;
-		LCD_send_byte(0x80,0);
-		printf("Conn Peer Chann");
-		LCD_send_byte(0xC0,0);
-		printf("%d",channel);
-		for (i=0 ; i<4 ; i++ )
-		{
-			DelayMs(250);
-		}
         Printf("\r\nConnected Peer on Channel ");
         PrintDec(channel);
         Printf("\r\n");
@@ -184,19 +148,9 @@ void DemoOutput_HandleMessage(void)
     }       
 }    
 
-void DemoOutput_UpdateTxRx(BYTE TxNum, BYTE RxNum)
+/*void DemoOutput_UpdateTxRx(BYTE TxNum, BYTE RxNum)
 {
-	BYTE i=0;
-	//stdout =_H_USER;
-	LCD_send_byte(0x80,0);
-	printf("TX:%d",TxNum);
-	LCD_send_byte(0xC0,0);
-	printf("RX:%d",RxNum);
-	for (i=0 ; i<4 ; i++ )
-	{
-		DelayMs(250);
-	}
-}    
+}*/   
 
 void DemoOutput_ChannelError(BYTE channel)
 {
@@ -207,14 +161,6 @@ void DemoOutput_ChannelError(BYTE channel)
 
 void DemoOutput_UnicastFail(void)
 {
-	BYTE i=0;
     Printf("\r\nUnicast Failed\r\n");                  
-    //stdout =_H_USER;
-	LCD_send_byte(0x80,0);
-	printf("Unicast Failed");
-	for (i=0 ; i<4 ; i++ )
-	{
-		DelayMs(250);
-	} 
 }    
 

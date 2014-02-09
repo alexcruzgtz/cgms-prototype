@@ -50,7 +50,7 @@
 
 #include "Drivers/UART_Handler.h"
 #include "Drivers/Compiler.h"
-#include "Drivers/GenericTypeDefs.h"
+#include <GenericTypeDefs.h>
 #include "Drivers/Oscillator.h"
 #include "Drivers/Interrupts.h"
 //#include "Scheduler/HardwareConfig.h"

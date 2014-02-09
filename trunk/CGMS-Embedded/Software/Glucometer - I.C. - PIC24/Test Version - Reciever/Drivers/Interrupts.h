@@ -9,7 +9,7 @@
 
 /*-----------------------------------------------------------------------------------------*/
 #include <p24fxxxx.h>
-#include "Drivers/GenericTypeDefs.h"
+#include <GenericTypeDefs.h>
 #include "Drivers/Wireless/MiWi_MRF89XA.h"
 //#include "ADC_Handler.h"
 

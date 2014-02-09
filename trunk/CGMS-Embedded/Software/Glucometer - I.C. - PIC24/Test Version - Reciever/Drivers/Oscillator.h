@@ -3,7 +3,7 @@
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 #include <p24fxxxx.h>
-#include "Drivers/GenericTypeDefs.h"
+#include <GenericTypeDefs.h>
 
 #ifndef __OSCILLATOR_H
 #define __OSCILLATOR_H

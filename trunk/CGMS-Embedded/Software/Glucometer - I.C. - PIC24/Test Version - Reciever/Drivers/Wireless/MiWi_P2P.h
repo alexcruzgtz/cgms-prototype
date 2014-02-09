@@ -54,7 +54,7 @@
 #include "Drivers/Wireless/MiWi_ConfigApp.h"
 #if defined(PROTOCOL_P2P)
 	#include "Drivers/Compiler.h"
-	#include "Drivers/GenericTypeDefs.h"
+	#include <GenericTypeDefs.h>
 	#include "Drivers/SymbolTime.h"
 	#include "Drivers/SPI_Handler.h"
 	#include "Drivers/UART_Handler.h"

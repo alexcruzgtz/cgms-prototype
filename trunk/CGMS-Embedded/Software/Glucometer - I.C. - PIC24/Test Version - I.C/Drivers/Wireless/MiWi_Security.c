@@ -53,16 +53,14 @@
 *  4.1   6/3/2011     yfy       MAL v2011-06
 ********************************************************************/
 
-#include "MiWi_ConfigApp.h"
-#include "MiWi_P2P.h"
-#include "MiWi_MRF89XA.h"
-
-#define SOFTWARE_SECURITY
+#include "Drivers/Wireless/MiWi_ConfigApp.h"
+#include "Drivers/Wireless/MiWi_P2P.h"
+#include "Drivers/Wireless/MiWi_MRF89XA.h"
 
 #if defined(SOFTWARE_SECURITY) && defined(ENABLE_SECURITY)
-    #include "GenericTypeDefs.h"
-    #include "Security.h"                                
-    #include "UART_Handler.h"
+    #include "Drivers/Wireless/MiWi_Security.h"
+	#include "Drivers/GenericTypeDefs.h"
+	#include "Drivers/UART_Handler.h"
 
 /*-----------------------------------------------------------------------------------------*/    
     BYTE tmpBlock[BLOCK_SIZE];

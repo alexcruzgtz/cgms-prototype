@@ -3,7 +3,7 @@
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 #include <p24fxxxx.h>
-#include "Drivers/GenericTypeDefs.h"
+#include <GenericTypeDefs.h>
 #include "Drivers/Interrupts.h"
 
 #ifndef __SPI_HANDLER_H

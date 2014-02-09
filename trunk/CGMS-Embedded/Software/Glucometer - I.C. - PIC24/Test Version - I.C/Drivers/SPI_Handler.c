@@ -2,7 +2,10 @@
 /**/
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-#include "SPI_Handler.h"
+#include "Drivers/SPI_Handler.h"
+#include <p24fxxxx.h>
+#include "Drivers/GenericTypeDefs.h"
+#include "Drivers/Interrupts.h"
 
 /*-----------------------------------------------------------------------------------------*/
 void SPI_Init(void)

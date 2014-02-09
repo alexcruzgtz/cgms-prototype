@@ -32,7 +32,7 @@
 #define __LCD_HANDLER_H
 
 /*-----------------------------------------------------------------------------------------*/
-#include "Drivers/GenericTypeDefs.h"
+#include <GenericTypeDefs.h>
 #include "Drivers/Compiler.h"
 #include "Drivers/TimeDelay.h"
 #include "Scheduler/HardwareConfig.h"

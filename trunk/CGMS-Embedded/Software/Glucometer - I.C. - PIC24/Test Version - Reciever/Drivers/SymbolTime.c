@@ -49,7 +49,7 @@
 
 #include "Drivers/SymbolTime.h"
 #include "Drivers/Compiler.h"
-#include "Drivers/GenericTypeDefs.h"
+#include <GenericTypeDefs.h>
 #include "Drivers/Oscillator.h"
 #include "Drivers/UART_Handler.h"
 //#include "Drivers/Wireless/MiWi_ConfigApp.h"
