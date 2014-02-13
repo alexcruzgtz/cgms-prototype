@@ -153,17 +153,14 @@
 /*-----------------------------------------------------------------------------------------*/
 	/*********************************************************************
      * WORD getReceiverBW(void)
-     * Overview:        
-     *              This function get the receiver band width setting
-     *              based on RF deviation configuration
-     * PreCondition:    
-     *              RF deviation configuration has been done in the 
-     *              C preprocessor
-     * Input:       None
-     * Output:      
-     *          WORD    The configuration setting for receiver band width.
-     *                  This output needs to be ORed with receiver 
-     *                  configuration command
+     * Overview:		This function get the receiver band width setting
+     *              	based on RF deviation configuration
+     * PreCondition:    RF deviation configuration has been done in the 
+     *              	C preprocessor
+     * Input:       	None
+     * Output:          WORD    The configuration setting for receiver band width.
+     *                  		This output needs to be ORed with receiver 
+     *                  		configuration command
      * Side Effects:    None
      ********************************************************************/
     WORD getReceiverBW(void)
@@ -176,16 +173,13 @@
 /*.........................................................................................*/
     /*********************************************************************
      * void RegisterSet(INPUT WORD setting)
-     * Overview:        
-     *              This function access the control register of MRF89XA.
-     *              The register address and the register settings are
-     *              the input
-     * PreCondition:    
-     *              None
-     * Input:       
-     *          WORD    setting     The address of the register and its
-     *                              corresponding settings
-     * Output:  None    
+     * Overview:    	This function access the control register of MRF89XA.
+     *              	The register address and the register settings are
+     *              	the input
+     * PreCondition:	None
+     * Input:           WORD    setting     The address of the register and its
+     *                              		corresponding settings
+     * Output:  		None    
      * Side Effects:    Register settings have been modified
      ********************************************************************/
     void RegisterSet(WORD setting)
@@ -209,13 +203,11 @@
 /*.........................................................................................*/
     /*********************************************************************
      * BYTE RegisterRead(BYTE)
-     * Overview:        
-     *              This function reads back the register values
-     * PreCondition:    
-     *              SPI needs to be intialised
-     * Input:       None   
-     * Output:      Returns the register readback value to the calling function       
-     * Side Effects: None
+     * Overview:		This function reads back the register values
+     * PreCondition:    SPI needs to be intialised
+     * Input:       	None   
+     * Output:      	Returns the register readback value to the calling function       
+     * Side Effects: 	None
      ********************************************************************/
     BYTE RegisterRead(BYTE address)
     {
@@ -272,20 +264,15 @@
 /*.........................................................................................*/
     /*********************************************************************
      * BOOL TxPacket(INPUT BYTE TxPacketLen, INPUT BOOL CCA)
-     * Overview:        
-     *              This function send the packet in the buffer MACTxBuffer
-     * PreCondition:    
-     *              MRF89XA transceiver has been properly initialized
-     * Input:       
-     *              BYTE    TxPacketLen     The length of the packet to be
-     *                                      sent.
-     *              BOOL    CCA             The boolean to indicate if a 
-     *                                      CCA operation needs to be done
-     *                                      before sending the packet   
-     * Output:      
-     *              BOOL    The boolean to indicate if packet sent successful
-     * Side Effects:    
-     *              The packet has been sent out
+     * Overview:		This function send the packet in the buffer MACTxBuffer
+     * PreCondition:    MRF89XA transceiver has been properly initialized
+     * Input:           BYTE    TxPacketLen     The length of the packet to be
+     *              	                        sent.
+     *              	BOOL    CCA             The boolean to indicate if a 
+     *                  	                    CCA operation needs to be done
+     *                      	                before sending the packet   
+     * Output:          BOOL    The boolean to indicate if packet sent successful
+     * Side Effects:    The packet has been sent out
      ********************************************************************/
     BOOL TxPacket(INPUT BYTE TxPacketLen, INPUT BOOL CCA)
     {

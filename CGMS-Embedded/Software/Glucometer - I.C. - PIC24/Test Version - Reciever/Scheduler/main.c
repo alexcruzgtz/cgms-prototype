@@ -2,6 +2,8 @@
 /**/
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
+#define ENABLE_UART
+#define __ENABLE_TESTS__
 
 #include "Scheduler/main.h"
 #include <p24fxxxx.h>
@@ -30,7 +32,7 @@
 
 Config_CFGBits();
 
-#define UNABLE_UART
+
 /*-----------------------------------------------------------------------------------------*/
 /****************************************************************************
 * FileName:		main.c
@@ -107,8 +109,8 @@ Config_CFGBits();
 **************************************************************************/
 
 /************************** VARIABLES ************************************/
-//#define LIGHT   0x01
-//#define SWITCH  0x02
+#define LIGHT   0x01
+#define SWITCH  0x02
 
 /*************************************************************************/
 // AdditionalNodeID variable array defines the additional 
@@ -120,9 +122,9 @@ Config_CFGBits();
 // ConfigApp.h.
 // In this demo, this variable array is set to be empty.
 /*************************************************************************/
-/*#if ADDITIONAL_NODE_ID_SIZE > 0
+#if ADDITIONAL_NODE_ID_SIZE > 0
     BYTE AdditionalNodeID[ADDITIONAL_NODE_ID_SIZE] = {LIGHT};
-#endif*/
+#endif
 
 /*************************************************************************/
 // The variable myChannel defines the channel that the device
@@ -131,10 +133,10 @@ Config_CFGBits();
 // on, the operating channel will be one of the channels available with
 // least amount of energy (or noise).
 /*************************************************************************/
-//BYTE myChannel = 24;
+BYTE myChannel = 24;
 
-//BYTE tempAddr[8] = {0xAA,0xAA,0xAA,0xAA,0xAA,0xAA,0xAA,0xAA};
-//extern DWORD_VAL OutgoingFrameCounter; 
+BYTE tempAddr[8] = {0xAA,0xAA,0xAA,0xAA,0xAA,0xAA,0xAA,0xAA};
+extern DWORD_VAL OutgoingFrameCounter; 
 /*********************************************************************
 * Function:         void main(void)
 * PreCondition:     none
@@ -160,34 +162,19 @@ Config_CFGBits();
 **********************************************************************/
 int main(void)
 {   
-    BYTE i;
-/*    BYTE TxSynCount = 0;
+    BYTE i = 0;
+	BYTE TxSynCount = 0;
     BYTE TxSynCount2 = 0;
     BYTE TxNum = 0;
     BYTE RxNum = 0;
-  */  
+    
     /*******************************************************************/
     // Initialize the system
     /*******************************************************************/
     HardwareCfg_Init();      
     
-	//DemoOutput_Greeting();
-    
-    LED_Lat = 0;
-
-    LCD_send_byte(0x80,0);
-	printf("Prueba LCD OK");
-	
-	while(i<10)
-	{
-		Printf("\r\n Prueba UART OK ");
-        PrintDec(i);
-		LED_Lat^=1;
-		DelayMs(1000);
-		i++;
-	}
-}
-
+	DemoOutput_Greeting();
+ 
     /*******************************************************************/
     // Initialize Microchip proprietary protocol. Which protocol to use
     // depends on the configuration in ConfigApp.h
@@ -197,7 +184,7 @@ int main(void)
     // should be restored. In this simple example, we assume that the 
     // network starts from scratch.
     /*******************************************************************/
-   /* MiApp_ProtocolInit(FALSE);
+	MiApp_ProtocolInit(FALSE);
 
     // Set default channel
     if( MiApp_SetChannel(myChannel) == FALSE )
@@ -205,7 +192,7 @@ int main(void)
         DemoOutput_ChannelError(myChannel);
         return 0;
     }
-    */
+    
     /*******************************************************************/
     // Function MiApp_ConnectionMode defines the connection mode. The
     // possible connection modes are:
@@ -215,9 +202,9 @@ int main(void)
     //  ENABL_ACTIVE_SCAN_RSP:  Allow response to Active scan
     //  DISABLE_ALL_CONN:   Disable all connections. 
     /*******************************************************************/
-    /*MiApp_ConnectionMode(ENABLE_ALL_CONN);
+    MiApp_ConnectionMode(ENABLE_ALL_CONN);
     DemoOutput_Channel(myChannel, 0);
-    */
+    
     /*******************************************************************/
     // Function MiApp_EstablishConnection try to establish a new 
     // connection with peer device. 
@@ -230,17 +217,17 @@ int main(void)
     //      within the radio range; indirect mode means connection 
     //      may or may not in the radio range. 
     /*******************************************************************/
-    //i = MiApp_EstablishConnection(0xFF, CONN_MODE_DIRECT);
+    i = MiApp_EstablishConnection(0xFF, CONN_MODE_DIRECT);
     
     /*******************************************************************/
     // Display current opertion on LCD of demo board, if applicable
     /*******************************************************************/
-    /*if( i != 0xFF )
+    if( i != 0xFF )
     {
         DemoOutput_Channel(myChannel, 1);
     }
     else
-    {*/
+    {
         /*******************************************************************/
         // If no network can be found and join, we need to start a new 
         // network by calling function MiApp_StartConnection
@@ -271,8 +258,8 @@ int main(void)
         //     only needs to pay attention to the channels that are not 
         //     preferred.
         /*******************************************************************/
-       /* MiApp_StartConnection(START_CONN_DIRECT, 10, 0);
-    }*/
+       MiApp_StartConnection(START_CONN_DIRECT, 10, 0);
+    }
 
     /*******************************************************************/
     // Function DumpConnection is used to print out the content of the
@@ -286,76 +273,76 @@ int main(void)
     //DumpConnection(0xFF);
 
     // Turn on LED 1 to indicate connection established
-    //LED_Lat = 1;
+    LED_Lat = 1;
     //DemoOutput_Instruction();
 
-    /*while(1)
-    {*/
+    while(1)
+    {
         /*******************************************************************/
         // Function MiApp_MessageAvailable returns a boolean to indicate if 
         // a packet has been received by the transceiver. If a packet has 
         // been received, all information will be stored in the rxFrame, 
         // structure of RECEIVED_MESSAGE.
         /*******************************************************************/
-        /*if( MiApp_MessageAvailable() )
-        {*/
+        if( MiApp_MessageAvailable() )
+        {
             /*******************************************************************/
             // If a packet has been received, handle the information available 
             // in rxMessage.
             /*******************************************************************/
-           /* DemoOutput_HandleMessage();
+            DemoOutput_HandleMessage();
             DemoOutput_UpdateTxRx(TxNum, ++RxNum);
             
             // Toggle LED2 to indicate receiving a packet.
             LED_Lat ^= 1;
-            */
+            
             /*******************************************************************/
             // Function MiApp_DiscardMessage is used to release the current 
             //  received packet.
             // After calling this function, the stack can start to process the
             //  next received frame 
             /*******************************************************************/        
-            /*MiApp_DiscardMessage();
+            MiApp_DiscardMessage();
         }
         else
-        {*/
+        {
             /*******************************************************************/
             // If no packet received, now we can check if we want to send out
             // any information.
             // Function ButtonPressed will return if any of the two buttons
             // has been pushed.
             /*******************************************************************/
-            /*BYTE PressedButton =0;// ButtonPressed();
+            BYTE PressedButton =0;// ButtonPressed();
             switch( PressedButton )
             {
-                case 1:*/                 
+                case 1:                 
                     /*******************************************************************/ 
                     // Button 1 pressed. We need to send out the bitmap of word "MiWi".
                     // First call MiApp_FlushTx to reset the Transmit buffer. Then fill 
                     // the buffer one byte by one byte by calling function 
                     // MiApp_WriteData
                     /*******************************************************************/
-                    /*
+                    
                     MiApp_FlushTx();
                     for(i = 0; i < 21; i++)
                     {
                         MiApp_WriteData(MiWi[(TxSynCount%6)][i]);
                     }
                     TxSynCount++;
-                    */
+                    
                     
                     /*******************************************************************/
                     // Function MiApp_BroadcastPacket is used to broadcast a message
                     //    The only parameter is the boolean to indicate if we need to
                     //       secure the frame
                     /*******************************************************************/
-                    /*MiApp_BroadcastPacket(FALSE);
+                    MiApp_BroadcastPacket(FALSE);
 
                     DemoOutput_UpdateTxRx(++TxNum, RxNum);
 
                     break;
                     
-                case 2:*/
+                case 2:
                     /*******************************************************************/                
                     // Button 2 pressed. We need to send out the bitmap of word "DE" 
                     // encrypted.
@@ -363,13 +350,13 @@ int main(void)
                     //  Then fill the buffer one byte by one byte by calling function 
                     //  MiApp_WriteData
                     /*******************************************************************/
-                    /*MiApp_FlushTx();   
+                    MiApp_FlushTx();   
                     for(i = 0; i < 11; i++)
                     {
                         MiApp_WriteData(DE[(TxSynCount2%6)][i]);
                     }
                     TxSynCount2++;
-                    */
+                    
                     /*******************************************************************/
                     // Function MiApp_UnicastConnection is one of the functions to 
                     //  unicast a message.
@@ -386,7 +373,7 @@ int main(void)
                     //  Connection Entry of the peer device, this function requires the 
                     //  input parameter of destination address.
                     /*******************************************************************/
-                    /*if( MiApp_UnicastConnection(0, TRUE) == FALSE )
+                    if( MiApp_UnicastConnection(0, TRUE) == FALSE )
                     {
                         DemoOutput_UnicastFail();
                     }
@@ -402,7 +389,7 @@ int main(void)
             } 
         }
     }
-}*/
+}
 
 /*-----------------------------------------------------------------------------------------*/
 

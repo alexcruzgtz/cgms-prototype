@@ -49,6 +49,7 @@
 ********************************************************************/
 
 #include "Drivers/UART_Handler.h"
+#include <p24fxxxx.h>
 #include "Drivers/Compiler.h"
 #include <GenericTypeDefs.h>
 #include "Drivers/Oscillator.h"
@@ -58,7 +59,7 @@
 //#include "Drivers/Wireless/MiWi_P2P.h"
 
 /*-----------------------------------------------------------------------------------------*/
-#if defined(ENABLE_UART)
+#if defined( ENABLE_UART )
 	ROM unsigned char CharacterArray[]={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
 
 /*-----------------------------------------------------------------------------------------*/
@@ -72,14 +73,38 @@
 *                   in 8 bits, 1 stop, no flowcontrol mode
 * Note:			    None
 ********************************************************************/
-void ConsoleInit(void)
+void ConsoleInit( void )
 {
-	U1BRG   = (FOSC/2/16)/BAUD_RATE-1;
+	UART1_BaudRateGenerator = 25;//((FCY/BAUD_RATE)/16 ) - 1;
     UART1_RxIRQ_Flag = 0;
-    U1STA  = 0;
-    U1MODE = 0b0000000010000000;
-    U1MODEbits.UARTEN = 1;
-    U1STAbits.UTXEN = 1;
+	UART1_TxIRQ_Flag = 0;
+
+	//... Configuring UxSTA Register
+    UART1_Tx_IRQModeb0 = 0;
+    UART1_Tx_IRQModeb1 = 0;
+	UART1_TXPOL_IDLEONE
+	UART1_SYNCBREAK_OFF
+	UART1_TX_OFF
+	UART1_Rx_IRQMode = 0;
+	UART1_ADDRDETECT_OFF
+	UART1_RXBUFOVERRUN_CLEAR
+	
+	//... Configuring UxMODE Segister
+	UART1_OFF
+	UART1_CONT_AT_IDLE    
+	UART1_IRDA_OFF
+	UART1_RTS_FLOW
+	UART1_WAKESLEEP_ON
+	UART1_LOOP_OFF
+	UART1_AUTOBAUD_OFF
+	UART1_RXPOL_IDLEONE
+	UART1_STDSPEED_BAUD
+	UART1_ParitySelect = _8bit_NoParity;
+	UART1_ONE_STOP_BIT
+	
+	//... Starting UART
+	UART1_ON
+    UART1_TX_ON
 }
 
 /*.........................................................................................*/
@@ -94,7 +119,7 @@ void ConsoleInit(void)
 *                   the transmission is complete or the last 
 *                   transmission of the string can be corrupted.  
 ********************************************************************/
-void ConsolePutROMString(ROM char* str)
+void ConsolePutROMString( ROM char* str )
 {
     BYTE c;
     while( (c = *str++) )
@@ -113,10 +138,10 @@ void ConsolePutROMString(ROM char* str)
 *                   the transmission is complete or the last 
 *                   transmission of the string can be corrupted.  
 ********************************************************************/
-void ConsolePut(BYTE c)
+void ConsolePut( BYTE c )
 {
-    while(U1STAbits.TRMT == 0);
-    U1TXREG = c;
+    while(UART1_TxShiftRegEmpty == 0);
+    UART1_TxRegister = c;
 }
 
 /*.........................................................................................*/
@@ -131,11 +156,11 @@ void ConsolePut(BYTE c)
 *                   the transmission is complete or the last 
 *                   transmission of the string can be corrupted.  
 ********************************************************************/
-BYTE ConsoleGet(void)
+BYTE ConsoleGet( void )
 {
 	char Temp;
     while(UART1_RxIRQ_Flag == 0);
-	Temp = U1RXREG;
+	Temp = UART1_RxRegister;
     UART1_RxIRQ_Flag = 0;
 	return Temp;
 }
@@ -153,14 +178,14 @@ BYTE ConsoleGet(void)
 *                   the transmission is complete or the last 
 *                   transmission of the string can be corrupted.  
 ********************************************************************/
-void PrintChar(BYTE toPrint)
+void PrintChar( BYTE toPrint )
 {
     BYTE PRINT_VAR;
     PRINT_VAR = toPrint;
-    toPrint = (toPrint>>4)&0x0F;
-    ConsolePut(CharacterArray[toPrint]);
-    toPrint = (PRINT_VAR)&0x0F;
-    ConsolePut(CharacterArray[toPrint]);
+    toPrint = (toPrint>>4) & 0x0F;
+    ConsolePut( CharacterArray[toPrint] );
+    toPrint = (PRINT_VAR) & 0x0F;
+    ConsolePut( CharacterArray[toPrint] );
     return;
 }
 
@@ -177,11 +202,33 @@ void PrintChar(BYTE toPrint)
 *                   the transmission is complete or the last 
 *                   transmission of the string can be corrupted.  
 ********************************************************************/
-void PrintDec(BYTE toPrint)
+void PrintDec( BYTE toPrint )
 {
-    ConsolePut(CharacterArray[toPrint/10]);
-    ConsolePut(CharacterArray[toPrint%10]);
+    ConsolePut( CharacterArray[toPrint/10] );
+    ConsolePut( CharacterArray[toPrint%10] );
 }
+
+/*.........................................................................................*/
+//#if defined ( __ENABLE_TESTS__ )
+	void UART_Test( void )
+	{
+		ConsoleInit();
+		BYTE i;
+		for( i=0 ; i<10 ; i++ )
+		{
+			ConsolePut('A');
+		}
+		ConsolePutROMString("\r\n Hola! \n");
+		PrintChar("A");
+		PrintDec(50);
+		Printf("\r ... UART Test OK ... \n");
+		Printf("\r Presiona una tecla \n");
+		i=ConsoleGet();
+		Printf("\r Tecla Presionada: ");
+		ConsolePut(i);
+		Printf("\r\n Adios! ");
+	}
+//#endif
 
 
 /*-----------------------------------------------------------------------------------------*/

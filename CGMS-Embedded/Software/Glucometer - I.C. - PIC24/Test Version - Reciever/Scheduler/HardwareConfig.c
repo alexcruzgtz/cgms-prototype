@@ -21,7 +21,6 @@ void HardwareCfg_Init(void)
 //Cfg_CFGBits();
 Cfg_PPS();
 Cfg_Ports();
-
 Oscillator_Init();
 Interrupts_Init();
 ADC_Init();
@@ -30,14 +29,6 @@ SPI_Init();
 LCD_Init();
 ConsoleInit();
 }
-
-
-/*.........................................................................................*/
-/*void Cfg_CFGBits(void)
-{
-	#define USE_AND_OR
-	
-}*/
 
 
 /*.........................................................................................*/

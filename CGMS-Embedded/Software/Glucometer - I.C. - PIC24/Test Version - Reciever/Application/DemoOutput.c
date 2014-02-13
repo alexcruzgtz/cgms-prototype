@@ -88,15 +88,7 @@ ROM const BYTE DE[6][11] =
 /*-----------------------------------------------------------------------------------------*/
 void DemoOutput_Greeting(void)
 {
-	BYTE i=0;
-	//stdout =_H_USER;
-	LCD_send_byte(0x80,0);
-	printf("Simple P2P Demo");
-	for (i=0 ; i<4 ; i++ )
-	{
-		DelayMs(250);
-	}
-    Printf("\r\nStarting Node 1 of Simple Demo for MiWi(TM) P2P Stack ...");  
+	Printf("\r\nStarting Node 1 of Simple Demo for MiWi(TM) P2P Stack ...");  
     Printf("\r\nInput Configuration:");
     Printf("\r\n           Button: RB15");
     Printf("\r\nOutput Configuration:");
@@ -108,34 +100,17 @@ void DemoOutput_Greeting(void)
 /*.........................................................................................*/
 void DemoOutput_Channel(BYTE channel, BYTE Step)
 {
-	BYTE i=0;
     if( Step == 0 )
     {
-		//stdout =_H_USER;
-		LCD_send_byte(0x80,0);
-		printf("Conn Peer Chann");
-		LCD_send_byte(0xC0,0);
-		printf("%d",channel);
-		for (i=0 ; i<4 ; i++ )
-		{
-			DelayMs(250);
-		}
+		DelayMs(250);
         Printf("\r\nConnecting Peer on Channel ");
         PrintDec(channel);
         Printf("\r\n");
     }
     else
     {    
-        //stdout =_H_USER;
-		LCD_send_byte(0x80,0);
-		printf("Conn Peer Chann");
-		LCD_send_byte(0xC0,0);
-		printf("%d",channel);
-		for (i=0 ; i<4 ; i++ )
-		{
-			DelayMs(250);
-		}
-        Printf("\r\nConnected Peer on Channel ");
+        DelayMs(250);
+		Printf("\r\nConnected Peer on Channel ");
         PrintDec(channel);
         Printf("\r\n");
     }
@@ -186,16 +161,11 @@ void DemoOutput_HandleMessage(void)
 
 void DemoOutput_UpdateTxRx(BYTE TxNum, BYTE RxNum)
 {
-	BYTE i=0;
-	//stdout =_H_USER;
-	LCD_send_byte(0x80,0);
-	printf("TX:%d",TxNum);
-	LCD_send_byte(0xC0,0);
-	printf("RX:%d",RxNum);
-	for (i=0 ; i<4 ; i++ )
-	{
-		DelayMs(250);
-	}
+	vWriteLCD(0x80,LCD_COMMAND);
+	vPuts_LCD(TxNum);
+	vWriteLCD(0x88,LCD_COMMAND);
+	vPuts_LCD(RxNum);
+	DelayMs(500);
 }    
 
 void DemoOutput_ChannelError(BYTE channel)
@@ -207,14 +177,9 @@ void DemoOutput_ChannelError(BYTE channel)
 
 void DemoOutput_UnicastFail(void)
 {
-	BYTE i=0;
-    Printf("\r\nUnicast Failed\r\n");                  
-    //stdout =_H_USER;
-	LCD_send_byte(0x80,0);
-	printf("Unicast Failed");
-	for (i=0 ; i<4 ; i++ )
-	{
-		DelayMs(250);
-	} 
+	vWriteLCD(0xC0,LCD_COMMAND);
+	vPuts_LCD("Unicast Failed");
+	Printf("\r\nUnicast Failed\r\n");                  
+	DelayMs(250);
 }    
 
