@@ -1,131 +1,371 @@
-/** \file 		flex_lcd_c18.c
-*   \version 	1.0
-*   \brief 		Este archivo pertenece a la capa de drivers. Incluye las funciones básicas para manejar el display LCD.
-*   \author 	Carlos Díaz  
-*   \mail 		cedg88@gmail.com
-*   \date 		30/Enero/2012
-*/
+/**
+   \version: 1.1
 
-/**/
+   
+   \author Suky
+   \web www.micros-designs.com.ar
+   \date 16/08/10
 
+
+///////////////////////////////////////////////////////////////////////////
+////                                                                   ////
+////                                                                   ////
+////        (C) Copyright 2010 www.micros-designs.com.ar               ////
+//// Este código puede ser usado, modificado y distribuido libremente  ////
+//// sin eliminar esta cabecera y  sin garantía de ningún tipo.        ////
+////                                                                   ////
+////                                                                   ////
+/////////////////////////////////////////////////////////////////////////// 
+   
+ *- Version Log --------------------------------------------------------------*
+ *   Fecha       Autor                Comentarios                             *
+ *----------------------------------------------------------------------------*
+ * 16/08/10      Suky               Original (Rev 1.0)                        *
+ * 20/08/10      Suky               Se incluye CodeVisionAVR                  *
+ *----------------------------------------------------------------------------*
+ Se puede seleccionar entre 3 modos de trabajo siempre configurando al LCD
+ en modo 4-bits:
+ Modo normal con control sobre RW  -> RS | RW | E ... LCD4 | LCD5 | LCD6 | LCD7
+ Modo sin control sobre RW -> RS | E ... LCD4 | LCD5 | LCD6 | LCD7
+ Modo 3 pines, sin control sobre RW -> E ... SERIAL_DATA | SERIAL_CLK
+                                 LCD4-> REGISTRO_DESPLAZAMIENTO_D0
+                                 LCD5-> REGISTRO_DESPLAZAMIENTO_D1
+                                 LCD6-> REGISTRO_DESPLAZAMIENTO_D2
+                                 LCD7-> REGISTRO_DESPLAZAMIENTO_D3
+                                 RS-> REGISTRO_DESPLAZAMIENTO_D4
+
+ Además permite la configuración entre: 1 linea 5x7, 1 linea 5x10 o varias lineas 5x7.
+ Y entre LCD de 2 lineas o 4 lineas, configurando las direcciones de las lineas.- 
+ */
 
 /*-----------------------------------------------------------------------------------------*/
-#include "Drivers/LCD_Handler.h"
 #include <GenericTypeDefs.h>
-#include "Drivers/Compiler.h"
-#include "Drivers/TimeDelay.h"
+#include "Drivers/LCD_Handler.h"
 #include "Scheduler/HardwareConfig.h"
-#include <stdio.h>
-
-/*-----------------------------------------------------------------------------------------*/
-//unsigned char Text_Line1;
-//unsigned char Text_Line2;
 
 /*-----------------------------------------------------------------------------------------*/
 
-/*.........................................................................................*/
-const UINT8 LCD_INIT_STRING[4] =
-{
-  0x20 | (LCD_TYPE << 2), // Func set: 4-bit, 2 lines, 5x8 dots
-  0x0C, // Display on
-  1, // Clear display
-  6 // Increment cursor
-};
+UINT8 NLinea;
 
-/*.........................................................................................*/
-void LCD_send_nibble( UINT8 nibble )
-{
-	DATA_PIN_4 =!! (nibble & 0x01);
-	DATA_PIN_5 =!! (nibble & 0x02);
-	DATA_PIN_6 =!! (nibble & 0x04);
-	DATA_PIN_7 =!! (nibble & 0x08);
-	
-	Nop();
-	E_PIN = 1;
-	Nop();
-	Nop();
-	E_PIN = 0;
-}
 
-/*.........................................................................................*/
-void LCD_send_byte ( UINT8 address, UINT8 n )
+/*-----------------------------------------------------------------------------------------*/
+UINT8 ui8BusyLCD( void )
 {
-	RS_PIN = 0;
-	Delay10us(10);
-	TRIS_DATA_PIN_4 = 0;
-	TRIS_DATA_PIN_5 = 0;
-	TRIS_DATA_PIN_6 = 0;
-	TRIS_DATA_PIN_7 = 0;
-	if( address )
-		RS_PIN = 1;
+	#ifdef LCD_USE_RW
+	LCD_DATA_PIN_7 = 0;
+	LCD_DATA_PIN_6 = 0;
+	LCD_DATA_PIN_5 = 0;
+	LCD_DATA_PIN_4 = 0;
+
+   	LCD_TRIS_DATA_PIN_7 = CONFIG_INPUT;
+   	LCD_TRIS_DATA_PIN_6 = CONFIG_INPUT;
+   	LCD_TRIS_DATA_PIN_5 = CONFIG_INPUT;
+   	LCD_TRIS_DATA_PIN_4 = CONFIG_INPUT;
+
+   	LCD_RW_PIN = 1;    
+   	LCD_RS_PIN = 0; 
+	LCD_E_PIN = 1;         
+   	__delay_1us();
+
+   	if( LCD_READ_PIN_7 == 1 )
+	{
+	   	LCD_E_PIN = 0; 
+		__delay_1us();
+		LCD_E_PIN = 1;
+		__delay_1us();
+		LCD_E_PIN = 0;
+      	LCD_RW_PIN = 0; 
+        return 1;
+    }
 	else
-		RS_PIN = 0;
-	Nop();
-	LCD_send_nibble( n >> 4 );
-	LCD_send_nibble( n & 0xf );
+	{
+    	LCD_E_PIN = 0;
+		__delay_1us();
+		LCD_E_PIN = 1;
+		__delay_1us();
+		LCD_E_PIN = 0;
+		LCD_RW_PIN = 0;       
+        return 0;
+    }
+	#else
+	__delay_100us();
+	return 0;
+	#endif
 }
 
 /*.........................................................................................*/
-void LCD_Init( void )
+void vWriteLCD( UINT8 Data, UINT8 Type )
+{
+	#ifdef LCD_USE_3PINES
+		UINT8 i, data_temp;
+	#endif
+
+	while( ui8BusyLCD() );
+
+	#ifndef LCD_USE_3PINES
+		#ifdef LCD_USE_RW
+			LCD_RW_PIN = 0;
+		#endif   
+		if(Type)
+		{
+			LCD_RS_PIN = 1;
+		}
+		else
+		{
+			LCD_RS_PIN = 0;
+		}	  
+		LCD_TRIS_DATA_PIN_7 = CONFIG_OUTPUT;
+		LCD_TRIS_DATA_PIN_6 = CONFIG_OUTPUT;
+		LCD_TRIS_DATA_PIN_5 = CONFIG_OUTPUT;
+		LCD_TRIS_DATA_PIN_4 = CONFIG_OUTPUT;
+		
+		LCD_DATA_PIN_7 =!! (Data & 0x80);
+		LCD_DATA_PIN_6 =!! (Data & 0x40);
+		LCD_DATA_PIN_5 =!! (Data & 0x20);
+		LCD_DATA_PIN_4 =!! (Data & 0x10);
+	#else
+		data_temp = (Data >> 4);  // Rs es bit 4
+		if( Type )
+		{
+			data_temp |= 0x10;
+		}
+		for( i=0 ; i<8 ; i++ )
+		{
+			LCD_DATA_PIN =!! (data_temp & 0x80);
+			data_temp <<= 1;
+			LCD_CLOCK_PIN = 1;
+			__delay_1us();
+			LCD_CLOCK_PIN = 0;
+		}
+	#endif
+	__delay_1Cycle();
+	LCD_E_PIN = 1;
+	__delay_1us();
+	LCD_E_PIN = 0;
+	#ifndef LCD_USE_3PINES	
+		LCD_DATA_PIN_7 =!! (Data & 0x08);
+		LCD_DATA_PIN_6 =!! (Data & 0x04);
+		LCD_DATA_PIN_5 =!! (Data & 0x02);
+		LCD_DATA_PIN_4 =!! (Data & 0x01);
+	#else
+		data_temp = (Data&0x0F);  // Rs es bit 4
+		if(Type)
+		{
+			data_temp |= 0x10;
+		}
+		for( i=0 ; i<8 ; i++ )
+		{
+			LCD_DATA_PIN =!! (data_temp & 0x80);
+			data_temp <<= 1;
+			LCD_CLOCK_PIN = 1;
+			__delay_1us();
+			LCD_CLOCK_PIN = 0;
+		}
+	#endif
+	__delay_1Cycle();	
+	LCD_E_PIN = 1;
+	__delay_1us();
+	LCD_E_PIN = 0;
+	
+} 
+
+/*.........................................................................................*/
+void LCD_Init()
 {
 	UINT8 i;
 
-	TRIS_RS = 0;
-	TRIS_E = 0;
-	RS_PIN = 0;
-	E_PIN = 0;
-	TRIS_DATA_PIN_4 = 0;
-	TRIS_DATA_PIN_5 = 0;
-	TRIS_DATA_PIN_6 = 0;
-	TRIS_DATA_PIN_7 = 0;
-	
-	DelayMs(15);
-	for(i = 0 ; i < 3 ; i++)
+	#ifdef LCD_USE_3PINES
+		UINT8 temp;
+	#endif
+
+	for( i=0 ; i<8 ; i++ )
 	{
-		LCD_send_nibble( 0x03 );
-		DelayMs(5);
-  	}
-	LCD_send_nibble(0x02);
-	for(i = 0 ; i < sizeof(LCD_INIT_STRING); i++)
-	{
-		LCD_send_byte(0, LCD_INIT_STRING[i]);
+		__delay_2ms();
 	}
+	NLinea = 1;
+	
+	#ifndef LCD_USE_3PINES
+		/* ** Configuración de pines ** */	
+		LCD_DATA_PIN_7 = 0;
+		LCD_DATA_PIN_6 = 0;
+		LCD_DATA_PIN_5 = 0;
+		LCD_DATA_PIN_4 = 0;
+		#ifdef LCD_USE_RW
+			LCD_RW_PIN = 0;
+		#endif
+
+		LCD_RS_PIN = 0;
+		LCD_E_PIN = 0;
+	
+		LCD_TRIS_DATA_PIN_7 = CONFIG_OUTPUT;
+		LCD_TRIS_DATA_PIN_6 = CONFIG_OUTPUT;
+		LCD_TRIS_DATA_PIN_5 = CONFIG_OUTPUT;
+		LCD_TRIS_DATA_PIN_4 = CONFIG_OUTPUT;
+		#ifdef LCD_USE_RW	
+			LCD_TRIS_RW = CONFIG_OUTPUT;
+		#endif
+		LCD_TRIS_RS = CONFIG_OUTPUT;
+		LCD_TRIS_E = CONFIG_OUTPUT;
+	#else
+		LCD_DATA_PIN = 0;
+		LCD_CLOCK_PIN = 0;
+		LCD_E_PIN = 0;
+
+		LCD_TRIS_DATA = CONFIG_OUTPUT;
+		LCD_TRIS_CLOCK = CONFIG_OUTPUT;
+		LCD_TRIS_E = CONFIG_OUTPUT;
+	
+		for( i=0 ; i<8 ; i++ )
+		{
+			LCD_DATA_PIN = 0;
+			LCD_CLOCK_PIN = 1;
+			__delay_1us();
+			LCD_CLOCK_PIN = 0;
+		}
+	#endif
+
+	/* ** INICIALIZACION ** */     
+	#ifndef LCD_USE_3PINES
+		LCD_DATA_PIN_5 = 1;
+		LCD_DATA_PIN_4 = 1;
+	#else
+		temp=0x03;
+		for( i=0 ; i<8 ; i++)
+		{
+			LCD_DATA_PIN =!! (temp & 0x80);
+			temp <<= 1;
+			LCD_CLOCK_PIN = 1;
+			__delay_1us();
+			LCD_CLOCK_PIN = 0;
+		}
+	#endif
+	
+	for( i=0 ; i<3 ; i++ )
+	{
+		LCD_E_PIN = 1;
+		__delay_2ms();
+		LCD_E_PIN = 0;
+	 	__delay_2ms();
+	}
+
+	#ifndef LCD_USE_3PINES
+		LCD_DATA_PIN_4 = 0;
+	#else
+		temp = 0x02;
+		for( i=0 ; i<8 ; i++ )
+		{
+			LCD_DATA_PIN =!! (temp & 0x80);
+			temp <<= 1;
+			LCD_CLOCK_PIN = 1;
+			__delay_1us();
+			LCD_CLOCK_PIN = 0;
+		}
+	#endif
+	
+	LCD_E_PIN = 1;
+	__delay_1us();
+	LCD_E_PIN = 0;
+
+	vWriteLCD( 0x20 | (LcdType<<2), LCD_COMMAND );  // Tipo display.-  
+	__delay_2ms();     
+	vWriteLCD( 0x01, LCD_COMMAND );	// Borramos display.-   
+	__delay_2ms();           
+	vWriteLCD( 0x06, LCD_COMMAND );	// Incrementa cursor.-
+	vWriteLCD( 0x0C, LCD_COMMAND );	// Encendemos display.-
 }
 
 /*.........................................................................................*/
-void LCD_gotoxy( UINT8 x, UINT8 y )
+void vLCD_Putc( UINT8 Data )
 {
-	UINT8 address;
-
-	if(y != 1)
-		address = SECOND_LINE;
-	else
-		address=0;
-
-	address += x-1;
-	LCD_send_byte(0, 0x80 | address);
-}
-
-/*.........................................................................................*/
-void LCD_putc( UINT8 c )
-{
-	switch( c )
+	switch(Data)
 	{
 		case '\f':
-			LCD_send_byte( 0 , 1 );
+			vWriteLCD( 0x01, LCD_COMMAND );
+			NLinea = 1;
+			__delay_2ms();
 		break;
 
 		case '\n':
-			LCD_gotoxy( 1 , 2 );
-		break;
-
-		case '\b':
-      		LCD_send_byte( 0 , 0x10 );
+			vGotoxyLCD( 1, ++NLinea );			
 		break;
 
 		default:
-			LCD_send_byte( 1 , c );
-		break;
-  }
+			vWriteLCD( Data, LCD_DATA );
+	}
+} 
+
+/*.........................................................................................*/
+void vGotoxyLCD( UINT8 x, UINT8 y )
+{
+	UINT8 Direccion;
+	switch(y)
+	{
+		case 1:
+			Direccion = LCD_LINE_1_ADDRESS;
+			NLinea = 1;
+			break;
+		
+		case 2:
+			Direccion = LCD_LINE_2_ADDRESS;
+			NLinea = 2;
+			break;
+		
+		#ifdef LCD_4LINES		
+			case 3:
+				Direccion = LCD_LINE_3_ADDRESS;
+				NLinea = 3;
+				break;
+		
+			case 4:
+				Direccion = LCD_LINE_4_ADDRESS;
+				NLinea = 4;
+				break;
+		#endif
+		
+		default:
+			Direccion = LCD_LINE_1_ADDRESS;
+			NLinea = 1;
+			break;
+	}
+
+	Direccion += x-1;
+	while( ui8BusyLCD() );
+	vWriteLCD( 0x80 | Direccion, LCD_COMMAND );
 }
 
+/*.........................................................................................*/
+void vPuts_LCD( UINT8 *buffer )
+{
+    while( *buffer != '\0')
+	{
+	     vLCD_Putc( *buffer++ );
+    }
+}
+
+/*.........................................................................................*/
+#if defined(__18CXX)
+void vPutrs_LCD( rom UINT8 *buffer )
+{
+	UINT8 Data;
+	while( *buffer != '\0' )
+	{
+		Data =* buffer++;
+		vLCD_Putc( Data );
+    }
+}
+#endif
+/*.........................................................................................*/
+//#if defined ( __ENABLE_TESTS__ )
+	void LCD_Test( void )
+	{
+		LCD_Init();
+		vWriteLCD(0x80,LCD_COMMAND);
+		vWriteLCD('A',LCD_DATA);
+		vPuts_LCD("BCDEFGHIJKLMNOP");
+		vWriteLCD(0xC0,LCD_COMMAND);
+		vPuts_LCD("123456789101112");
+	}
+//#endif
+
+
+/*-----------------------------------------------------------------------------------------*/

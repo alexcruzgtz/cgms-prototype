@@ -36,7 +36,7 @@
 11.. RP4 -------> [SDO1] SPI1 Data Output		{Wireless Transciever}
 12.. RA4 -------> <CSDATA> Wireless TRansciever Data Chip Select (SPI)
 13.. VDD -------> 3.3V
-14.. RP5 -------> <IRQ1> Wireless Transciever IRQ 1
+14.. RP5 -------> [INT1] <IRQ1> Wireless Transciever IRQ 1
 15.. RP6 -------> [SCK1] SPI1 Clock Signal		{Wireless Transciever}
 16.. RP7 -------> [SDI1] SPI1 Data Input			{Wireless Transciever}
 17.. Not Used
