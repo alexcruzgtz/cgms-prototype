@@ -39,6 +39,9 @@
 
 #define TMRL 				TMR2
 
+//#define ENABLE_UART
+#define ENABLE_TESTS
+
 /*Wireless Transceiver Control Pins*/
 /*...................................................................
 Configuration Chip Select -> Port A Pin 2
@@ -54,8 +57,8 @@ Interrupt Request 1 Pin	  -> Port B Pin 5
 #define PHY_RESETn_TRIS		TRISAbits.TRISA3	
 #define IRQ1_INT_PIN		PORTBbits.RB5
 #define IRQ1_INT_TRIS		TRISBbits.TRISB5
-#define PHY_IRQ1			INT1_IRQ_Flag
-#define PHY_IRQ1_En			INT1_IRQ_En
+#define PHY_IRQ1			INT2_IRQ_Flag
+#define PHY_IRQ1_En			INT2_IRQ_En
 #define PHY_IRQ1_TRIS   	TRISBbits.TRISB5
 
 

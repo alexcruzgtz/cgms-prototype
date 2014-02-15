@@ -155,7 +155,7 @@
     //BYTE ConsoleGetString(char *buffer, BYTE bufferLen);
     void PrintChar( BYTE );
     void PrintDec( BYTE );
-	//#ifdef __ENABLE_TESTS__
+	//#if defined ( ENABLE_TESTS )
 		void UART_Test( void );	
 	//#endif
 #else

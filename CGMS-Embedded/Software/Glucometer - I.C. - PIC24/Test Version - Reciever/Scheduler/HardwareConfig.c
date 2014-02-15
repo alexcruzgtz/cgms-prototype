@@ -40,7 +40,7 @@ void Cfg_PPS(void)
 	iPPSOutput(OUT_PIN_PPS_RP2, OUT_FN_PPS_NULL);		//PPS RP2 function Null
 	iPPSOutput(OUT_PIN_PPS_RP3, OUT_FN_PPS_NULL);		//PPS RP3 function Null
 	iPPSOutput(OUT_PIN_PPS_RP4, OUT_FN_PPS_SDO1);		//PPS RP4 function SPI -> SDO1
-	iPPSInput (IN_FN_PPS_INT1, IN_PIN_PPS_RP5 );		//PPS RP5 function INT1 <- MiWi IRQ1
+	iPPSInput (IN_FN_PPS_INT2, IN_PIN_PPS_RP5 );		//PPS RP5 function INT2 <- MiWi IRQ1
 	iPPSOutput(OUT_PIN_PPS_RP6, OUT_FN_PPS_SCK1OUT);	//PPS RP6 function SPI -> SCK1
 	iPPSInput (IN_FN_PPS_SDI1, IN_PIN_PPS_RP7);			//PPS RP7 function SPI <- SDI
 	iPPSOutput(OUT_PIN_PPS_RP8, OUT_FN_PPS_NULL);		//PPS RP8 function Null

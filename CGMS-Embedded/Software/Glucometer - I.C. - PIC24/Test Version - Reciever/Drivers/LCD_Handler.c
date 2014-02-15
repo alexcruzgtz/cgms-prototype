@@ -355,7 +355,7 @@ void vPutrs_LCD( rom UINT8 *buffer )
 }
 #endif
 /*.........................................................................................*/
-//#if defined ( __ENABLE_TESTS__ )
+
 	void LCD_Test( void )
 	{
 		LCD_Init();
@@ -365,7 +365,7 @@ void vPutrs_LCD( rom UINT8 *buffer )
 		vWriteLCD(0xC0,LCD_COMMAND);
 		vPuts_LCD("123456789101112");
 	}
-//#endif
+
 
 
 /*-----------------------------------------------------------------------------------------*/
