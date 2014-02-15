@@ -46,6 +46,7 @@
 /*-----------------------------------------------------------------------------------------*/
 #include <GenericTypeDefs.h>
 #include "Drivers/Oscillator.h"
+#include "Scheduler/HardwareConfig.h"
 
 
 /*-----------------------------------------------------------------------------------------*/
@@ -172,7 +173,7 @@ void vPuts_LCD( UINT8 *buffer );
 #if defined( __18CXX )
 	void vPutrs_LCD( rom UINT8 *buffer );
 #endif
-//#if defined ( __ENABLE_TESTS__ )
+//#if defined ( ENABLE_TESTS )
 	void LCD_Test( void );
 //#endif
 

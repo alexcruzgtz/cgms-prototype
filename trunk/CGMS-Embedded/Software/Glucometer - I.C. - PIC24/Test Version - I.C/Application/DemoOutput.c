@@ -45,7 +45,7 @@
 **************************************************************************/
 
 #include "Application/DemoOutput.h"
-#include "Drivers/GenericTypeDefs.h"
+#include <GenericTypeDefs.h>
 #include "Scheduler/HardwareConfig.h"
 #include "Drivers/UART_Handler.h"
 #include "Drivers/Wireless/MiWi_ConfigApp.h"

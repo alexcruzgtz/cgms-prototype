@@ -162,9 +162,9 @@ void DemoOutput_HandleMessage(void)
 void DemoOutput_UpdateTxRx(BYTE TxNum, BYTE RxNum)
 {
 	vWriteLCD(0x80,LCD_COMMAND);
-	vPuts_LCD(TxNum);
+	//vPuts_LCD(TxNum);
 	vWriteLCD(0x88,LCD_COMMAND);
-	vPuts_LCD(RxNum);
+	//vPuts_LCD(RxNum);
 	DelayMs(500);
 }    
 
