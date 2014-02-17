@@ -1,0 +1,15 @@
+Component   : PCBComponent_1
+PCB Library : Spirit_Level_Project.PcbLib
+Date        : 17/02/2014
+Time        : 11:12:46 a.m.
+
+
+
+Dimension : 99.999 x 99.999 in
+
+ Layer(s)              Pads(s)  Tracks(s)  Fill(s)  Arc(s)  Text(s)
+--------------------------------------------------------------------
+ Top Overlay                 0          8        0       0        0
+ Multi Layer                20          0        0       0        0
+--------------------------------------------------------------------
+ Total                      20          8        0       0        0
