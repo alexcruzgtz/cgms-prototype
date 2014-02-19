@@ -1,4 +1,4 @@
-Microchip Technology Inc, vv3_30 (B) s
+Microchip Technology Inc, vv3_30 (B) Z
 
 Tool Name:
   c:\program files (x86)\microchip\mplab c30\bin\bin\..\bin/pic30-coff-ld.exe
@@ -37,9 +37,6 @@ Command:
   DemoOutput.o \
   -Tp24FJ64GA102.gld.00 \
   --defsym=__MPLAB_BUILD=1 \
-  --defsym=__MPLAB_DEBUG=1 \
-  --defsym=__MPLAB_DEBUGGER_PK3=1 \
-  --defsym=__ICD2RAM=1 \
   -Map=..\Test Version - Reciever\OutPut\Test Reciever - PIC24.map \
   --report-mem \
   -start-group \
@@ -64,23 +61,22 @@ section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200                0xb0           0x108  (264)
 .const                       0x2b0               0x576           0x831  (2097)
-.text                        0x826              0x2bb0          0x4188  (16776)
-.dinit                      0x33d6                0x34            0x4e  (78)
-.text                       0x340a                0x38            0x54  (84)
+.text                        0x826              0x2bee          0x41e5  (16869)
+.dinit                      0x3414                0x34            0x4e  (78)
+.text                       0x3448                 0xa             0xf  (15)
 
-                     Total program memory used (bytes):         0x4b63  (19299) 29%
+                     Total program memory used (bytes):         0x4b7b  (19323) 29%
 
 
 Data Memory  [Origin = 0x800, Length = 0x2000]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.icd                         0x800                0x50            0x50  (80)
-.nbss                        0x850                   0           0x1cc  (460)
-.ndata                       0xa1c                   0             0x8  (8)
-.nbss                        0xa24                   0             0x8  (8)
+.nbss                        0x800                   0           0x1cc  (460)
+.ndata                       0x9cc                   0             0x8  (8)
+.nbss                        0x9d4                   0             0x8  (8)
 
-                        Total data memory used (bytes):          0x22c  (556) 6%
+                        Total data memory used (bytes):          0x1dc  (476) 5%
 
 
 Dynamic Memory Usage
@@ -88,84 +84,84 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                        0xa2c                              0x1dd4  (7636)
+stack                        0x9dc                              0x1e24  (7716)
 
-                        Maximum dynamic memory (bytes):         0x1dd4  (7636)
+                        Maximum dynamic memory (bytes):         0x1e24  (7716)
 
 
 External Symbols in Data Memory (by address):
 
-                    0x0850                  _RxPacket
-                    0x08c6                  _MACInitParams
-                    0x08ca                  _TxMACSeq
-                    0x08cb                  _MACSeq
-                    0x08cc                  _ReceivedBankIndex
-                    0x08cd                  _RF_Mode
-                    0x08ce                  _RSSIVal
-                    0x08cf                  _RSSILock
-                    0x08d0                  _AckInfo
-                    0x08f8                  _OutgoingFrameCounter
-                    0x08fc                  _key
-                    0x0904                  _MACTxBuffer
-                    0x093e                  _MACRxPacket
-                    0x0948                  _IncomingFrameCounter
-                    0x0950                  _ConnectionTable
-                    0x0956                  _ActiveScanResults
-                    0x097e                  _rxMessage
-                    0x098a                  _TxBuffer
-                    0x09b2                  _TxData
-                    0x09b3                  _P2PStatus
-                    0x09b4                  _indirectMessages
-                    0x0a14                  _P2PCapacityInfo
-                    0x0a15                  _LatestConnection
-                    0x0a16                  _ActiveScanResultIndex
-                    0x0a18                  _DataRequestTimer
-                    0x0a1c                  _IRQ1_Received
-                    0x0a1e                  _hasAck
-                    0x0a20                  _myLongAddress
-                    0x0a22                  _currentChannel
-                    0x0a23                  _ConnMode
-                    0x0a24                  _tmpBlock
-                    0x0a28                  _NLinea
-                    0x0a2a                  _timerExtension1
-                    0x0a2b                  _timerExtension2
+                    0x0800                  _RxPacket
+                    0x0876                  _MACInitParams
+                    0x087a                  _TxMACSeq
+                    0x087b                  _MACSeq
+                    0x087c                  _ReceivedBankIndex
+                    0x087d                  _RF_Mode
+                    0x087e                  _RSSIVal
+                    0x087f                  _RSSILock
+                    0x0880                  _AckInfo
+                    0x08a8                  _OutgoingFrameCounter
+                    0x08ac                  _key
+                    0x08b4                  _MACTxBuffer
+                    0x08ee                  _MACRxPacket
+                    0x08f8                  _IncomingFrameCounter
+                    0x0900                  _ConnectionTable
+                    0x0906                  _ActiveScanResults
+                    0x092e                  _rxMessage
+                    0x093a                  _TxBuffer
+                    0x0962                  _TxData
+                    0x0963                  _P2PStatus
+                    0x0964                  _indirectMessages
+                    0x09c4                  _P2PCapacityInfo
+                    0x09c5                  _LatestConnection
+                    0x09c6                  _ActiveScanResultIndex
+                    0x09c8                  _DataRequestTimer
+                    0x09cc                  _IRQ1_Received
+                    0x09ce                  _hasAck
+                    0x09d0                  _myLongAddress
+                    0x09d2                  _currentChannel
+                    0x09d3                  _ConnMode
+                    0x09d4                  _tmpBlock
+                    0x09d8                  _NLinea
+                    0x09da                  _timerExtension1
+                    0x09db                  _timerExtension2
 
 External Symbols in Data Memory (by name):
 
-                    0x08d0                  _AckInfo
-                    0x0a16                  _ActiveScanResultIndex
-                    0x0956                  _ActiveScanResults
-                    0x0a23                  _ConnMode
-                    0x0950                  _ConnectionTable
-                    0x0a18                  _DataRequestTimer
-                    0x0a1c                  _IRQ1_Received
-                    0x0948                  _IncomingFrameCounter
-                    0x0a15                  _LatestConnection
-                    0x08c6                  _MACInitParams
-                    0x093e                  _MACRxPacket
-                    0x08cb                  _MACSeq
-                    0x0904                  _MACTxBuffer
-                    0x0a28                  _NLinea
-                    0x08f8                  _OutgoingFrameCounter
-                    0x0a14                  _P2PCapacityInfo
-                    0x09b3                  _P2PStatus
-                    0x08cd                  _RF_Mode
-                    0x08cf                  _RSSILock
-                    0x08ce                  _RSSIVal
-                    0x08cc                  _ReceivedBankIndex
-                    0x0850                  _RxPacket
-                    0x098a                  _TxBuffer
-                    0x09b2                  _TxData
-                    0x08ca                  _TxMACSeq
-                    0x0a22                  _currentChannel
-                    0x0a1e                  _hasAck
-                    0x09b4                  _indirectMessages
-                    0x08fc                  _key
-                    0x0a20                  _myLongAddress
-                    0x097e                  _rxMessage
-                    0x0a2a                  _timerExtension1
-                    0x0a2b                  _timerExtension2
-                    0x0a24                  _tmpBlock
+                    0x0880                  _AckInfo
+                    0x09c6                  _ActiveScanResultIndex
+                    0x0906                  _ActiveScanResults
+                    0x09d3                  _ConnMode
+                    0x0900                  _ConnectionTable
+                    0x09c8                  _DataRequestTimer
+                    0x09cc                  _IRQ1_Received
+                    0x08f8                  _IncomingFrameCounter
+                    0x09c5                  _LatestConnection
+                    0x0876                  _MACInitParams
+                    0x08ee                  _MACRxPacket
+                    0x087b                  _MACSeq
+                    0x08b4                  _MACTxBuffer
+                    0x09d8                  _NLinea
+                    0x08a8                  _OutgoingFrameCounter
+                    0x09c4                  _P2PCapacityInfo
+                    0x0963                  _P2PStatus
+                    0x087d                  _RF_Mode
+                    0x087f                  _RSSILock
+                    0x087e                  _RSSIVal
+                    0x087c                  _ReceivedBankIndex
+                    0x0800                  _RxPacket
+                    0x093a                  _TxBuffer
+                    0x0962                  _TxData
+                    0x087a                  _TxMACSeq
+                    0x09d2                  _currentChannel
+                    0x09ce                  _hasAck
+                    0x0964                  _indirectMessages
+                    0x08ac                  _key
+                    0x09d0                  _myLongAddress
+                    0x092e                  _rxMessage
+                    0x09da                  _timerExtension1
+                    0x09db                  _timerExtension2
+                    0x09d4                  _tmpBlock
 
 External Symbols in Program Memory (by address):
 
@@ -259,11 +255,11 @@ External Symbols in Program Memory (by address):
                   0x003362                  _SPI_Init
                   0x003378                  _SPIPut
                   0x003394                  _SPIGet
-                  0x0033a2                  _InitSymbolTimer
-                  0x0033ae                  _MiWi_TickGet
-                  0x00340a                  _Interrupts_Init
-                  0x003418                  __INT2Interrupt
-                  0x003438                  _main
+                  0x0033a2                  _Interrupts_Init
+                  0x0033c0                  __INT2Interrupt
+                  0x0033e0                  _InitSymbolTimer
+                  0x0033ec                  _MiWi_TickGet
+                  0x003448                  _main
 
 External Symbols in Program Memory (by name):
 
@@ -295,8 +291,8 @@ External Symbols in Program Memory (by name):
                   0x0025e0                  _IRQ1_Handler
                   0x000fca                  _IndirectPacket
                   0x00074a                  _InitConfigRegs
-                  0x0033a2                  _InitSymbolTimer
-                  0x00340a                  _Interrupts_Init
+                  0x0033e0                  _InitSymbolTimer
+                  0x0033a2                  _Interrupts_Init
                   0x002d54                  _LCD_Init
                   0x002e88                  _LCD_Test
                   0x000826                  _MacroNop
@@ -326,7 +322,7 @@ External Symbols in Program Memory (by name):
                   0x001efa                  _MiMAC_SetChannel
                   0x001f4e                  _MiMAC_SetPower
                   0x0002b0                  _MiWi
-                  0x0033ae                  _MiWi_TickGet
+                  0x0033ec                  _MiWi_TickGet
                   0x00330c                  _Oscillator_Init
                   0x00082e                  _P2PTasks
                   0x00070a                  _PVALUE
@@ -346,7 +342,7 @@ External Symbols in Program Memory (by name):
                   0x002fa2                  _UART_Test
                   0x001d98                  _WriteFIFO
                   0x0002ac                  __DefaultInterrupt
-                  0x003418                  __INT2Interrupt
+                  0x0033c0                  __INT2Interrupt
                   0x000232                  ___delay32
                   0x00024e                  __data_init
                   0x00024e                  __data_init_standard
@@ -355,7 +351,7 @@ External Symbols in Program Memory (by name):
                   0x00292e                  _encode
                   0x001d0e                  _getReceiverBW
                   0x001390                  _isSameAddress
-                  0x003438                  _main
+                  0x003448                  _main
                   0x00081e                  _mySecurityKey
                   0x002c3a                  _ui8BusyLCD
                   0x002e1e                  _vGotoxyLCD
@@ -454,10 +450,6 @@ __CONFIG1         0x00abfe          0x2
  *(__CONFIG1.sec*)
  __CONFIG1.sec    0x00abfe          0x2 main.o
 
-.icd                0x0800         0x50
-                    0x0850                  . = (. + DEFINED (__ICD2RAM)?0x50:0x0)
- *fill*             0x0800         0x5000
-
 .comment
  *(.comment)
 
@@ -530,7 +522,7 @@ __CONFIG1         0x00abfe          0x2
                   0x000048          0x4 LONG 0x2ac DEFINED (__OC4Interrupt)?ABSOLUTE (__OC4Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00004a          0x4 LONG 0x2ac DEFINED (__T4Interrupt)?ABSOLUTE (__T4Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00004c          0x4 LONG 0x2ac DEFINED (__T5Interrupt)?ABSOLUTE (__T5Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00004e          0x4 LONG 0x3418 DEFINED (__INT2Interrupt)?ABSOLUTE (__INT2Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00004e          0x4 LONG 0x33c0 DEFINED (__INT2Interrupt)?ABSOLUTE (__INT2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000050          0x4 LONG 0x2ac DEFINED (__U2RXInterrupt)?ABSOLUTE (__U2RXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000052          0x4 LONG 0x2ac DEFINED (__U2TXInterrupt)?ABSOLUTE (__U2TXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000054          0x4 LONG 0x2ac DEFINED (__SPI2ErrInterrupt)?ABSOLUTE (__SPI2ErrInterrupt):ABSOLUTE (__DefaultInterrupt)
@@ -658,7 +650,7 @@ __CONFIG1         0x00abfe          0x2
                   0x000148          0x4 LONG 0x2ac DEFINED (__AltOC4Interrupt)?ABSOLUTE (__AltOC4Interrupt):DEFINED (__OC4Interrupt)?ABSOLUTE (__OC4Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00014a          0x4 LONG 0x2ac DEFINED (__AltT4Interrupt)?ABSOLUTE (__AltT4Interrupt):DEFINED (__T4Interrupt)?ABSOLUTE (__T4Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00014c          0x4 LONG 0x2ac DEFINED (__AltT5Interrupt)?ABSOLUTE (__AltT5Interrupt):DEFINED (__T5Interrupt)?ABSOLUTE (__T5Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00014e          0x4 LONG 0x3418 DEFINED (__AltINT2Interrupt)?ABSOLUTE (__AltINT2Interrupt):DEFINED (__INT2Interrupt)?ABSOLUTE (__INT2Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00014e          0x4 LONG 0x33c0 DEFINED (__AltINT2Interrupt)?ABSOLUTE (__AltINT2Interrupt):DEFINED (__INT2Interrupt)?ABSOLUTE (__INT2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000150          0x4 LONG 0x2ac DEFINED (__AltU2RXInterrupt)?ABSOLUTE (__AltU2RXInterrupt):DEFINED (__U2RXInterrupt)?ABSOLUTE (__U2RXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000152          0x4 LONG 0x2ac DEFINED (__AltU2TXInterrupt)?ABSOLUTE (__AltU2TXInterrupt):DEFINED (__U2TXInterrupt)?ABSOLUTE (__U2TXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000154          0x4 LONG 0x2ac DEFINED (__AltSPI2ErrInterrupt)?ABSOLUTE (__AltSPI2ErrInterrupt):DEFINED (__SPI2ErrInterrupt)?ABSOLUTE (__SPI2ErrInterrupt):ABSOLUTE (__DefaultInterrupt)
@@ -1446,9 +1438,6 @@ __CONFIG1         0x00abfe          0x2
                     0x0230                  UART2 = 0x230
                     0x0230                  _UART2 = 0x230
                     0x0001                  __MPLAB_BUILD = 0x1
-                    0x0001                  __MPLAB_DEBUG = 0x1
-                    0x0001                  __MPLAB_DEBUGGER_PK3 = 0x1
-                    0x0001                  __ICD2RAM = 0x1
 START GROUP
 LOAD c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libpic30-coff.a
 LOAD c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libm-coff.a
@@ -1497,52 +1486,52 @@ __c30_signature
  __c30_signature
                   0x000066          0x6 c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libpic30-coff.a(data_init_standard.o)
 
-.nbss               0x0850        0x1cc
- .nbss              0x0850         0xee MiWi_MRF89XA.o
-                    0x0850                  RxPacket
-                    0x08c6                  MACInitParams
-                    0x08ca                  TxMACSeq
-                    0x08cb                  MACSeq
-                    0x08cc                  ReceivedBankIndex
-                    0x08cd                  RF_Mode
-                    0x08ce                  RSSIVal
-                    0x08cf                  RSSILock
-                    0x08d0                  AckInfo
-                    0x08f8                  OutgoingFrameCounter
-                    0x08fc                  key
-                    0x0904                  MACTxBuffer
- .nbss              0x093e         0xde MiWi_P2P.o
-                    0x093e                  MACRxPacket
-                    0x0948                  IncomingFrameCounter
-                    0x0950                  ConnectionTable
-                    0x0956                  ActiveScanResults
-                    0x097e                  rxMessage
-                    0x098a                  TxBuffer
-                    0x09b2                  TxData
-                    0x09b3                  P2PStatus
-                    0x09b4                  indirectMessages
-                    0x0a14                  P2PCapacityInfo
-                    0x0a15                  LatestConnection
-                    0x0a16                  ActiveScanResultIndex
-                    0x0a18                  DataRequestTimer
+.nbss               0x0800        0x1cc
+ .nbss              0x0800         0xee MiWi_MRF89XA.o
+                    0x0800                  RxPacket
+                    0x0876                  MACInitParams
+                    0x087a                  TxMACSeq
+                    0x087b                  MACSeq
+                    0x087c                  ReceivedBankIndex
+                    0x087d                  RF_Mode
+                    0x087e                  RSSIVal
+                    0x087f                  RSSILock
+                    0x0880                  AckInfo
+                    0x08a8                  OutgoingFrameCounter
+                    0x08ac                  key
+                    0x08b4                  MACTxBuffer
+ .nbss              0x08ee         0xde MiWi_P2P.o
+                    0x08ee                  MACRxPacket
+                    0x08f8                  IncomingFrameCounter
+                    0x0900                  ConnectionTable
+                    0x0906                  ActiveScanResults
+                    0x092e                  rxMessage
+                    0x093a                  TxBuffer
+                    0x0962                  TxData
+                    0x0963                  P2PStatus
+                    0x0964                  indirectMessages
+                    0x09c4                  P2PCapacityInfo
+                    0x09c5                  LatestConnection
+                    0x09c6                  ActiveScanResultIndex
+                    0x09c8                  DataRequestTimer
 
-.ndata              0x0a1c          0x8
- .ndata             0x0a1c          0x4 MiWi_MRF89XA.o
-                    0x0a1c                  IRQ1_Received
-                    0x0a1e                  hasAck
- .ndata             0x0a20          0x4 MiWi_P2P.o
-                    0x0a20                  myLongAddress
-                    0x0a22                  currentChannel
-                    0x0a23                  ConnMode
+.ndata              0x09cc          0x8
+ .ndata             0x09cc          0x4 MiWi_MRF89XA.o
+                    0x09cc                  IRQ1_Received
+                    0x09ce                  hasAck
+ .ndata             0x09d0          0x4 MiWi_P2P.o
+                    0x09d0                  myLongAddress
+                    0x09d2                  currentChannel
+                    0x09d3                  ConnMode
 
-.nbss               0x0a24          0x8
- .nbss              0x0a24          0x4 MiWi_Security.o
-                    0x0a24                  tmpBlock
- .nbss              0x0a28          0x2 LCD_Handler.o
-                    0x0a28                  NLinea
- .nbss              0x0a2a          0x2 SymbolTime.o
-                    0x0a2a                  timerExtension1
-                    0x0a2b                  timerExtension2
+.nbss               0x09d4          0x8
+ .nbss              0x09d4          0x4 MiWi_Security.o
+                    0x09d4                  tmpBlock
+ .nbss              0x09d8          0x2 LCD_Handler.o
+                    0x09d8                  NLinea
+ .nbss              0x09da          0x2 SymbolTime.o
+                    0x09da                  timerExtension1
+                    0x09db                  timerExtension2
 
 .const              0x82b0        0x576 load address 0x0002b0  
  .const             0x82b0        0x288 DemoOutput.o
@@ -1560,7 +1549,7 @@ __c30_signature
  .const             0x881e          0x8 MiWi_Security.o
                     0x881e                  mySecurityKey
 
-.text             0x000826       0x2bb0
+.text             0x000826       0x2bee
  .text            0x000826       0x14e8 MiWi_P2P.o
                   0x000826                  MacroNop
                   0x00082e                  P2PTasks
@@ -1648,16 +1637,16 @@ __c30_signature
                   0x003362                  SPI_Init
                   0x003378                  SPIPut
                   0x003394                  SPIGet
- .text            0x0033a2         0x34 SymbolTime.o
-                  0x0033a2                  InitSymbolTimer
-                  0x0033ae                  MiWi_TickGet
+ .text            0x0033a2         0x3e Interrupts.o
+                  0x0033a2                  Interrupts_Init
+                  0x0033c0                  _INT2Interrupt
+ .text            0x0033e0         0x34 SymbolTime.o
+                  0x0033e0                  InitSymbolTimer
+                  0x0033ec                  MiWi_TickGet
 
-.dinit            0x0033d6         0x34
- .dinit           0x0033d6         0x34 data_init
+.dinit            0x003414         0x34
+ .dinit           0x003414         0x34 data_init
 
-.text             0x00340a         0x38
- .text            0x00340a         0x2e Interrupts.o
-                  0x00340a                  Interrupts_Init
-                  0x003418                  _INT2Interrupt
- .text            0x003438          0xa main.o
-                  0x003438                  main
+.text             0x003448          0xa
+ .text            0x003448          0xa main.o
+                  0x003448                  main
