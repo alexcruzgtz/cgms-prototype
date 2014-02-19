@@ -11,12 +11,12 @@
 void Interrupts_Init(void)
 {
 	//IR_NESTING_DISABLED
-	IR_USE_STD_VECTORTABLE
+	//IR_USE_STD_VECTORTABLE
 
-	//INT2_EdgeDetect=_NEG_EDGE;
-	//INT2_IRQ_Priority = _IRQ_LVL_4;
+	INT2_EdgeDetect=_NEG_EDGE;
+	INT2_IRQ_Priority = _IRQ_LVL_4;
 	
-	//ADC_IRQ_OFF
+	ADC_IRQ_OFF
 	//ADC_IRQ_Priority = _IRQ_LVL_5;
 
 	//SPI1_EVENTIRQ_OFF
