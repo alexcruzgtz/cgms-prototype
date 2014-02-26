@@ -62,22 +62,6 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
-[Document3]
-DocumentPath=Glucometer-I.C.-Amp Test- V1.OutJob
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-
 [Configuration1]
 Name=Default Configuration
 ParameterCount=0
@@ -87,6 +71,9 @@ CurrentRevision=
 Variant=[No Variations]
 GenerateBOM=1
 OutputJobsCount=0
+
+[Generic_EDE]
+OutputDir=Project Outputs for Glucometer-I.C.-Amp Test- V1
 
 [Generic_SmartPDF]
 AutoOpenFile=-1
@@ -121,9 +108,6 @@ SCH_ExpandSheetNumber=0
 SCH_ExpandDocumentNumber=0
 SCH_HasExpandLogicalToPhysicalSheets=0
 SaveSettingsToOutJob=-1
-
-[Generic_EDE]
-OutputDir=Project Outputs for Glucometer-I.C.-Amp Test- V1
 
 [OutputGroup1]
 Name=Netlist Outputs
