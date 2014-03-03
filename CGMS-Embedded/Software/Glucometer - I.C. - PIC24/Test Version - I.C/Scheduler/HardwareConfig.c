@@ -72,7 +72,7 @@ void Cfg_Ports(void)
 	
 	PORTB=0;
 	LATB=0;
-	TRISA=IOPORTB_CFG;
+	TRISB=IOPORTB_CFG;
     
 	LED_Tris = 0;
 	LED_Lat = 0;
