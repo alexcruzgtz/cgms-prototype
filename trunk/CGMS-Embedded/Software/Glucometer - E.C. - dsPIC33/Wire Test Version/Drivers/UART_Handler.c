@@ -16,23 +16,14 @@
 ROM unsigned char CharacterArray[]={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
 
 /*-----------------------------------------------------------------------------------------*/
-/*********************************************************************
-* Function:         void ConsoleInit(void)
-* PreCondition:     none
-* Input:		    none
-* Output:		    none
-* Side Effects:	    UART1 is configured
-* Overview:		    This function will configure the UART for use at 
-*                   in 8 bits, 1 stop, no flowcontrol mode
-* Note:			    None
-********************************************************************/
-void ConsoleInit( void )
+
+void vUART_Init( void )
 {
 	UART1_BaudRateGenerator = 25;//((FCY/BAUD_RATE)/16 ) - 1;
     UART1_RxIRQ_Flag = 0;
 	UART1_TxIRQ_Flag = 0;
 
-	//... Configuring UxSTA Register
+	//... Configuring U1STA Register
     UART1_Tx_IRQModeb0 = 0;
     UART1_Tx_IRQModeb1 = 0;
 	UART1_TXPOL_IDLEONE
@@ -42,11 +33,11 @@ void ConsoleInit( void )
 	UART1_ADDRDETECT_OFF
 	UART1_RXBUFOVERRUN_CLEAR
 	
-	//... Configuring UxMODE Segister
+	//... Configuring U1MODE Segister
 	UART1_OFF
 	UART1_CONT_AT_IDLE    
 	UART1_IRDA_OFF
-	UART1_RTS_FLOW
+	UART1_RTS_FLOWCTRL
 	UART1_WAKESLEEP_ON
 	UART1_LOOP_OFF
 	UART1_AUTOBAUD_OFF
@@ -61,55 +52,22 @@ void ConsoleInit( void )
 }
 
 /*.........................................................................................*/
-/*********************************************************************
-* Function:         void ConsolePutROMString(ROM char* str)
-* PreCondition:     none
-* Input:		    str - ROM string that needs to be printed
-* Output:		    none
-* Side Effects:	    str is printed to the console
-* Overview:		    This function will print the inputed ROM string
-* Note:			    Do not power down the microcontroller until 
-*                   the transmission is complete or the last 
-*                   transmission of the string can be corrupted.  
-********************************************************************/
-void ConsolePutROMString( ROM char* str )
+void vUART_PutROMString( ROM char* str )
 {
     BYTE c;
     while( (c = *str++) )
-        ConsolePut(c);
+    	vUART_Put(c);
 }
 
 /*.........................................................................................*/
-/*********************************************************************
-* Function:         void ConsolePut(BYTE c)
-* PreCondition:     none
-* Input:		    c - character to be printed
-* Output:		    none
-* Side Effects:	    c is printed to the console
-* Overview:		    This function will print the inputed character
-* Note:			    Do not power down the microcontroller until 
-*                   the transmission is complete or the last 
-*                   transmission of the string can be corrupted.  
-********************************************************************/
-void ConsolePut( BYTE c )
+void vUART_Put( BYTE c )
 {
     while(UART1_TxShiftRegEmpty == 0);
     UART1_TxRegister = c;
 }
 
 /*.........................................................................................*/
-/*********************************************************************
-* Function:         BYTE ConsoleGet(void)
-* PreCondition:     none
-* Input:		    none
-* Output:		    one byte received by UART
-* Side Effects:	    none
-* Overview:		    This function will receive one byte from UART
-* Note:			    Do not power down the microcontroller until 
-*                   the transmission is complete or the last 
-*                   transmission of the string can be corrupted.  
-********************************************************************/
-BYTE ConsoleGet( void )
+BYTE bUART_Get( void )
 {
 	char Temp;
     while(UART1_RxIRQ_Flag == 0);
@@ -119,69 +77,44 @@ BYTE ConsoleGet( void )
 }
 
 /*.........................................................................................*/
-/*********************************************************************
-* Function:         void PrintChar(BYTE toPrint)
-* PreCondition:     none
-* Input:		    toPrint - character to be printed
-* Output:		    none
-* Side Effects:	    toPrint is printed to the console
-* Overview:		    This function will print the inputed BYTE to 
-*                   the console in hexidecimal form
-* Note:			    Do not power down the microcontroller until 
-*                   the transmission is complete or the last 
-*                   transmission of the string can be corrupted.  
-********************************************************************/
-void PrintChar( BYTE toPrint )
+void vPrintChar( BYTE toPrint )
 {
     BYTE PRINT_VAR;
     PRINT_VAR = toPrint;
     toPrint = (toPrint>>4) & 0x0F;
-    ConsolePut( CharacterArray[toPrint] );
+    vUART_Put( CharacterArray[toPrint] );
     toPrint = (PRINT_VAR) & 0x0F;
-    ConsolePut( CharacterArray[toPrint] );
+    vUART_Put( CharacterArray[toPrint] );
     return;
 }
 
 /*.........................................................................................*/
-/*********************************************************************
-* Function:         void PrintDec(BYTE toPrint)
-* PreCondition:     none
-* Input:		    toPrint - character to be printed. Range is 0-99
-* Output:		    none
-* Side Effects:	    toPrint is printed to the console in decimal
-* Overview:		    This function will print the inputed BYTE to 
-*                   the console in decimal form
-* Note:			    Do not power down the microcontroller until 
-*                   the transmission is complete or the last 
-*                   transmission of the string can be corrupted.  
-********************************************************************/
-void PrintDec( BYTE toPrint )
+void vPrintDec( BYTE toPrint )
 {
-    ConsolePut( CharacterArray[toPrint/10] );
-    ConsolePut( CharacterArray[toPrint%10] );
+    vUART_Put( CharacterArray[toPrint/10] );
+    vUART_Put( CharacterArray[toPrint%10] );
 }
 
 /*.........................................................................................*/
-//#if defined ( ENABLE_TESTS )
-	void UART_Test( void )
+void vUART_Test( void )
+{
+	vUART_Init();
+	BYTE i;
+	for( i=0 ; i<10 ; i++ )
 	{
-		ConsoleInit();
-		BYTE i;
-		for( i=0 ; i<10 ; i++ )
-		{
-			ConsolePut('A');
-		}
-		ConsolePutROMString("\r\n Hola! \n");
-		PrintChar("A");
-		PrintDec(50);
-		Printf("\r ... UART Test OK ... \n");
-		Printf("\r Presiona una tecla \n");
-		i=ConsoleGet();
-		Printf("\r Tecla Presionada: ");
-		ConsolePut(i);
-		Printf("\r\n Adios! ");
+		vUART_Put('A');
 	}
-//#endif
+	vUART_PutROMString("\r\n Hola! \n");
+	vPrintChar("A");
+	vPrintDec(50);
+	vPrintf("\r ... UART Test OK ... \n");
+	vPrintf("\r Presiona una tecla \n");
+	i=bUART_Get();
+	vPrintf("\r Tecla Presionada: ");
+	vUART_Put(i);
+	vPrintf("\r\n Adios! ");
+}
+
 
 
 /*-----------------------------------------------------------------------------------------*/
