@@ -39,8 +39,12 @@
  */
 
 /*-----------------------------------------------------------------------------------------*/
-#include <GenericTypeDefs.h>
+
 #include "Drivers/LCD_Handler.h"
+#include <p33Fxxxx.h
+#include <GenericTypeDefs.h>
+#include <libpic30.h>
+#include "Drivers/Oscillator.h"
 #include "Scheduler/HardwareConfig.h"
 
 /*-----------------------------------------------------------------------------------------*/
@@ -52,49 +56,49 @@ UINT8 NLinea;
 UINT8 ui8BusyLCD( void )
 {
 	#ifdef LCD_USE_RW
-	LCD_DATA_PIN_7 = 0;
-	LCD_DATA_PIN_6 = 0;
-	LCD_DATA_PIN_5 = 0;
-	LCD_DATA_PIN_4 = 0;
+		LCD_DATA_PIN_7 = 0;
+		LCD_DATA_PIN_6 = 0;
+		LCD_DATA_PIN_5 = 0;
+		LCD_DATA_PIN_4 = 0;	
 
-   	LCD_TRIS_DATA_PIN_7 = CONFIG_INPUT;
-   	LCD_TRIS_DATA_PIN_6 = CONFIG_INPUT;
-   	LCD_TRIS_DATA_PIN_5 = CONFIG_INPUT;
-   	LCD_TRIS_DATA_PIN_4 = CONFIG_INPUT;
+   		LCD_TRIS_DATA_PIN_7 = __INPUT;
+	   	LCD_TRIS_DATA_PIN_6 = __INPUT;
+	   	LCD_TRIS_DATA_PIN_5 = __INPUT;
+	   	LCD_TRIS_DATA_PIN_4 = __INPUT;
 
-   	LCD_RW_PIN = 1;    
-   	LCD_RS_PIN = 0; 
-	LCD_E_PIN = 1;         
-   	__delay_1us();
+	   	LCD_RW_PIN = 1;    
+	   	LCD_RS_PIN = 0; 
+		LCD_E_PIN = 1;         
+   		__delay_1us();
 
-   	if( LCD_READ_PIN_7 == 1 )
-	{
-	   	LCD_E_PIN = 0; 
-		__delay_1us();
-		LCD_E_PIN = 1;
-		__delay_1us();
-		LCD_E_PIN = 0;
-      	LCD_RW_PIN = 0; 
-        return 1;
-    }
-	else
-	{
-    	LCD_E_PIN = 0;
-		__delay_1us();
-		LCD_E_PIN = 1;
-		__delay_1us();
-		LCD_E_PIN = 0;
-		LCD_RW_PIN = 0;       
-        return 0;
-    }
+   		if( LCD_READ_PIN_7 == 1 )
+		{
+	   		LCD_E_PIN = 0; 
+			__delay_1us();
+			LCD_E_PIN = 1;
+			__delay_1us();
+			LCD_E_PIN = 0;
+      		LCD_RW_PIN = 0; 
+        	return 1;
+    	}
+		else
+		{
+    		LCD_E_PIN = 0;
+			__delay_1us();
+			LCD_E_PIN = 1;
+			__delay_1us();
+			LCD_E_PIN = 0;
+			LCD_RW_PIN = 0;       
+        	return 0;
+    	}
 	#else
-	__delay_100us();
-	return 0;
+		__delay_100us();
+		return 0;
 	#endif
 }
 
 /*.........................................................................................*/
-void vWriteLCD( UINT8 Data, UINT8 Type )
+void vLCD_Write( UINT8 Data, UINT8 Type )
 {
 	#ifdef LCD_USE_3PINES
 		UINT8 i, data_temp;
@@ -114,10 +118,10 @@ void vWriteLCD( UINT8 Data, UINT8 Type )
 		{
 			LCD_RS_PIN = 0;
 		}	  
-		LCD_TRIS_DATA_PIN_7 = CONFIG_OUTPUT;
-		LCD_TRIS_DATA_PIN_6 = CONFIG_OUTPUT;
-		LCD_TRIS_DATA_PIN_5 = CONFIG_OUTPUT;
-		LCD_TRIS_DATA_PIN_4 = CONFIG_OUTPUT;
+		LCD_TRIS_DATA_PIN_7 = __OUTPUT;
+		LCD_TRIS_DATA_PIN_6 = __OUTPUT;
+		LCD_TRIS_DATA_PIN_5 = __OUTPUT;
+		LCD_TRIS_DATA_PIN_4 = __OUTPUT;
 		
 		LCD_DATA_PIN_7 =!! (Data & 0x80);
 		LCD_DATA_PIN_6 =!! (Data & 0x40);
@@ -170,7 +174,7 @@ void vWriteLCD( UINT8 Data, UINT8 Type )
 } 
 
 /*.........................................................................................*/
-void LCD_Init()
+void vLCD_Init()
 {
 	UINT8 i;
 
@@ -197,23 +201,23 @@ void LCD_Init()
 		LCD_RS_PIN = 0;
 		LCD_E_PIN = 0;
 	
-		LCD_TRIS_DATA_PIN_7 = CONFIG_OUTPUT;
-		LCD_TRIS_DATA_PIN_6 = CONFIG_OUTPUT;
-		LCD_TRIS_DATA_PIN_5 = CONFIG_OUTPUT;
-		LCD_TRIS_DATA_PIN_4 = CONFIG_OUTPUT;
+		LCD_TRIS_DATA_PIN_7 = __OUTPUT;
+		LCD_TRIS_DATA_PIN_6 = __OUTPUT;
+		LCD_TRIS_DATA_PIN_5 = __OUTPUT;
+		LCD_TRIS_DATA_PIN_4 = __OUTPUT;
 		#ifdef LCD_USE_RW	
-			LCD_TRIS_RW = CONFIG_OUTPUT;
+			LCD_TRIS_RW = __OUTPUT;
 		#endif
-		LCD_TRIS_RS = CONFIG_OUTPUT;
-		LCD_TRIS_E = CONFIG_OUTPUT;
+		LCD_TRIS_RS = __OUTPUT;
+		LCD_TRIS_E = __OUTPUT;
 	#else
 		LCD_DATA_PIN = 0;
 		LCD_CLOCK_PIN = 0;
 		LCD_E_PIN = 0;
 
-		LCD_TRIS_DATA = CONFIG_OUTPUT;
-		LCD_TRIS_CLOCK = CONFIG_OUTPUT;
-		LCD_TRIS_E = CONFIG_OUTPUT;
+		LCD_TRIS_DATA = __OUTPUT;
+		LCD_TRIS_CLOCK = __OUTPUT;
+		LCD_TRIS_E = __OUTPUT;
 	
 		for( i=0 ; i<8 ; i++ )
 		{
@@ -266,12 +270,12 @@ void LCD_Init()
 	__delay_1us();
 	LCD_E_PIN = 0;
 
-	vWriteLCD( 0x20 | (LcdType<<2), LCD_COMMAND );  // Tipo display.-  
+	vLCD_Write( 0x20 | (__LCD_Type<<2), __COMMAND );  // Tipo display.-  
 	__delay_2ms();     
-	vWriteLCD( 0x01, LCD_COMMAND );	// Borramos display.-   
+	vLCDWrite( 0x01, __COMMAND );	// Borramos display.-   
 	__delay_2ms();           
-	vWriteLCD( 0x06, LCD_COMMAND );	// Incrementa cursor.-
-	vWriteLCD( 0x0C, LCD_COMMAND );	// Encendemos display.-
+	vLCD_Write( 0x06, __COMMAND );	// Incrementa cursor.-
+	vLCD_Write( 0x0C, __COMMAND );	// Encendemos display.-
 }
 
 /*.........................................................................................*/
@@ -280,22 +284,22 @@ void vLCD_Putc( UINT8 Data )
 	switch(Data)
 	{
 		case '\f':
-			vWriteLCD( 0x01, LCD_COMMAND );
+			vLCD_Write( 0x01, __COMMAND );
 			NLinea = 1;
 			__delay_2ms();
 		break;
 
 		case '\n':
-			vGotoxyLCD( 1, ++NLinea );			
+			vLCD_Gotoxy( 1, ++NLinea );			
 		break;
 
 		default:
-			vWriteLCD( Data, LCD_DATA );
+			vLCD_Write( Data, __DATA );
 	}
 } 
 
 /*.........................................................................................*/
-void vGotoxyLCD( UINT8 x, UINT8 y )
+void vLCD_Gotoxy( UINT8 x, UINT8 y )
 {
 	UINT8 Direccion;
 	switch(y)
@@ -330,7 +334,7 @@ void vGotoxyLCD( UINT8 x, UINT8 y )
 
 	Direccion += x-1;
 	while( ui8BusyLCD() );
-	vWriteLCD( 0x80 | Direccion, LCD_COMMAND );
+	vLCD_Write( 0x80 | Direccion, __COMMAND );
 }
 
 /*.........................................................................................*/
@@ -342,29 +346,18 @@ void vPuts_LCD( UINT8 *buffer )
     }
 }
 
-/*.........................................................................................*/
-#if defined(__18CXX)
-void vPutrs_LCD( rom UINT8 *buffer )
-{
-	UINT8 Data;
-	while( *buffer != '\0' )
-	{
-		Data =* buffer++;
-		vLCD_Putc( Data );
-    }
-}
-#endif
+
 /*.........................................................................................*/
 
-	void LCD_Test( void )
-	{
-		LCD_Init();
-		vWriteLCD(0x80,LCD_COMMAND);
-		vWriteLCD('A',LCD_DATA);
-		vPuts_LCD("BCDEFGHIJKLMNOP");
-		vWriteLCD(0xC0,LCD_COMMAND);
-		vPuts_LCD("123456789101112");
-	}
+void LCD_Test( void )
+{
+	vLCD_Init();
+	vLCD_Write(0x80,__COMMAND);
+	vLCD_Write('A',__DATA);
+	vLCD_Puts("BCDEFGHIJKLMNOP");
+	vLCD_Write(0xC0,__COMMAND);
+	vLCD_Puts("123456789101112");
+}
 
 
 

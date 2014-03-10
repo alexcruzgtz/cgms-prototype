@@ -44,7 +44,9 @@
 
 
 /*-----------------------------------------------------------------------------------------*/
+#include <p33Fxxxx.h
 #include <GenericTypeDefs.h>
+#include <libpic30.h>
 #include "Drivers/Oscillator.h"
 #include "Scheduler/HardwareConfig.h"
 
@@ -52,14 +54,14 @@
 /*-----------------------------------------------------------------------------------------*/
 
 /* **  DEFINICION PARA INICIALIZACIÖN DEL LCD ** */
-#define LcdType 2 			// 0=5x7, 1=5x10, 2=varias lineas
+#define __LCD_Type 				2 			// 0=5x7, 1=5x10, 2=varias lineas
 
 /* ** DEFINICION PARA TRABAJAR CON LCD DE 2 LINEAS o 4 LINEAS** */
 //#define LCD_4LINES
 
 /* ** DEFINICIONES DE DIRECCIONAMIENTO DE LINEAS EN LCD ** */
-#define LCD_LINE_1_ADDRESS 		0x00
-#define LCD_LINE_2_ADDRESS 		0x40
+#define LCD_LINE_1_ADDRESS 		0x80
+#define LCD_LINE_2_ADDRESS 		0xC0
 #if defined(LCD_4LINES)
 	#define LCD_LINE_3_ADDRESS 	0x14
 	#define LCD_LINE_4_ADDRESS 	0x54
@@ -75,54 +77,16 @@
 
 
 /*-----------------------------------------------------------------------------------------*/
-#if defined(__18CXX)
-	//#define FCY 20000000UL 
-	#include <p18cxxx.h>
-   	#include <delays.h>   		
-	#define	__delay_1Cycle()	Nop()
-	#define __delay_1us()		{Nop();Nop();Nop();Nop();Nop();Nop();Nop();Nop();Nop();Nop();Nop();Nop();}
-	#define __delay_100us()		Delay100TCYx(FCY/4000000UL)
-	#define __delay_2ms() 		Delay1KTCYx(FCY/2000000UL)
-#endif 
-	
-/*-----------------------------------------------------------------------------------------*/
-#if defined (__C30__) 				// C30
-	#if defined(__dsPIC30F__)
-		#include <p30fxxxx.h>
-	#elif defined(__dsPIC33F__)
-		#include <p33Fxxxx.h>
-	#elif defined(__PIC24H__)
-		#include <p24Hxxxx.h>
-	#elif defined(__PIC24F__)
-		#include <p24Fxxxx.h>
-	#endif
-	//#define FCY 20000000UL 
-	#include <libpic30.h>
-	#define	__delay_1Cycle()	Nop()
-	#define __delay_1us()		__delay_us(1)
-	#define __delay_100us()		__delay_us(100)
-	#define __delay_2ms() 		__delay_ms(2)
-#endif
-	
-/*-----------------------------------------------------------------------------------------*/
-#if defined (__PIC32MX__)
-	#include <p32xxxx.h>
-	#define GetSystemClock()		(80000000ul)			// Hz
-	#define GetInstructionClock()	(GetSystemClock()/1)	// 
-	#define GetPeripheralClock()	(GetSystemClock()/1)	// 
-	#include "TimeDelay.h"
-	#define	__delay_1Cycle()	{Nop();Nop();Nop();Nop();Nop();Nop();Nop();Nop();Nop();Nop();Nop();Nop();Nop();Nop();Nop();}
-	#define __delay_1us()		{UINT8 k; for(k=0;k<50;k++){Nop();}}
-	#define __delay_100us()		Delay10us(10)   // TimeDelay.h
-	#define __delay_2ms() 		DelayMs(2)		// TimeDelay.h
-#endif
+#define	__delay_1Cycle()	Nop()
+#define __delay_1us()		__delay_us(1)
+#define __delay_100us()		__delay_us(100)
+#define __delay_2ms() 		__delay_ms(2)
+  
+#define __INPUT    	1
+#define __OUTPUT   	0
 
-/*-----------------------------------------------------------------------------------------*/    
-#define CONFIG_INPUT    	1
-#define CONFIG_OUTPUT   	0
-
-#define LCD_COMMAND			0
-#define LCD_DATA			1
+#define __COMMAND			0
+#define __DATA			1
 
 #ifndef LCD_USE_3PINES
 	/* ** Pines tolerables a 5V para usar RW ** */
@@ -164,15 +128,13 @@
 
 
 /*-----------------------------------------------------------------------------------------*/    
+void vLCD_Init( void );
 UINT8 ui8BusyLCD( void );
-void vWriteLCD( UINT8 Data, UINT8 Type );
-void LCD_Init( void );
+void vLCD_Write( UINT8 Data, UINT8 Type );
 void vLCD_Putc( UINT8 Data );
-void vGotoxyLCD( UINT8 x, UINT8 y );
-void vPuts_LCD( UINT8 *buffer );
-#if defined( __18CXX )
-	void vPutrs_LCD( rom UINT8 *buffer );
-#endif
+void vLCD_Gotoxy( UINT8 x, UINT8 y );
+void vLCD_Puts( UINT8 *buffer );
+
 
 
 /*-----------------------------------------------------------------------------------------*/    

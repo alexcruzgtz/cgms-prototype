@@ -21,30 +21,31 @@
 /*-----------------------------------------------------------------------------------------*/
 void HardwareCfg_Init(void)
 {
-CPU_Init();
-Ports_Init();
-Oscillator_Init();
-Interrupts_Init();
-ADC_Init();
-//I2C_Init();
-LCD_Init();
-UART_Init();
+ 	CPU_Init();
+ 	Ports_Init();
+ 	Oscillator_Init();
+	Interrupts_Init(); 
+
+	//ADC_Init();
+	//I2C_Init();
+	LCD_Init();
+	UART_Init();
 }
 
 /*.........................................................................................*/
 void CPU_Init( void )
 {
-RST_VREGINSLEEP_OFF
-RST_WDT_DISABLED
-CPU_DSP_MULT_SIGNED
-CPU_ASAT_DISABLED
-CPU_BSAT_DISABLED
-CPU_DATASPACESAT_DISABLED
-CPU_ACCSATMODE_NORMAL
-CPU_ISRPRIORITY_LESS
-CPU_PROGSPACE_NOTVISIBLE
-CPU_ROUNDMODE_BIASED
-CPU_DSPMUL_INTEGER
+	RST_VREGINSLEEP_OFF
+	RST_WDT_DISABLED
+	CPU_DSP_MULT_SIGNED
+	CPU_ASAT_DISABLED
+	CPU_BSAT_DISABLED
+	CPU_DATASPACESAT_DISABLED
+	CPU_ACCSATMODE_NORMAL
+	CPU_ISRPRIORITY_LESS
+	CPU_PROGSPACE_NOTVISIBLE
+	CPU_ROUNDMODE_BIASED
+	CPU_DSPMUL_INTEGER
 }
 /*.........................................................................................*/
 void Ports_Init(void)
@@ -90,30 +91,29 @@ void Oscillator_Init(void)
   20Mhz Alternate oscillator through FRC+PLL
   Oscillator switch enabled*/
 
-OSC_CurrectOsc = _FRC;
-OSC_NewOsc = _FRCPLL;
-OSC_CLKLOCK_OFF
-OSC_IOLOCK_OFF
-OSC_SOSC_DISABLED
-
-OSC_RECOVERONISR_OFF
-OSC_ProscClkReduction = _DOZE_1;
-OSC_DOZE_DISABLED
-OSC_FRCPostscaler = _RCDIV_1;
+	OSC_CurrectOsc = _FRC;
+	OSC_NewOsc = _FRCPLL;
+	OSC_CLKLOCK_OFF
+	OSC_IOLOCK_OFF
+	OSC_SOSC_DISABLED
+	
+	OSC_RECOVERONISR_OFF
+	OSC_ProscClkReduction = _DOZE_1;
+	OSC_DOZE_DISABLED
+	OSC_FRCPostscaler = _RCDIV_1;
 
 /*PLL configuration. Fosc = Fin( M / (N1 * N2) )
 	For a 20Mhz configuration: N1=8; M=160; and N2=8*/
-OSC_PLLInputDiv = 0b00110; //N1		
-OSC_PLLFeedbackDiv = 0b10011110; //M
-OSC_PLLOutoutDiv = 0b11; //N2
+	OSC_PLLInputDiv = 0b00110; //N1		
+	OSC_PLLFeedbackDiv = 0b10011110; //M
+	OSC_PLLOutoutDiv = 0b11; //N2
 
-OSC_FRCOscTune = 0b000000;
+	OSC_FRCOscTune = 0b000000;
 
-OSC_ACLKSOURCE_PLL
-OSC_AClk_Mode = 0b00;		//Auxiliary Oscillator Disabled
-OSC_AClkDiv = 0b111;		//Divided by 1
-OSC_ACLK_SOURCE_PRIMARY
-
+	OSC_ACLKSOURCE_PLL
+	OSC_AClk_Mode = 0b00;		//Auxiliary Oscillator Disabled
+	OSC_AClkDiv = 0b111;		//Divided by 1
+	OSC_ACLK_SOURCE_PRIMARY
 }
 
 
