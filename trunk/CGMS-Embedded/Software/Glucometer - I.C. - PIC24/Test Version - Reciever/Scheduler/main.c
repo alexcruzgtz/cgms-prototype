@@ -31,18 +31,18 @@
 Config_CFGBits();
 
 
-int main( void )
+/*int main( void )
 {
 	HardwareCfg_Init();  
 	LCD_Test();
 	UART_Test();
 	while(1){}
-}
+}*/
 
 
 
 /*-----------------------------------------------------------------------------------------*/
-/*
+
 #define LIGHT   0x01
 #define SWITCH  0x02
 #if ADDITIONAL_NODE_ID_SIZE > 0
@@ -138,7 +138,7 @@ extern DWORD_VAL OutgoingFrameCounter; int main(void)
         }
     }
 }
-*/
+
 /*-----------------------------------------------------------------------------------------*/
 
 /*BYTE ButtonPressed(void)
