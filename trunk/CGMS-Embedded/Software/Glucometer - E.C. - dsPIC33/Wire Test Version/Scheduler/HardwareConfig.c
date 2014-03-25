@@ -24,12 +24,12 @@ void HardwareCfg_Init(void)
  	CPU_Init();
  	Ports_Init();
  	Oscillator_Init();
-	Interrupts_Init(); 
+	vInterrupts_Init(); 
 
-	//ADC_Init();
+	ADC_Init();
 	//I2C_Init();
-	LCD_Init();
-	UART_Init();
+	vLCD_Init();
+	vUART_Init();
 }
 
 /*.........................................................................................*/
@@ -91,7 +91,7 @@ void Oscillator_Init(void)
   20Mhz Alternate oscillator through FRC+PLL
   Oscillator switch enabled*/
 
-	OSC_CurrectOsc = _FRC;
+	OSC_CurrentOsc = _FRC;
 	OSC_NewOsc = _FRCPLL;
 	OSC_CLKLOCK_OFF
 	OSC_IOLOCK_OFF
@@ -106,7 +106,7 @@ void Oscillator_Init(void)
 	For a 20Mhz configuration: N1=8; M=160; and N2=8*/
 	OSC_PLLInputDiv = 0b00110; //N1		
 	OSC_PLLFeedbackDiv = 0b10011110; //M
-	OSC_PLLOutoutDiv = 0b11; //N2
+	OSC_PLLOutputDiv = 0b11; //N2
 
 	OSC_FRCOscTune = 0b000000;
 

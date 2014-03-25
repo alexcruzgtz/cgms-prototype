@@ -1,6 +1,6 @@
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /**/	
-/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 
 /*-----------------------------------------------------------------------------------------*/
@@ -11,7 +11,7 @@
 /*-----------------------------------------------------------------------------------------*/
 #include <p33fxxxx.h>
 #include <GenericTypeDefs.h>
-#include "Drivers/Compiler.h"
+//#include "Drivers/Compiler.h"
 #include "Drivers/Oscillator.h"
 //#include "Scheduler/HardwareConfig.h"
 
@@ -48,8 +48,8 @@
 #define UART1_LOOP_OFF					U1MODEbits.LPBACK = CLEAR;
 #define UART1_AUTOBAUD_ON				U1MODEbits.ABAUD = SET;
 #define UART1_AUTOBAUD_OFF				U1MODEbits.ABAUD = CLEAR;
-#define UART1_RXPOL_IDLEZERO			U1MODEbits.RXINV = SET;
-#define UART1_RXPOL_IDLEONE				U1MODEbits.RXINV = CLEAR;
+#define UART1_RXPOL_IDLEZERO			U1MODEbits.URXINV = SET;
+#define UART1_RXPOL_IDLEONE				U1MODEbits.URXINV = CLEAR;
 #define UART1_HIGHSPEED_BAUD			U1MODEbits.BRGH = SET;
 #define UART1_STDSPEED_BAUD				U1MODEbits.BRGH = CLEAR;
 #define UART1_ParitySelect				U1MODEbits.PDSEL	/*Parity and Data Selection bits
@@ -104,14 +104,14 @@
 /*-----------------------------------------------------------------------------------------*/
 void vUART_Init( void );
 void vUART_Put( BYTE c );
-void vUART_PutROMString( ROM char* str );
+void vUART_PutROMString( char* str);
 BYTE bUART_Get( void );
 void vPrintChar( BYTE );
 void vPrintDec( BYTE );
 
-#define vPrintf(x) vUART_PutROMString( (ROM char*)x )
+#define vPrintf(x) vUART_PutROMString( (char*)x )
 
-void vUART_Test( void )
+void vUART_Test( void );
 
 /*-----------------------------------------------------------------------------------------*/
 #endif

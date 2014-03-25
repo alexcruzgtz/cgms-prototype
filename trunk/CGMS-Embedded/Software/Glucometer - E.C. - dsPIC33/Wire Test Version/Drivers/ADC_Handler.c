@@ -12,33 +12,36 @@
 
 
 /*-----------------------------------------------------------------------------------------*/
-void ADC_Init(void)
+void ADC_Init( void )
 {
 	ADC_OFF
-	ADC_IDLE_MODE_ON
-	ADC_OUTPUT_INT
-	ADC_CONV_TRIG_INTERNAL
+	ADC_IDLE_ON
+	ADC_DMABUF_INORDER
+	ADC_1CH_12b	
+	ADC_DataOutFormat = 0b01;		//signed Integer
+	ADC_SampleClkSource = 0b000; 	//Clearing sample bit ends sampling and starts conversion
+	ADC_SIMULTANEOUSSAMPLE_OFF
+	ADC_MANUAL_START
 	ADC_HOLD_SAMPLING
+	
 	ADC_VREFS_INTERNALS
-	ADC_Samp_Conv_Per_Interrupt = ADC_NUM_INPUTS;
-	ADC_TWO_8_BUFFER
+	ADC_DONTSCAN
+	ADC_NumSamp_PerIRQ = 0b001;
+	ADC_ONE_16_BUFFER
 	ADC_DONT_ALTERNATE_SAMPLING
+		
 	ADC_CLOCK_SOURCE_INTERNAL
-	ADC_Auto_Sample_Time = _2_TAD;
-	ADC_Conv_Clock = _1_TCY;
-	ADC_MB_NEG_INPUT_VRNEG
-	ADC_MB_Pos_Input = 0; //ADC_DEFAULT_CH;
-	ADC_MA_NEG_INPUT_VRNEG
-	ADC_MA_Pos_Input = 0; //ADC_DEFAULT_CH;
-	ADC_BAND_GAP_REF_DISABLED
-	//ADC_HALFBAND_REF_DISABLED
-	ADC_INT_VREG_CH_DISABLED
-	ADC_Analog_Pins_Cfg = ANALOGPINS_CFG;
-	ADC_BAND_GAP_DISABLED
-	ADC_HALF_BAND_GAP_DISABLED
-	ADC_INT_VREG_DISABLED
-	ADC_Scan_Pins_Enabled = ANALOG_SCANCHANNELS;
-	//ptr_ADCBuffer = &ADC1BUF0;
+	ADC_Auto_Sample_Time = _1_TAD;
+
+	ADC_CH0_BNegInput = 0b1;
+	ADC_CH0_BPosInput = 0b00001;
+	ADC_CH0_ANegInput = 0b1;
+	ADC_CH0_APosInput = 0b00001;
+	
+	ADC_ScanPins = ANALOG_SCANCHANNELS;
+
+	ADC_PortCfg = ANALOG_SCANCHANNELS;
+
 }
 
 /*.........................................................................................*/

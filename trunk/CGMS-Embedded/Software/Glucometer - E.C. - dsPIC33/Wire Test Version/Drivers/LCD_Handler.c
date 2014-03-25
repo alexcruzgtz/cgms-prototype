@@ -41,9 +41,10 @@
 /*-----------------------------------------------------------------------------------------*/
 
 #include "Drivers/LCD_Handler.h"
-#include <p33Fxxxx.h
+#include <p33Fxxxx.h>
 #include <GenericTypeDefs.h>
 #include <libpic30.h>
+#include "Drivers/TimeDelay.h"
 #include "Drivers/Oscillator.h"
 #include "Scheduler/HardwareConfig.h"
 
@@ -272,7 +273,7 @@ void vLCD_Init()
 
 	vLCD_Write( 0x20 | (__LCD_Type<<2), __COMMAND );  // Tipo display.-  
 	__delay_2ms();     
-	vLCDWrite( 0x01, __COMMAND );	// Borramos display.-   
+	vLCD_Write( 0x01, __COMMAND );	// Borramos display.-   
 	__delay_2ms();           
 	vLCD_Write( 0x06, __COMMAND );	// Incrementa cursor.-
 	vLCD_Write( 0x0C, __COMMAND );	// Encendemos display.-
@@ -338,7 +339,7 @@ void vLCD_Gotoxy( UINT8 x, UINT8 y )
 }
 
 /*.........................................................................................*/
-void vPuts_LCD( UINT8 *buffer )
+void vLCD_Puts( UINT8 *buffer )
 {
     while( *buffer != '\0')
 	{
@@ -349,14 +350,17 @@ void vPuts_LCD( UINT8 *buffer )
 
 /*.........................................................................................*/
 
-void LCD_Test( void )
+void vLCD_Test( void )
 {
+	char Text [16];
 	vLCD_Init();
 	vLCD_Write(0x80,__COMMAND);
 	vLCD_Write('A',__DATA);
-	vLCD_Puts("BCDEFGHIJKLMNOP");
+	Text = "BCDEFGHIJKLMNOP";
+	vLCD_Puts(&Text);
 	vLCD_Write(0xC0,__COMMAND);
-	vLCD_Puts("123456789101112");
+	Text = "123456789101112";
+	vLCD_Puts(&Text);
 }
 
 

@@ -11,7 +11,7 @@
 
 
 /*-----------------------------------------------------------------------------------------*/
-void Interrupts_Init(void)
+void vInterrupts_Init(void)
 {
 
 	//ADC_IRQ_OFF

@@ -44,9 +44,10 @@
 
 
 /*-----------------------------------------------------------------------------------------*/
-#include <p33Fxxxx.h
+#include <p33Fxxxx.h>
 #include <GenericTypeDefs.h>
 #include <libpic30.h>
+#include "Drivers/TimeDelay.h"
 #include "Drivers/Oscillator.h"
 #include "Scheduler/HardwareConfig.h"
 
@@ -77,10 +78,11 @@
 
 
 /*-----------------------------------------------------------------------------------------*/
+
 #define	__delay_1Cycle()	Nop()
-#define __delay_1us()		__delay_us(1)
-#define __delay_100us()		__delay_us(100)
-#define __delay_2ms() 		__delay_ms(2)
+#define __delay_1us()		Delay10us(1)
+#define __delay_100us()		Delay10us(10)
+#define __delay_2ms() 		DelayMs(2)
   
 #define __INPUT    	1
 #define __OUTPUT   	0
@@ -135,7 +137,7 @@ void vLCD_Putc( UINT8 Data );
 void vLCD_Gotoxy( UINT8 x, UINT8 y );
 void vLCD_Puts( UINT8 *buffer );
 
-
+void vLCD_Test( void );
 
 /*-----------------------------------------------------------------------------------------*/    
 #endif

@@ -12,7 +12,7 @@
 #include "Drivers/Interrupts.h"
 #include "Drivers/Oscillator.h"
 #include "Drivers/Reset.h"
-#include "Dirvers/CPU.h"
+#include "Drivers/CPU.h"
 #include "Drivers/ADC_Handler.h"
 #include "Drivers/LCD_Handler.h"
 //#include "Drivers/I2C_Handler.h"
@@ -27,7 +27,7 @@
 								_FOSC(POSCMD_NONE & OSCIOFNC_ON & IOL1WAY_ON & FCKSM_CSECME)\
 								_FWDT(WDTPOST_PS128 & WDTPRE_PR32 & WINDIS_OFF & FWDTEN_OFF)\
 								_FPOR(FPWRT_PWR1 & ALTI2C_OFF & LPOL_OFF & HPOL_OFF & PWMPIN_ON)\
-								_FICD(JTAGEN_OFF)
+								_FICD(ICS_PGD3 & JTAGEN_OFF)
 
 #define IOPORT_A_CFG			0b00000000010
 #define IOPORT_B_CFG 			0b0000001000001111
