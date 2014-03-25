@@ -26,9 +26,10 @@ Config_CFGBits();
 int main( void )
 {
 	HardwareCfg_Init();  
-	LCD_Test();
-	UART_Test();
-	while(1){}
+	LCD_Pwr_Lat = 0;	
+	vLCD_Test();
+	//vUART_Test();
+	//while(1){}
 }
 
 

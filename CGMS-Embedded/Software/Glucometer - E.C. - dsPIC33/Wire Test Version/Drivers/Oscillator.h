@@ -15,7 +15,7 @@
 
 /*-----------------------------------------------------------------------------------------*/
 #define FOSC	(8000000)
-#define FCY		 4000000//(FOSC/2)
+#define FCY		 4000000UL //(FOSC/2)
 
 /*.........................................................................................*/
 
@@ -74,7 +74,7 @@
 #define OSC_DOZE_DISABLED			CLKDIVbits.DOZEN = CLEAR;	//CPU peripheral clock ratio set to 1:1
 #define OSC_FRCPostscaler			CLKDIVbits.FRCDIV
 #define OSC_PLLOutputDiv			CLKDIVbits.PLLPOST		//11 = Output/8, 10 = Reserved, 01 = Output/4 (default), 00 = Output/2
-#define OSC_PLLInputDiv				CLKDivbits.PLLPRE		//[4:0] input/33..input/2
+#define OSC_PLLInputDiv				CLKDIVbits.PLLPRE		//[4:0] input/33..input/2
 
 
 /*.............PLLFBD PLL Feedback Divisor Register .......................................*/
@@ -107,8 +107,8 @@
 																   01 = HS Oscillator Mode Select
 																   00 = Auxiliary Oscillator Disabled (default)*/
 #define OSC_AClkDiv					ACLKCONbits.APSTSCLR 	//[2:0] 111-Divided by 1 ... 000-Divided by 256
-#define OSC_ACLK_SOURCE_PRIMARY		ACLKCONbits.ASCRSEL = SET;
-#define OSC_ACLK_SOURCE_AUXOSC		ACLKCONbits.ASCRSEL = CLEAR;
+#define OSC_ACLK_SOURCE_PRIMARY		ACLKCONbits.ASRCSEL = SET;
+#define OSC_ACLK_SOURCE_AUXOSC		ACLKCONbits.ASRCSEL = CLEAR;
 
 
 

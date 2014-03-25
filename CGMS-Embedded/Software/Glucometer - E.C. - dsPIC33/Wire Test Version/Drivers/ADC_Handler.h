@@ -33,7 +33,7 @@
 #define _32_TCY		31
 #define _64_TCY		63
 
-#define ADC_NUM_INPUTS			1;
+#define ADC_NUM_INPUTS			1
 #define ANALOG_SCANCHANNELS		ANALOGPINS_CFG
 #define ADC_BUF2_OFFSET			0x0008
 
@@ -45,11 +45,11 @@
 #define ADC_OFF							AD1CON1bits.ADON = CLEAR;
 #define ADC_IDLE_ON						AD1CON1bits.ADSIDL = CLEAR;
 #define ADC_IDLE_OFF					AD1CON1bits.ADSIDL = SET;
-#define ADC_DMABUF_INORDER				AD1CONbits.ADDMABM = SET;
-#define ADC_DMABUF_SCATTER				AD1CONbits.ADDMABM = CLEAR;
-#define ADC_1CH_12b						AD1CONbits.AD12B = SET;
-#define ADC_4CH_10b						AD1CONbits.AD12B = CLEAR;
-#define ADC_DataOutFormat				AD1CONbits.FORM		/*Data Output Format bits
+#define ADC_DMABUF_INORDER				AD1CON1bits.ADDMABM = SET;
+#define ADC_DMABUF_SCATTER				AD1CON1bits.ADDMABM = CLEAR;
+#define ADC_1CH_12b						AD1CON1bits.AD12B = SET;
+#define ADC_4CH_10b						AD1CON1bits.AD12B = CLEAR;
+#define ADC_DataOutFormat				AD1CON1bits.FORM		/*Data Output Format bits
 										For 10-bit operation:
 											11 = Signed fractional (DOUT = sddd dddd dd00 0000, where s =.NOT.d<9>)
 											10 = Fractional (DOUT = dddd dddd dd00 0000)
@@ -59,7 +59,7 @@
 											11 = Signed fractional (DOUT = sddd dddd dddd 0000, where s = .NOT.d<11>)
 											10 = Fractional (DOUT = dddd dddd dddd 0000)
 											01 = Signed Integer (DOUT = ssss sddd dddd dddd,*/
-#define ADC_SampleClkSource				AD1CONbits.SSRC		/*Sample Clock Source Select bits
+#define ADC_SampleClkSource				AD1CON1bits.SSRC		/*Sample Clock Source Select bits
 										111 = Internal counter ends sampling and starts conversion (auto-convert)
 										110 = Reserved
 										101 = Motor Control PWM2 interval ends sampling and starts conversion
@@ -68,8 +68,8 @@
 										010 = GP timer (Timer3 for ADC1) compare ends sampling and starts conversion
 										001 = Active transition on INT0 pin ends sampling and starts conversion
 										000 = Clearing sample bit ends sampling and starts conversion*/
-#define ADC_SIMULTANEOUSSAMPLE_ON		AD1CONbits.SIMSAM = SET;
-#define ADC_SIMULTANEOUSSAMPLE_OFF		AD1CONbits.SIMSAM = CLEAR;
+#define ADC_SIMULTANEOUSSAMPLE_ON		AD1CON1bits.SIMSAM = SET;
+#define ADC_SIMULTANEOUSSAMPLE_OFF		AD1CON1bits.SIMSAM = CLEAR;
 #define ADC_AUTO_START					AD1CON1bits.ASAM = SET;
 #define ADC_MANUAL_START				AD1CON1bits.ASAM = CLEAR;
 #define ADC_START_SAMPLING				AD1CON1bits.SAMP = SET;
@@ -189,25 +189,25 @@
 
 
 /*............. AD1CSSL A/D Input Scan Select Register Low ................................*/
-#define ADC_ScanPins					AD1CSSLbits.CSSL	/*
+#define ADC_ScanPins					AD1CSSL	/*
 										1 = Select ANx for input scan
 										0 = Skip ANx for input scan*/
 
 
 /*............. AD1PCFGL A/D Port Confirutation Register Low ..............................*/
-#define ADC_PortCfg						AD1PCFGLbits.PCFG	/*
+#define ADC_PortCfg						AD1PCFGL	/*
 1 = Port pin in Digital mode, port read input enabled, ADC input multiplexer connected to AVSS
 0 = Port pin in Analog mode, port read input disabled, ADC samples pin voltage*/
 
 
 /*-----------------------------------------------------------------------------------------*/
-void 	ADC_Init( void );
+void ADC_Init( void );
 //void 	ADC_ReadAll(UINT16 *ADCBufAddress);
 //UINT16 	ADC_ReadOne(UINT16 ADCAnalogInpit);
 //void	ADC_StartAll(void);
 //void	ADC_StopAll(void);
 
-//UINT16 	*ptr_ADC8Buffer
+//UINT16 	*ptr_ADC8Buffer;
 
 
 /*-----------------------------------------------------------------------------------------*/

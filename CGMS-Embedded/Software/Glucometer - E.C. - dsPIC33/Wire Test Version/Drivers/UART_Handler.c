@@ -13,7 +13,7 @@
 
 
 /*-----------------------------------------------------------------------------------------*/
-ROM unsigned char CharacterArray[]={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+unsigned char CharacterArray[]={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
 
 /*-----------------------------------------------------------------------------------------*/
 
@@ -24,12 +24,12 @@ void vUART_Init( void )
 	UART1_TxIRQ_Flag = 0;
 
 	//... Configuring U1STA Register
-    UART1_Tx_IRQModeb0 = 0;
-    UART1_Tx_IRQModeb1 = 0;
+    UART1_Tx_IRQModeb0 = 0b00;
+    UART1_Tx_IRQModeb1 = 0b00;
 	UART1_TXPOL_IDLEONE
 	UART1_SYNCBREAK_OFF
 	UART1_TX_OFF
-	UART1_Rx_IRQMode = 0;
+	UART1_Rx_IRQMode = 0b00;
 	UART1_ADDRDETECT_OFF
 	UART1_RXBUFOVERRUN_CLEAR
 	
@@ -38,7 +38,8 @@ void vUART_Init( void )
 	UART1_CONT_AT_IDLE    
 	UART1_IRDA_OFF
 	UART1_RTS_FLOWCTRL
-	UART1_WAKESLEEP_ON
+	UART1_EnableBits = 0b00;
+	UART1_WAKE_ON
 	UART1_LOOP_OFF
 	UART1_AUTOBAUD_OFF
 	UART1_RXPOL_IDLEONE
@@ -52,7 +53,7 @@ void vUART_Init( void )
 }
 
 /*.........................................................................................*/
-void vUART_PutROMString( ROM char* str )
+void vUART_PutROMString( char *str )
 {
     BYTE c;
     while( (c = *str++) )
@@ -62,7 +63,7 @@ void vUART_PutROMString( ROM char* str )
 /*.........................................................................................*/
 void vUART_Put( BYTE c )
 {
-    while(UART1_TxShiftRegEmpty == 0);
+    while(UART1_TxShiftRegEmpty_Status == 0);
     UART1_TxRegister = c;
 }
 
@@ -98,18 +99,18 @@ void vPrintDec( BYTE toPrint )
 /*.........................................................................................*/
 void vUART_Test( void )
 {
-	vUART_Init();
+	//vUART_Init();
 	BYTE i;
 	for( i=0 ; i<10 ; i++ )
 	{
 		vUART_Put('A');
 	}
 	vUART_PutROMString("\r\n Hola! \n");
-	vPrintChar("A");
+	vPrintChar('A');
 	vPrintDec(50);
 	vPrintf("\r ... UART Test OK ... \n");
 	vPrintf("\r Presiona una tecla \n");
-	i=bUART_Get();
+	i = bUART_Get();
 	vPrintf("\r Tecla Presionada: ");
 	vUART_Put(i);
 	vPrintf("\r\n Adios! ");
@@ -118,4 +119,4 @@ void vUART_Test( void )
 
 
 /*-----------------------------------------------------------------------------------------*/
-#endif
+

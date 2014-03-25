@@ -411,7 +411,7 @@ _FPOR(FPWRT_PWR1 & ALTI2C_OFF & LPOL_OFF & HPOL_OFF & PWMPIN_ON)
 **     JTAGEN_ON            JTAG is Enabled
 **
 
-_FICD(JTAGEN_OFF)
+_FICD(ICS_PGD3 & JTAGEN_OFF)
 
 
 ************************************************************************************************
