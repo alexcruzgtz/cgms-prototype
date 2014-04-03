@@ -1,0 +1,431 @@
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*+               Harware Profile                    +*/
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+
+/*            Embedded Circuit Wire V1.1              */
+
+/*
+------------------------------------------------------------------------------------------------
+-----	Components	------------------------------------------------------------------------	
+
+ MCU..................... dsPIC33FJ64MC804
+ Wireless Transciever.... NA
+ Resistors...............
+ Capacitors..............
+ Diodes.................. 
+ Human Interface......... 1 LED's (2mA), 3 Push Button (active low), LCD Display (no led)
+ Connectors.............. RS232, MiniDin - 4 pin (Super Video)
+ ICSP.................... 5 Pin Header (for PicKit 3)
+ IC...................... Digital Potentiometer (AD5242 1M), Om. Amp. (TLV2244)
+						  EEPROM (24LC1026, I2C interface), Voltage Reference (lm4041-N adj.)
+						  LDO Regulator (LP38693), RS-232 driver (MAX3232), 
+					      Supply Voltage Supervisor (TPS3839, 2.6v)
+
+
+------------------------------------------------------------------------------------------------
+-----	MCU Pin Configuration	----------------------------------------------------------------
+
+************************************************************************************************
+	***	MCU Pins Hardware Connections	***
+
+1... SDA1 ------> I2C Data Signal 					
+2... RP22 ------> Extra IC pin 6
+3... RP23 ------> Extra IC pin 6
+4... RP24 ------> Extra IC pin 3
+5... RP25 ------> Extra IC pin 2
+6... VSS -------> GND
+7... Vcap ------> GND Through 10uF Ceramic Capacitor
+8... RP10 ------> Extra IC pin 1
+9... RB11 ------> LCD DB07 pin
+10.. RB12 ------> LCD DB06 pin
+11.. RB13 ------> LCD DB05 pin
+12.. RA10 ------> LCD DB04 pin
+13.. RA7 -------> LCD E pin
+14.. RB14 ------> LCD RS pin
+15.. RB15 ------> LCD Vdd pin
+16.. AVSS ------> GND
+17.. AVDD ------> 3.3V
+18.. MCLR ------> Voltage supervisor IC
+19.. AN0-PA.0 --> <Vout> Work Electrode Current Measurement Output Voltage
+20.. AN1-PA.1 --> <VGND> Virtual Ground
+21.. AN2-PB.0 --> <CNT> Counter Electrode
+22.. AN3-PB.1 --> <Vctrl> Input Reference Voltage for CNT-REF Voltage
+23.. AN4-PB.2 --> <REF> Reference Electrode
+24.. AN5-PB.3 --> 3.3V
+25.. RP16 ------> External connector pin 1
+26.. RP17 ------> External connector pin 2
+27.. RP18 ------> External connector pin 3
+28.. VDD -------> 3.3V
+29.. VSS -------> GND
+30.. RA2 -------> Push button <Up>
+31.. RA3 -------> Push button <Enter>
+32.. RA8 -------> Push button <Down>
+33.. SOSCI -----> Secundary oscillator <32K crystal>
+34.. SOSCO -----> Secundary oscillator <32K crystal>
+35.. Not Used
+36.. RP19 ------> External connector pin 4
+37.. RP20 ------> [U1Tx] UART1 Transmission line	
+38.. RP21 ------> [U1Rx] UART1 Recieve Line			
+39.. VSS -------> GND
+40.. VDD -------> 3.3V
+41.. PEGD3 -----> ICSP Data Line 3					
+42.. PEGC3------> ICSP Clock Line 3					
+43.. RP7 -------> Extra IC pin 4
+44.. SCL1 ------> I2C Clock Signal 					
+
+************************************************************************************************
+	*** Port A bits Configuration [10:0] ***
+1-> Input; 0-> Output
+
+Bit ... Fuction		---> IOPort Configuration
+|           |			|
+0   ... An.		--->    1
+1   ... An.		--->    1
+2   ... Dig. in         --->    1
+3   ... Dig. in         --->    1
+4   ... Osc. Crystal    --->    1
+5   ...  -              --->    0
+6   ...  -	        --->    0
+7   ...  -      	--->    0
+8   ... Dig. in         --->    1
+9   ... Dig. out        --->    0
+10  ... Dig. out        --->    0
+
+TRIS = 0b 00100011111
+LAT =  0b 01000000000
+
+
+************************************************************************************************
+	*** Port B bits Configuration [15:0] ***
+
+Bit ... Fuction		 	    ---> IOPort Configuration
+|           |						|
+0   ... An.		---> 	1
+1   ... An.		---> 	1
+2   ... An.		---> 	1
+3   ... An.		---> 	1
+4   ... Osc. Crystal  	---> 	1
+5   ... ICSP Pin 	--->    0
+6   ... ICSP Pin  	--->    0
+7   ... Dig. I/O	---> 	0
+8   ... Comm. Prot. out --->    0
+9   ... Comm. Prot. I/O --->    1
+10  ... dig. I/O	---> 	0
+11  ... dig. out        ---> 	0
+12  ... dig. out        ---> 	0
+13  ... dig. out        ---> 	0
+14  ... dig. out        ---> 	0
+15  ... dig. out        ---> 	0
+
+TRIS = 0b 0000001000011111
+LAT = 0b 0000000000000000
+
+
+************************************************************************************************
+	*** Port C bits Configuration [9:0] ***
+
+Bit ... Fuction		 	    ---> IOPort Configuration
+|           |						|
+0   ... Ext Conn I/O	---> 	0
+1   ... Ext Conn I/O	---> 	0
+2   ... Ext Conn I/O	---> 	0
+3   ... Ext Conn I/O	---> 	0
+4   ... Comm. Prot. out --->    0
+5   ... Comm. Prot. in  --->    1
+6   ... Dig. I/O	---> 	0
+7   ... Dig. I/O	---> 	0
+8   ... Dig. I/O	---> 	0
+9   ... Dig. I/O	---> 	0
+
+TRIS = 0b 0000100000
+LAT = 0b 0000000000
+
+
+************************************************************************************************
+	*** Analog Pins Configuration [8:0] ***
+
+E=Enabled -> 0(analog mode) ; D=Disabled-> 1 (digital mode)
+
+Channel: |AN0|AN1|AN2|AN3|AN4|AN5|AN6|AN7|AN8|
+Status:  | E | E | E | E | E | E | D | D | D |
+Cfg val: | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 1 | 1 |
+
+AnalogPins = 111000000
+
+
+************************************************************************************************
+	***	Peripheral Pin Select Configuration [25:0]
+|Pin | Function	| PPS-Configuration | PPS-Macro Definitions		    |
+|____|__________|___________________|_______________________________________|             
+| 0  | Null			| Output-[NULL]	    	| OUT_PIN_PPS_RP0, OUT_FN_PPS_NULL
+| 1  | Null			| Output-[NULL]		| OUT_PIN_PPS_RP1, OUT_FN_PPS_NULL
+| 2  | Null			| Output-[NULL]		| OUT_PIN_PPS_RP2, OUT_FN_PPS_NULL
+| 3  | Null			| Output-[NULL]		| OUT_PIN_PPS_RP3, OUT_FN_PPS_NULL
+| 4  | Null			| Output-[NULL]		| OUT_PIN_PPS_RP3, OUT_FN_PPS_NULL
+| 5  | Null			| Output-[NULL]		| OUT_PIN_PPS_RP3, OUT_FN_PPS_NULL
+| 6  | Null			| Output-[NULL]		| OUT_PIN_PPS_RP3, OUT_FN_PPS_NULL
+| 7  | Null			| Output-[NULL]		| OUT_PIN_PPS_RP3, OUT_FN_PPS_NULL
+| 8  | Null			| Output-[NULL]		| OUT_PIN_PPS_RP8, OUT_FN_PPS_NULL
+| 9  | Null			| Output-[NULL]		| OUT_PIN_PPS_RP9, OUT_FN_PPS_NULL
+| 10 | Null			| Output-[NULL]		| OUT_PIN_PPS_RP10, OUT_FN_PPS_NULL
+| 11 | Null			| Output-[NULL]		| OUT_PIN_PPS_RP11, OUT_FN_PPS_NULL
+| 12 | Null			| Output-[NULL]		| OUT_PIN_PPS_RP11, OUT_FN_PPS_NULL
+| 13 | Null			| Output-[NULL]		| OUT_PIN_PPS_RP11, OUT_FN_PPS_NULL
+| 14 | Null			| Output-[NULL]		| OUT_PIN_PPS_RP14, OUT_FN_PPS_NULL
+| 15 | Null			| Output-[NULL]		| OUT_PIN_PPS_RP15, OUT_FN_PPS_NULL
+| 16 | Null			| Output-[NULL]		| OUT_PIN_PPS_RP15, OUT_FN_PPS_NULL
+| 17 | Null			| Output-[NULL]		| OUT_PIN_PPS_RP15, OUT_FN_PPS_NULL
+| 18 | Null			| Output-[NULL]		| OUT_PIN_PPS_RP15, OUT_FN_PPS_NULL
+| 19 | Null			| Output-[NULL]		| OUT_PIN_PPS_RP15, OUT_FN_PPS_NULL
+| 20 | UART1-Tx			| Output-[U1TX]		| OUT_PIN_PPS_RP20, OUT_FN_PPS_U1TX
+| 21 | UART1-Rx			| Input-[U1RX]		| IN_FN_PPS_U1RX, IN_PIN_PPS_RP21
+| 22 | Null			| Output-[NULL]		| OUT_PIN_PPS_RP15, OUT_FN_PPS_NULL
+| 23 | Null			| Output-[NULL]		| OUT_PIN_PPS_RP15, OUT_FN_PPS_NULL
+| 24 | Null			| Output-[NULL]		| OUT_PIN_PPS_RP15, OUT_FN_PPS_NULL
+| 25 | Null			| Output-[NULL]		| OUT_PIN_PPS_RP15, OUT_FN_PPS_NULL
+
+
+************************************************************************************************
+	*** MCU Configuration Bits ***
+/* -------------------------------------------------------- */
+/* Macros for setting device configuration registers        */
+/* -------------------------------------------------------- */
+
+................................................................................................
+	..Register FBS (0xf80000)..
+** _FBS( OPT1_ON & OPT2_OFF & OPT3_PLL )
+**
+**   Boot Segment Write Protect:
+**     BWRP_WRPROTECT_ON    Boot segment is write-protected
+**     BWRP_WRPROTECT_OFF   Boot Segment may be written
+**
+**   Boot Segment Program Flash Code Protection:
+**     BSS_LARGE_FLASH_HIGH High Security, Large-sized Boot Flash
+**     BSS_HIGH_LARGE_BOOT_CODEHigh Security, Large-sized Boot Flash
+**     BSS_MEDIUM_FLASH_HIGHHigh Security, Medium-sized Boot Flash
+**     BSS_HIGH_MEDIUM_BOOT_CODEHigh Security, Medium-sized Boot Flash
+**     BSS_SMALL_FLASH_HIGH High Security, Small-sized Boot Flash
+**     BSS_HIGH_SMALL_BOOT_CODEHigh Security, Small-sized Boot Flash
+**     BSS_LARGE_FLASH_STD  Standard Security, Large-sized Boot Flash
+**     BSS_STRD_LARGE_BOOT_CODEStandard Security, Large-sized Boot Flash
+**     BSS_MEDIUM_FLASH_STD Standard Security, Medium-sized Boot Flash
+**     BSS_STRD_MEDIUM_BOOT_CODEStandard Security, Medium-sized Boot Flash
+**     BSS_SMALL_FLASH_STD  Standard Security, Small-sized Boot Flash
+**     BSS_STRD_SMALL_BOOT_CODEStandard Security, Small-sized Boot Flash
+**     BSS_NO_FLASH         No Boot program Flash segment
+**     BSS_NO_BOOT_CODE     No Boot program Flash segment
+**
+**   Boot Segment RAM Protection:
+**     RBS_LARGE_RAM        Large-sized Boot RAM
+**     RBS_LARGE_BOOT_RAM   Large-sized Boot RAM
+**     RBS_MEDIUM_RAM       Medium-sized Boot RAM
+**     RBS_MEDIUM_BOOT_RAM  Medium-sized Boot RAM
+**     RBS_SMALL_RAM        Small-sized Boot RAM
+**     RBS_SMALL_BOOT_RAM   Small-sized Boot RAM
+**     RBS_NO_RAM           No Boot RAM
+**     RBS_NO_BOOT_RAM      No Boot RAM
+**
+
+_FBS(BWRP_WRPROTECT_OFF & RBS_NO_BOOT_RAM)
+
+................................................................................................
+	..Register FSS (0xf80002)..
+** _FSS( OPT1_ON & OPT2_OFF & OPT3_PLL )
+**
+**   Secure Segment Program Write Protect:
+**     SWRP_WRPROTECT_ON    Secure segment is write-protected
+**     SWRP_WRPROTECT_OFF   Secure segment may be written
+**
+**   Secure Segment Program Flash Code Protection:
+**     SSS_LARGE_FLASH_HIGH High Security, Large-sized Secure Flash
+**     SSS_HIGH_LARGE_SEC_CODEHigh Security, Large-sized Secure Flash
+**     SSS_MEDIUM_FLASH_HIGHHigh Security, Medium-sized Secure Flash
+**     SSS_HIGH_MEDIUM_SEC_CODEHigh Security, Medium-sized Secure Flash
+**     SSS_SMALL_FLASH_HIGH High Security, Small-sized Secure Flash
+**     SSS_HIGH_SMALL_SEC_CODEHigh Security, Small-sized Secure Flash
+**     SSS_LARGE_FLASH_STD  Standard Security, Large-sized Secure Flash
+**     SSS_STRD_LARGE_SEC_CODEStandard Security, Large-sized Secure Flash
+**     SSS_MEDIUM_FLASH_STD Standard Security, Medium-sized Secure Flash
+**     SSS_STRD_MEDIUM_SEC_CODEStandard Security, Medium-sized Secure Flash
+**     SSS_SMALL_FLASH_STD  Standard Security, Small-sized Secure Flash
+**     SSS_STRD_SMALL_SEC_CODEStandard Security, Small-sized Secure Flash
+**     SSS_NO_FLASH         No Secure Segment
+**     SSS_NO_SEC_CODE      No Secure Segment
+**
+**   Secure Segment Data RAM Protection:
+**     RSS_LARGE_RAM        Large-sized Secure RAM
+**     RSS_LARGE_SEC_RAM    Large-sized Secure RAM
+**     RSS_MEDIUM_RAM       Medium-sized Secure RAM
+**     RSS_MEDIUM_SEC_RAM   Medium-sized Secure RAM
+**     RSS_SMALL_RAM        Small-sized Secure RAM
+**     RSS_SMALL_SEC_RAM    Small-sized Secure RAM
+**     RSS_NO_RAM           No Secure RAM
+**     RSS_NO_SEC_RAM       No Secure RAM
+**
+
+_FSS(SWRP_WRPROTECT_OFF & SSS_NO_SEC_CODE & RSS_NO_SEC_RAM)
+
+................................................................................................
+	..Register FGS (0xf80004)..
+** _FGS( OPT1_ON & OPT2_OFF & OPT3_PLL )
+**
+**   General Code Segment Write Protect:
+**     GWRP_ON              User program memory is write-protected
+**     GWRP_OFF             User program memory is not write-protected
+**
+**   General Segment Code Protection:
+**     GSS_HIGH             High Security Code Protection is Enabled
+**     GSS_STD              Standard Security Code Protection is Enabled
+**     GCP_ON               Standard Security Code Protection is Enabled
+**     GSS_OFF              User program memory is not code-protected
+**     GCP_OFF              User program memory is not code-protected
+**
+
+_FGS(GWRP_OFF & GCP_OFF)
+
+................................................................................................
+	..Register FOSCSEL (0xf80006)..
+** _FOSCSEL( OPT1_ON & OPT2_OFF & OPT3_PLL )
+**
+**   Oscillator Mode:
+**     FNOSC_FRC            Internal Fast RC (FRC)
+**     FNOSC_FRCPLL         Internal Fast RC (FRC) w/ PLL
+**     FNOSC_PRI            Primary Oscillator (XT, HS, EC)
+**     FNOSC_PRIPLL         Primary Oscillator (XT, HS, EC) w/ PLL
+**     FNOSC_SOSC           Secondary Oscillator (SOSC)
+**     FNOSC_LPRC           Low Power RC Oscillator (LPRC)
+**     FNOSC_FRCDIV16       Internal Fast RC (FRC) divide by 16
+**     FNOSC_LPRCDIVN       Internal Fast RC (FRC) with divide by N
+**
+**   Internal External Switch Over Mode:
+**     IESO_OFF             Start-up device with user-selected oscillator source
+**     IESO_ON              Start-up device with FRC, then automatically switch to user-selected oscillator source when ready
+**
+
+_FOSCSEL(FNOSC_FRC & IESO_ON)
+
+................................................................................................
+	..Register FOSC (0xf80008)..
+** _FOSC( OPT1_ON & OPT2_OFF & OPT3_PLL )
+**
+**   Primary Oscillator Source:
+**     POSCMD_EC            EC Oscillator Mode
+**     POSCMD_XT            XT Oscillator Mode
+**     POSCMD_HS            HS Oscillator Mode
+**     POSCMD_NONE          Primary Oscillator Disabled
+**
+**   OSC2 Pin Function:
+**     OSCIOFNC_ON          OSC2 pin has digital I/O function
+**     OSCIOFNC_OFF         OSC2 pin has clock out function
+**
+**   Peripheral Pin Select Configuration:
+**     IOL1WAY_OFF          Allow Multiple Re-configurations
+**     IOL1WAY_ON           Allow Only One Re-configuration
+**
+**   Clock Switching and Monitor:
+**     FCKSM_CSECME         Both Clock Switching and Fail-Safe Clock Monitor are enabled
+**     FCKSM_CSECMD         Clock switching is enabled, Fail-Safe Clock Monitor is disabled
+**     FCKSM_CSDCMD         Both Clock Switching and Fail-Safe Clock Monitor are disabled
+**
+
+_FOSC(POSCMD_NONE & OSCIOFNC_ON & IOL1WAY_ON & FCKSM_CSECME)
+
+................................................................................................
+	..Register FWDT (0xf8000a)..
+** _FWDT( OPT1_ON & OPT2_OFF & OPT3_PLL )
+**
+**   Watchdog Timer Postscaler:
+**     WDTPOST_PS1          1:1
+**     WDTPOST_PS2          1:2
+**     WDTPOST_PS4          1:4
+**     WDTPOST_PS8          1:8
+**     WDTPOST_PS16         1:16
+**     WDTPOST_PS32         1:32
+**     WDTPOST_PS64         1:64
+**     WDTPOST_PS128        1:128
+**     WDTPOST_PS256        1:256
+**     WDTPOST_PS512        1:512
+**     WDTPOST_PS1024       1:1,024
+**     WDTPOST_PS2048       1:2,048
+**     WDTPOST_PS4096       1:4,096
+**     WDTPOST_PS8192       1:8,192
+**     WDTPOST_PS16384      1:16,384
+**     WDTPOST_PS32768      1:32,768
+**
+**   WDT Prescaler:
+**     WDTPRE_PR32          1:32
+**     WDTPRE_PR128         1:128
+**
+**   Watchdog Timer Window:
+**     WINDIS_ON            Watchdog Timer in Window mode
+**     WINDIS_OFF           Watchdog Timer in Non-Window mode
+**
+**   Watchdog Timer Enable:
+**     FWDTEN_OFF           Watchdog timer enabled/disabled by user software
+**     FWDTEN_ON            Watchdog timer always enabled
+**
+
+_FWDT(WDTPOST_PS128 & WDTPRE_PR32 & WINDIS_OFF & FWDTEN_OFF)
+
+................................................................................................
+	..Register FPOR (0xf8000c)..
+** _FPOR( OPT1_ON & OPT2_OFF & OPT3_PLL )
+**
+**   POR Timer Value:
+**     FPWRT_PWR1           Disabled
+**     FPWRT_PWR2           2ms
+**     FPWRT_PWR4           4ms
+**     FPWRT_PWR8           8ms
+**     FPWRT_PWR16          16ms
+**     FPWRT_PWR32          32ms
+**     FPWRT_PWR64          64ms
+**     FPWRT_PWR128         128ms
+**
+**   Alternate I2C  pins:
+**     ALTI2C_ON            I2C mapped to ASDA1/ASCL1 pins
+**     ALTI2C_OFF           I2C mapped to SDA1/SCL1 pins
+**
+**   Motor Control PWM Low Side Polarity bit:
+**     LPOL_OFF             PWM module low side output pins have active-low output polarity
+**     LPOL_ON              PWM module low side output pins have active-high output polarity
+**
+**   Motor Control PWM High Side Polarity bit:
+**     HPOL_OFF             PWM module high side output pins have active-low output polarity
+**     HPOL_ON              PWM module high side output pins have active-high output polarity
+**
+**   Motor Control PWM Module Pin Mode bit:
+**     PWMPIN_OFF           PWM module pins controlled by PWM module at device Reset
+**     PWMPIN_ON            PWM module pins controlled by PORT register at device Reset
+**
+
+_FPOR(FPWRT_PWR1 & ALTI2C_OFF & LPOL_OFF & HPOL_OFF & PWMPIN_ON)
+
+................................................................................................
+	..Register FICD (0xf8000e)..
+** _FICD( OPT1_ON & OPT2_OFF & OPT3_PLL )
+**
+**   Comm Channel Select:
+**     ICS_PGD3             Communicate on PGC3/EMUC3 and PGD3/EMUD3
+**     ICS_PGD2             Communicate on PGC2/EMUC2 and PGD2/EMUD2
+**     ICS_PGD1             Communicate on PGC1/EMUC1 and PGD1/EMUD1
+**
+**   JTAG Port Enable:
+**     JTAGEN_OFF           JTAG is Disabled
+**     JTAGEN_ON            JTAG is Enabled
+**
+
+_FICD(ICS_PGD3 & JTAGEN_OFF)
+
+
+************************************************************************************************
+	*** MCU Configuration ***
+
+
+************************************************************************************************
+	*** Oscillator Configuration ***
+
+
+************************************************************************************************
+	*** Configuration ***
+*/
