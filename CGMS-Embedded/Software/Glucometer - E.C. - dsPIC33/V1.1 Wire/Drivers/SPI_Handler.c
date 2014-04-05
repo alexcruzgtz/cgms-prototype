@@ -11,7 +11,7 @@
 
 
 /*-----------------------------------------------------------------------------------------*/
-void SPI_Init(void)
+void vSPI_Init(void)
 {
 	SPI1CON1 = 0b0000000100111110;
     SPI1STAT = 0x8000;
@@ -30,7 +30,7 @@ void SPI_Init(void)
 * Overview:		    This function will send a byte over the SPI
 * Note:			    None
 ********************************************************************/
-void SPIPut(BYTE v)
+void vSPIPut(BYTE v)
 {
 	BYTE i;
     SPI1_EventIRQ_Flag = 0;
@@ -49,8 +49,8 @@ void SPIPut(BYTE v)
 * Overview:		    This function will read a byte over the SPI
 * Note:			    None
 ********************************************************************/
-BYTE SPIGet(void)
+BYTE bSPIGet(void)
 {
-    SPIPut(0x00);
+    vSPIPut(0x00);
 	return SPI1BUF;
 }

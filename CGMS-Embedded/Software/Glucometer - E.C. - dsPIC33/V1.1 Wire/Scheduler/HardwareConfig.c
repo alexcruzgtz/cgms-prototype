@@ -19,21 +19,21 @@
 
 
 /*-----------------------------------------------------------------------------------------*/
-void HardwareCfg_Init(void)
+void vHardwareCfg_Init(void)
 {
- 	CPU_Init();
- 	Ports_Init();
- 	Oscillator_Init();
+ 	vCPU_Init();
+ 	vPorts_Init();
+ 	vOscillator_Init();
 	vInterrupts_Init(); 
 
-	ADC_Init();
-	//I2C_Init();
-	vLCD_Init();
-	vUART_Init();
+	vADC_Init();
+	//vI2C_Init();
+	//vLCD_Init();
+	//vUART_Init();
 }
 
 /*.........................................................................................*/
-void CPU_Init( void )
+void vCPU_Init( void )
 {
 	RST_VREGINSLEEP_OFF
 	RST_WDT_DISABLED
@@ -48,7 +48,7 @@ void CPU_Init( void )
 	CPU_DSPMUL_INTEGER
 }
 /*.........................................................................................*/
-void Ports_Init(void)
+void vPorts_Init(void)
 {
 	/* Peripherical Pin Select Configuration*/
 	PPSUnLock;
@@ -60,21 +60,26 @@ void Ports_Init(void)
 	TRISA = IOPORT_A_CFG;
 	TRISB = IOPORT_B_CFG;
     TRISC = IOPORT_C_CFG;
-	
+
+	//LATA = 0b01000000000;
+	//LATB = 0b0000000000000000;
+	//LATC = 0b0000000000;
+
 	/*Push Buttons Configuration*/
-/*	PushB_Up_Tris = 1
+	/*PushB_Up_Tris = 1
 	PushB_Enter_Tris = 1
-	PushB_Down_Tris = 1*/
+	PushB_Down_Tris = 1
+	*/
 
 	/*LCD Pins Configuration*/
-	LCD_DB7_Lat = 0;
+	/*LCD_DB7_Lat = 0;
 	LCD_DB6_Lat = 0;
 	LCD_DB5_Lat = 0;
 	LCD_DB4_Lat = 0;
 	LCD_E_Lat = 0;
 	LCD_RS_Lat = 0;
-	LCD_Pwr_Lat = 1;
-
+	LCD_Pwr_Lat = 0;
+	*/
 	/*Analog Pins Configuration*/
 	AN1_Tris = 1;
 	AN2_Tris = 1;
@@ -85,7 +90,7 @@ void Ports_Init(void)
 }
 
 /*.........................................................................................*/
-void Oscillator_Init(void)
+void vOscillator_Init(void)
 {
 /*8Mhz Operation
   20Mhz Alternate oscillator through FRC+PLL
