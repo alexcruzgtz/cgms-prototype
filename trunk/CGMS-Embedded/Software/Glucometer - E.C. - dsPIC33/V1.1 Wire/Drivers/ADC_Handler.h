@@ -201,7 +201,7 @@
 
 
 /*-----------------------------------------------------------------------------------------*/
-void ADC_Init( void );
+void vADC_Init( void );
 //void 	ADC_ReadAll(UINT16 *ADCBufAddress);
 //UINT16 	ADC_ReadOne(UINT16 ADCAnalogInpit);
 //void	ADC_StartAll(void);

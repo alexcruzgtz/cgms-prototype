@@ -88,9 +88,9 @@ FSCK= Fcy / Primary Prescaler * Secundary Prescaler */
 
 
 /*-----------------------------------------------------------------------------------------*/
-void SPI_Init( void );
-void SPIPut( BYTE v );
-BYTE SPIGet( void );
+void vSPI_Init( void );
+void vSPIPut( BYTE v );
+BYTE bSPIGet( void );
 
 /*-----------------------------------------------------------------------------------------*/
 #endif

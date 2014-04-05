@@ -10,16 +10,12 @@
 -----	Components	------------------------------------------------------------------------	
 
  MCU..................... dsPIC33FJ64MC804
- Wireless Transciever.... NA
- Resistors...............
- Capacitors..............
- Diodes.................. 
  Human Interface......... 1 LED's (2mA), 3 Push Button (active low), LCD Display (no led)
  Connectors.............. RS232, MiniDin - 4 pin (Super Video)
- ICSP.................... 5 Pin Header (for PicKit 3)
+ ICSP.................... 5 Pin Header (for PicKit)
  IC...................... Digital Potentiometer (AD5242 1M), Om. Amp. (TLV2244)
 						  EEPROM (24LC1026, I2C interface), Voltage Reference (lm4041-N adj.)
-						  LDO Regulator (LP38693), RS-232 driver (MAX3232), 
+						  LDO Regulator (LP38693 3.3V), RS-232 driver (MAX3232), 
 					      Supply Voltage Supervisor (TPS3839, 2.6v)
 
 
@@ -31,7 +27,7 @@
 
 1... SDA1 ------> I2C Data Signal 					
 2... RP22 ------> Extra IC pin 6
-3... RP23 ------> Extra IC pin 6
+3... RP23 ------> Extra IC pin 5
 4... RP24 ------> Extra IC pin 3
 5... RP25 ------> Extra IC pin 2
 6... VSS -------> GND
@@ -78,68 +74,68 @@
 	*** Port A bits Configuration [10:0] ***
 1-> Input; 0-> Output
 
-Bit ... Fuction		---> IOPort Configuration
-|           |			|
-0   ... An.		--->    1
-1   ... An.		--->    1
-2   ... Dig. in         --->    1
-3   ... Dig. in         --->    1
-4   ... Osc. Crystal    --->    1
-5   ...  -              --->    0
-6   ...  -	        --->    0
-7   ...  -      	--->    0
-8   ... Dig. in         --->    1
-9   ... Dig. out        --->    0
-10  ... Dig. out        --->    0
+Bit ... Fuction	...................	---> IOPort Configuration
+|       |								|
+0   ... An.				<Vout>		--->    1
+1   ... An.				<Vgnd>		--->    1
+2   ... Dig. in 		<Btn. U>    --->    1
+3   ... Dig. in 		<Btn. E>    --->    1
+4   ... Osc. Crystal	<SOSCI> 	--->    1
+5   ...  -              			--->    0
+6   ...  -	        				--->    0
+7   ... Dig. out 		<LCD E>		--->    0
+8   ... Dig. in 		<Btn. D>    --->    1
+9   ... Dig. out 		<LED>       --->    0
+10  ... Dig. out 		<LCD DB04>  --->    0
 
-TRIS = 0b 00100011111
-LAT =  0b 01000000000
+TRIS = 0b00100011111
+LAT =  0b01000000000
 
 
 ************************************************************************************************
 	*** Port B bits Configuration [15:0] ***
 
-Bit ... Fuction		 	    ---> IOPort Configuration
-|           |						|
-0   ... An.		---> 	1
-1   ... An.		---> 	1
-2   ... An.		---> 	1
-3   ... An.		---> 	1
-4   ... Osc. Crystal  	---> 	1
-5   ... ICSP Pin 	--->    0
-6   ... ICSP Pin  	--->    0
-7   ... Dig. I/O	---> 	0
-8   ... Comm. Prot. out --->    0
-9   ... Comm. Prot. I/O --->    1
-10  ... dig. I/O	---> 	0
-11  ... dig. out        ---> 	0
-12  ... dig. out        ---> 	0
-13  ... dig. out        ---> 	0
-14  ... dig. out        ---> 	0
-15  ... dig. out        ---> 	0
+Bit ... Fuction ................... ---> IOPort Configuration
+|           |								|
+0   ... An.				<CNT>		---> 	1
+1   ... An.				<Vctrl>		---> 	1
+2   ... An.				<REF>		---> 	1
+3   ... An.				<3.3V>		---> 	1
+4   ... Osc. Crystal	<SOSCO>  	---> 	1
+5   ... ICSP Pin 		<PEGD3>		--->    0
+6   ... ICSP Pin		<PEGC3>  	--->    0
+7   ... Dig. I/O		<ExtP4>		---> 	0
+8   ... Comm. Prot. out	<SCL1> 		--->    0
+9   ... Comm. Prot. I/O <SDA1>		--->    1
+10  ... dig. I/O		<ExtP10>	---> 	0
+11  ... dig. out		<DB07>      ---> 	0
+12  ... dig. out		<DB06>      ---> 	0
+13  ... dig. out		<DB05>      ---> 	0
+14  ... dig. out        <RS>		---> 	0
+15  ... dig. out        <LCDVdd>	---> 	0
 
-TRIS = 0b 0000001000011111
-LAT = 0b 0000000000000000
+TRIS = 0b0000001000011111
+LAT = 0b0000000000000000
 
 
 ************************************************************************************************
 	*** Port C bits Configuration [9:0] ***
 
-Bit ... Fuction		 	    ---> IOPort Configuration
-|           |						|
-0   ... Ext Conn I/O	---> 	0
-1   ... Ext Conn I/O	---> 	0
-2   ... Ext Conn I/O	---> 	0
-3   ... Ext Conn I/O	---> 	0
-4   ... Comm. Prot. out --->    0
-5   ... Comm. Prot. in  --->    1
-6   ... Dig. I/O	---> 	0
-7   ... Dig. I/O	---> 	0
-8   ... Dig. I/O	---> 	0
-9   ... Dig. I/O	---> 	0
+Bit ... Fuction ................... ---> IOPort Configuration
+|           |								|
+0   ... Ext Conn I/O	<Econ-1>	---> 	0
+1   ... Ext Conn I/O	<Econ-2>	---> 	0
+2   ... Ext Conn I/O	<ECON-3>	---> 	0
+3   ... Ext Conn I/O	<Econ-4>	---> 	0
+4   ... Comm. Prot. out <U1Tx>		--->    0
+5   ... Comm. Prot. in  <U1Rx>		--->    1
+6   ... Dig. I/O		<ExtP6>		---> 	0
+7   ... Dig. I/O		<ExtP5>		---> 	0
+8   ... Dig. I/O		<ExtP3>		---> 	0
+9   ... Dig. I/O		<ExtP2>		---> 	0
 
-TRIS = 0b 0000100000
-LAT = 0b 0000000000
+TRIS = 0b0000100000
+LAT = 0b0000000000
 
 
 ************************************************************************************************
@@ -151,14 +147,14 @@ Channel: |AN0|AN1|AN2|AN3|AN4|AN5|AN6|AN7|AN8|
 Status:  | E | E | E | E | E | E | D | D | D |
 Cfg val: | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 1 | 1 |
 
-AnalogPins = 111000000
+AnalogPins = 0b111000000
 
 
 ************************************************************************************************
 	***	Peripheral Pin Select Configuration [25:0]
 |Pin | Function	| PPS-Configuration | PPS-Macro Definitions		    |
 |____|__________|___________________|_______________________________________|             
-| 0  | Null			| Output-[NULL]	    	| OUT_PIN_PPS_RP0, OUT_FN_PPS_NULL
+| 0  | Null			| Output-[NULL]	    | OUT_PIN_PPS_RP0, OUT_FN_PPS_NULL
 | 1  | Null			| Output-[NULL]		| OUT_PIN_PPS_RP1, OUT_FN_PPS_NULL
 | 2  | Null			| Output-[NULL]		| OUT_PIN_PPS_RP2, OUT_FN_PPS_NULL
 | 3  | Null			| Output-[NULL]		| OUT_PIN_PPS_RP3, OUT_FN_PPS_NULL
@@ -178,8 +174,11 @@ AnalogPins = 111000000
 | 17 | Null			| Output-[NULL]		| OUT_PIN_PPS_RP15, OUT_FN_PPS_NULL
 | 18 | Null			| Output-[NULL]		| OUT_PIN_PPS_RP15, OUT_FN_PPS_NULL
 | 19 | Null			| Output-[NULL]		| OUT_PIN_PPS_RP15, OUT_FN_PPS_NULL
-| 20 | UART1-Tx			| Output-[U1TX]		| OUT_PIN_PPS_RP20, OUT_FN_PPS_U1TX
-| 21 | UART1-Rx			| Input-[U1RX]		| IN_FN_PPS_U1RX, IN_PIN_PPS_RP21
+
+| 20 | UART1-Tx		| Output-[U1TX]		| OUT_PIN_PPS_RP20, OUT_FN_PPS_U1TX
+
+| 21 | UART1-Rx		| Input-[U1RX]		| IN_FN_PPS_U1RX, IN_PIN_PPS_RP21
+
 | 22 | Null			| Output-[NULL]		| OUT_PIN_PPS_RP15, OUT_FN_PPS_NULL
 | 23 | Null			| Output-[NULL]		| OUT_PIN_PPS_RP15, OUT_FN_PPS_NULL
 | 24 | Null			| Output-[NULL]		| OUT_PIN_PPS_RP15, OUT_FN_PPS_NULL

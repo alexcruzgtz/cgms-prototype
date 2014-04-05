@@ -352,15 +352,16 @@ void vLCD_Puts( UINT8 *buffer )
 
 void vLCD_Test( void )
 {
-	char Text [16];
+	//char Text [16];
 	vLCD_Init();
-	vLCD_Write(0x80,__COMMAND);
+	vLCD_Write(0x85,__COMMAND);
 	vLCD_Write('A',__DATA);
-	Text = "BCDEFGHIJKLMNOP";
-	vLCD_Puts(&Text);
-	vLCD_Write(0xC0,__COMMAND);
-	Text = "123456789101112";
-	vLCD_Puts(&Text);
+	//Text = "BCDEFGHIJKLMNOP";
+	//vLCD_Puts(&Text);
+	vLCD_Write(0xC5,__COMMAND);
+	vLCD_Write('A',__DATA);
+	//Text = "123456789101112";
+	//vLCD_Puts(&Text);
 }
 
 

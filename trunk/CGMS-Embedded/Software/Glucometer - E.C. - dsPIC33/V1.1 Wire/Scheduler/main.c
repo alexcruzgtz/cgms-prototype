@@ -14,7 +14,7 @@
 #include "Drivers/CPU.h"
 #include "Drivers/ADC_Handler.h"
 #include "Drivers/LCD_Handler.h"
-//#include "Drivers/I2C_Handler.h"
+#include "Drivers/I2C_Handler.h"
 #include "Drivers/UART_Handler.h"
 
 
@@ -25,11 +25,21 @@ Config_CFGBits();
 /*-----------------------------------------------------------------------------------------*/
 int main( void )
 {
-	HardwareCfg_Init();  
-	LCD_Pwr_Lat = 0;	
+	vHardwareCfg_Init();  
+	LCD_Pwr_Tris = 0;
+	LCD_Pwr_Lat = 1;
+	LED_Lat = 0;
+
 	vLCD_Test();
 	//vUART_Test();
 	//while(1){}
+	while(1)
+	{
+		DelayMs(1000);
+		LED_Lat = 0;
+		DelayMs(1000);
+		LED_Lat = 1;
+	}
 }
 
 

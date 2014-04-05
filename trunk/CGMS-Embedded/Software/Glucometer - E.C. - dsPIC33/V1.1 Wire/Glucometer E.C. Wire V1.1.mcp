@@ -5,10 +5,10 @@ device=dsPIC33FJ64MC804
 [PATH_INFO]
 BuildDirPolicy=BuildDirIsProjectDir
 dir_src=
-dir_bin=
+dir_bin=..\V1.1 Wire\OutPut
 dir_tmp=
 dir_sin=
-dir_inc=
+dir_inc=C:\Program Files (x86)\Microchip\MPLAB C30\support\peripheral_30F_24H_33F;C:\Program Files (x86)\Microchip\MPLAB C30\support\generic;C:\Program Files (x86)\Microchip\MPLAB C30\support\dsPIC33F\h;C:\Program Files (x86)\Microchip\MPLAB C30\include;C:\Users\Alejandro\Dropbox\Tesis-Full-CGMS\cgms-prototype\CGMS-Embedded\Software\Glucometer - E.C. - dsPIC33\V1.1 Wire;..\Scheduler;..\Drivers;..\Application
 dir_lib=
 dir_lkr=
 [CAT_FILTERS]
@@ -130,14 +130,14 @@ file_021=Drivers\CPU.h
 file_022=GenericTypeDefs.h
 file_023=Scheduler\HardwareConfig.h
 file_024=Linker\p33FJ64MC804.gld
-file_025=Notes\Hardware Profile Wire V1.1.txt
+file_025=Notes\Hardware Profile V1.1 Wire.txt
 [SUITE_INFO]
 suite_guid={479DDE59-4D56-455E-855E-FFF59A3DB57E}
 suite_state=
 [TOOL_SETTINGS]
 TS{7D9C6ECE-785D-44CB-BA22-17BF2E119622}=-g
 TS{25AC22BD-2378-4FDB-BFB6-7345A15512D3}=-g -Wall
-TS{7DAC9A1D-4C45-45D6-B25A-D117C74E8F5A}=-o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)" -Map="$(BINDIR_)$(TARGETBASE).map" --report-mem
+TS{7DAC9A1D-4C45-45D6-B25A-D117C74E8F5A}=-Map="$(BINDIR_)$(TARGETBASE).map" --report-mem -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
 TS{509E5861-1E2A-483B-8B6B-CA8DB7F2DD78}=
 [INSTRUMENTED_TRACE]
 enable=0

@@ -15,7 +15,7 @@
 #include "Drivers/CPU.h"
 #include "Drivers/ADC_Handler.h"
 #include "Drivers/LCD_Handler.h"
-//#include "Drivers/I2C_Handler.h"
+#include "Drivers/I2C_Handler.h"
 #include "Drivers/UART_Handler.h"
 
 /*-----------------------------------------------------------------------------------------*/
@@ -27,30 +27,34 @@
 								_FOSC(POSCMD_NONE & OSCIOFNC_ON & IOL1WAY_ON & FCKSM_CSECME)\
 								_FWDT(WDTPOST_PS128 & WDTPRE_PR32 & WINDIS_OFF & FWDTEN_OFF)\
 								_FPOR(FPWRT_PWR1 & ALTI2C_OFF & LPOL_OFF & HPOL_OFF & PWMPIN_ON)\
-								_FICD(ICS_PGD3 & JTAGEN_OFF)
+								_FICD(JTAGEN_OFF)//ICS_PGD3 & 
 
-#define IOPORT_A_CFG			0b00000000010
-#define IOPORT_B_CFG 			0b0000001000001111
-#define IOPORT_C_CFG			0b0000100111
+#define IOPORT_A_CFG			0b00100011111
+#define IOPORT_B_CFG 			0b0000001000011111
+#define IOPORT_C_CFG			0b0000100000
 
 
 /*Analog Pins*/
 /*...................................................................
+Vout	-> AN0 Port A.0
 Vgnd	-> AN1 Port A.1
-Vout	-> AN2 Port B.0
-CNT		-> AN3 Port B.1
-Vctrl	-> AN4 Port B.2
-REF		-> AN5 Port B.3
+CNT		-> AN2 Port B.0
+Vctrl	-> AN3 Port B.1
+REF		-> AN4 Port B.2
+3.3V	-> AN5 Port B.3
 .....................................................................*/
-#define ANALOGPINS_CFG 			0b111000001
+#define ANALOGPINS_CFG 			0b111000000
 
+#define _VOUT_CH				0
 #define _VGND_CH				1
-#define _VOUT_CH				2
-#define _CNT_CH					3
-#define _VCRTL_CH				4
-#define _REF_CH					5
+#define _CNT_CH					2
+#define _VCRTL_CH				3
+#define _REF_CH					4
+#define _VCC_CH					5
 #define _DEFAULT_CH				_VGND_CH
 
+#define AN0_Lat					LATAbits.LATA0
+#define AN0_Tris				TRISAbits.TRISA0
 #define AN1_Lat					LATAbits.LATA1
 #define AN1_Tris				TRISAbits.TRISA1
 #define AN2_Lat					LATBbits.LATB0
@@ -66,61 +70,61 @@ REF		-> AN5 Port B.3
 
 /*Push Buttons Input/Control Pins*/
 /*...................................................................
-UP  	-> Port C.0
-Enter  	-> Port C.1
-Down  	-> Port C.2
+UP  	-> Port A.2
+Enter  	-> Port A.3
+Down  	-> Port A.8
 .....................................................................*/
-#define PushB_Up_Lat			LATCbits.LATC0							
-#define PushB_Up_Tris			TRISCbits.TRISC0
-#define PushB_Up				PORTCbits.RC0
+#define PushB_Up_Lat			LATAbits.LATA2							
+#define PushB_Up_Tris			TRISAbits.TRISA2
+#define PushB_Up				PORTAbits.RA2
 
-#define PushB_Enter_Lat			LATCbits.LATC1						
-#define PushB_Enter_Tris		TRISCbits.TRISC1
-#define PushB_Enter				PORTCbits.RC1
+#define PushB_Enter_Lat			LATAbits.LATA3						
+#define PushB_Enter_Tris		TRISAbits.TRISA3
+#define PushB_Enter				PORTAbits.RA3
 
-#define PushB_Down_Lat			LATCbits.LATC2							
-#define PushB_Down_Tris			TRISCbits.TRISC2
-#define PushB_Down				PORTCbits.RC2
+#define PushB_Down_Lat			LATAbits.LATA8						
+#define PushB_Down_Tris			TRISAbits.TRISA8
+#define PushB_Down				PORTAbits.RA8
 
 
 /*LCD Display Control Pins*/
 /*...................................................................
-DB07  	 -> Port C.6
-DB06  	 -> Port C.7
-DB05  	 -> Port C.8
-DB04  	 -> Port C.9
-E	  	 -> Port B.10
-RS	  	 -> Port B.11
-LCDPower -> Port B.12
+DB07  	 -> Port B.11
+DB06  	 -> Port B.12
+DB05  	 -> Port B.13
+DB04  	 -> Port A.10
+E	  	 -> Port A.7
+RS	  	 -> Port B.14
+LCDPower -> Port B.15
 .....................................................................*/
-#define LCD_DB7_Lat				LATCbits.LATC6
-#define LCD_DB7_Tris			TRISCbits.TRISC6
-#define LCD_DB7					PORTCbits.RC6
+#define LCD_DB7_Lat				LATBbits.LATB11
+#define LCD_DB7_Tris			TRISBbits.TRISB11
+#define LCD_DB7					PORTBbits.RB11
 
-#define LCD_DB6_Lat				LATCbits.LATC7
-#define LCD_DB6_Tris			TRISCbits.TRISC7
-#define LCD_DB6					PORTCbits.RC7
+#define LCD_DB6_Lat				LATBbits.LATB12
+#define LCD_DB6_Tris			TRISBbits.TRISB12
+#define LCD_DB6					PORTBbits.RB12
 
-#define LCD_DB5_Lat				LATCbits.LATC8
-#define LCD_DB5_Tris			TRISCbits.TRISC8
-#define LCD_DB5					PORTCbits.RC8
+#define LCD_DB5_Lat				LATBbits.LATB13
+#define LCD_DB5_Tris			TRISBbits.TRISB13
+#define LCD_DB5					PORTBbits.RB13
 
-#define LCD_DB4_Lat				LATCbits.LATC9
-#define LCD_DB4_Tris			TRISCbits.TRISC9
-#define LCD_DB4					PORTCbits.RC9
+#define LCD_DB4_Lat				LATAbits.LATA10
+#define LCD_DB4_Tris			TRISAbits.TRISA10
+#define LCD_DB4					PORTAbits.RA10
 
-#define LCD_E_Lat				LATBbits.LATB10
-#define LCD_E_Tris				TRISBbits.TRISB10
+#define LCD_E_Lat				LATAbits.LATA7
+#define LCD_E_Tris				TRISAbits.TRISA7
 
 //#define LCD_RW_Lat	
 //#define LCD_RW_Tris
 
-#define LCD_RS_Lat				LATBbits.LATB11
-#define LCD_RS_Tris				TRISBbits.TRISB11
+#define LCD_RS_Lat				LATBbits.LATB14
+#define LCD_RS_Tris				TRISBbits.TRISB14
 
-#define LCD_Pwr_Lat				LATBbits.LATB12
-#define LCD_Pwr_Tris			TRISBbits.TRISB12
-#define LCD_Pwr					PORTBbits.RB12
+#define LCD_Pwr_Lat				LATBbits.LATB15
+#define LCD_Pwr_Tris			TRISBbits.TRISB15
+#define LCD_Pwr					PORTBbits.RB15
 
 
 /*Communication Protocols Pins*/
@@ -129,6 +133,7 @@ I2C-SDA	 -> Port B.9
 I2C-SCL	 -> Port B.8
 UART-Tx	 -> Port C.4
 UART_Rx	 -> Port C.5
+LED		 -> Port A.9
 .....................................................................*/
 #define I2C_SDA_Lat				LATBbits.LATB9
 #define I2C_SDA_Tris			TRISBbits.TRISB9
@@ -147,16 +152,16 @@ UART_Rx	 -> Port C.5
 #define UART_Rx					PORTCbits.RC5
 
 
-//#define LED_Lat				LATBbits.LATB14
-//#define LED_Tris				TRISBbits.TRISB14
-//#define LED_Pin				PORTBbits.RB14
+#define LED_Lat					LATAbits.LATA9
+#define LED_Tris				TRISAbits.TRISA9
+#define LED_Pin					PORTAbits.RA9
 
 
 /*-----------------------------------------------------------------------------------------*/
-void HardwareCfg_Init( void );
-void CPU_Init( void );
-void Ports_Init( void );
-void Oscillator_Init( void );
+void vHardwareCfg_Init( void );
+void vCPU_Init( void );
+void vPorts_Init( void );
+void vOscillator_Init( void );
 
 /*-----------------------------------------------------------------------------------------*/
 #endif
