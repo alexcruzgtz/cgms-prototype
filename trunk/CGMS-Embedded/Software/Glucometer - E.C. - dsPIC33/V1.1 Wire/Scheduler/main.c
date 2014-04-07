@@ -35,10 +35,8 @@ int main( void )
 	//while(1){}
 	while(1)
 	{
-		DelayMs(1000);
-		LED_Lat = 0;
-		DelayMs(1000);
-		LED_Lat = 1;
+		DelayMs(500);
+		LED_Lat ^= 1;
 	}
 }
 

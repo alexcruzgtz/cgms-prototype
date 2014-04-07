@@ -20,14 +20,16 @@
 
 /*-----------------------------------------------------------------------------------------*/
 
-#define Config_CFGBits(); 		_FBS(BWRP_WRPROTECT_OFF & RBS_NO_BOOT_RAM)\
-								_FSS(SWRP_WRPROTECT_OFF & SSS_NO_SEC_CODE & RSS_NO_SEC_RAM)\
-								_FGS(GWRP_OFF & GCP_OFF)\
-								_FOSCSEL(FNOSC_FRC & IESO_ON)\
+#define Config_CFGBits(); 		_FOSCSEL(FNOSC_FRC & IESO_ON)\
 								_FOSC(POSCMD_NONE & OSCIOFNC_ON & IOL1WAY_ON & FCKSM_CSECME)\
 								_FWDT(WDTPOST_PS128 & WDTPRE_PR32 & WINDIS_OFF & FWDTEN_OFF)\
-								_FPOR(FPWRT_PWR1 & ALTI2C_OFF & LPOL_OFF & HPOL_OFF & PWMPIN_ON)\
-								_FICD(JTAGEN_OFF)//ICS_PGD3 & 
+								_FPOR(FPWRT_PWR1 & ALTI2C_OFF)\
+								_FICD(ICS_PGD3 & JTAGEN_OFF)
+
+                                        //_FBS(BWRP_WRPROTECT_OFF & RBS_NO_BOOT_RAM)
+					//_FSS(SWRP_WRPROTECT_OFF & SSS_NO_SEC_CODE & RSS_NO_SEC_RAM)
+					//_FGS(GWRP_OFF & GCP_OFF)
+								
 
 #define IOPORT_A_CFG			0b00100011111
 #define IOPORT_B_CFG 			0b0000001000011111

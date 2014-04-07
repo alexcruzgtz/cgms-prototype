@@ -20,7 +20,7 @@
 #include "Drivers/CPU.h"
 #include "Drivers/ADC_Handler.h"
 #include "Drivers/LCD_Handler.h"
-//#include "Drivers/I2C_Handler.h"
+#include "Drivers/I2C_Handler.h"
 #include "Drivers/UART_Handler.h"
 
 

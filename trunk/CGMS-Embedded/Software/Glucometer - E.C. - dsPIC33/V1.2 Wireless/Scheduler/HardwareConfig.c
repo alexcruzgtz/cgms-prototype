@@ -19,21 +19,21 @@
 
 
 /*-----------------------------------------------------------------------------------------*/
-void HardwareCfg_Init(void)
+void vHardwareCfg_Init(void)
 {
- 	CPU_Init();
- 	Ports_Init();
- 	Oscillator_Init();
+ 	vCPU_Init();
+ 	vPorts_Init();
+ 	vOscillator_Init();
 	vInterrupts_Init(); 
 
-	ADC_Init();
+	vADC_Init();
 	//I2C_Init();
-	vLCD_Init();
-	vUART_Init();
+	//vLCD_Init();
+	//vUART_Init();
 }
 
 /*.........................................................................................*/
-void CPU_Init( void )
+void vCPU_Init( void )
 {
 	RST_VREGINSLEEP_OFF
 	RST_WDT_DISABLED
@@ -48,7 +48,7 @@ void CPU_Init( void )
 	CPU_DSPMUL_INTEGER
 }
 /*.........................................................................................*/
-void Ports_Init(void)
+void vPorts_Init(void)
 {
 	/* Peripherical Pin Select Configuration*/
 	PPSUnLock;
@@ -74,18 +74,10 @@ void Ports_Init(void)
 	LCD_E_Lat = 0;
 	LCD_RS_Lat = 0;
 	LCD_Pwr_Lat = 1;
-
-	/*Analog Pins Configuration*/
-	AN1_Tris = 1;
-	AN2_Tris = 1;
-	AN3_Tris = 1;
-	AN4_Tris = 1;
-	AN5_Tris = 1;
-
 }
 
 /*.........................................................................................*/
-void Oscillator_Init(void)
+void vOscillator_Init(void)
 {
 /*8Mhz Operation
   20Mhz Alternate oscillator through FRC+PLL

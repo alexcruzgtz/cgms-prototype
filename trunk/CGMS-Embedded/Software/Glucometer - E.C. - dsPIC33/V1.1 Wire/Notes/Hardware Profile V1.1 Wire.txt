@@ -9,7 +9,7 @@
 ------------------------------------------------------------------------------------------------
 -----	Components	------------------------------------------------------------------------	
 
- MCU..................... dsPIC33FJ64MC804
+ MCU..................... dsPIC33FJ64GP204
  Human Interface......... 1 LED's (2mA), 3 Push Button (active low), LCD Display (no led)
  Connectors.............. RS232, MiniDin - 4 pin (Super Video)
  ICSP.................... 5 Pin Header (for PicKit)
@@ -385,20 +385,9 @@ _FWDT(WDTPOST_PS128 & WDTPRE_PR32 & WINDIS_OFF & FWDTEN_OFF)
 **     ALTI2C_ON            I2C mapped to ASDA1/ASCL1 pins
 **     ALTI2C_OFF           I2C mapped to SDA1/SCL1 pins
 **
-**   Motor Control PWM Low Side Polarity bit:
-**     LPOL_OFF             PWM module low side output pins have active-low output polarity
-**     LPOL_ON              PWM module low side output pins have active-high output polarity
-**
-**   Motor Control PWM High Side Polarity bit:
-**     HPOL_OFF             PWM module high side output pins have active-low output polarity
-**     HPOL_ON              PWM module high side output pins have active-high output polarity
-**
-**   Motor Control PWM Module Pin Mode bit:
-**     PWMPIN_OFF           PWM module pins controlled by PWM module at device Reset
-**     PWMPIN_ON            PWM module pins controlled by PORT register at device Reset
-**
 
-_FPOR(FPWRT_PWR1 & ALTI2C_OFF & LPOL_OFF & HPOL_OFF & PWMPIN_ON)
+
+_FPOR(FPWRT_PWR1 & ALTI2C_OFF)
 
 ................................................................................................
 	..Register FICD (0xf8000e)..
