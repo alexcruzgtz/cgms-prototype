@@ -177,7 +177,7 @@
 #define UART1_ERRIRQ_OFF			IEC4bits.U1EIE = CLEAR;
 #define UART1_ErrIRQ_Priority		IPC16bits.U1EIP
 
-#define UART2_TxIRQ_Flag			IFS1bits.U2TXIF
+#define UART2_TxIRQ_Flag			IFSbits.U2TXIF
 #define UART2_TXIRQ_ON				IEC1bits.U2TXIE = SET;
 #define UART2_TXIRQ_OFF				IEC1bits.U2TXIE = CLEAR;
 #define UART2_RxIRQ_Priority		IPC7bits.U2RXIP

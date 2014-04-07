@@ -29,7 +29,7 @@ void vHardwareCfg_Init(void)
 	vADC_Init();
 	//vI2C_Init();
 	//vLCD_Init();
-	//vUART_Init();
+	vUART_Init();
 }
 
 /*.........................................................................................*/
