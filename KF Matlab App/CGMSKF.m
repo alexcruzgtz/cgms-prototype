@@ -1,4 +1,3 @@
-
 %Kalman Filter Application
 
 %%
@@ -115,30 +114,42 @@ K[t] (n x m)-> Kalman gain
 %}
 %clear all
 %close all
+
+%codegen
+close all
+clear all
+load('Meas');
+load('Datos Alex 2');
+
 t = 1;
 
 Yga = zeros(2,length(Meas(1,:)));
-Yga(1,1)=90;
-Yga(2,1)=6;
+
+X = zeros(4,length(Meas(1,:)));
+X(1,1) = 1;
+X(3,1) = 1;
+H = zeros(length(Meas(1,:)),4);
 
 A = [1 1 0 0; 0 1 0 0; 0 0 1 1; 0 0 0 1];
 
 G = [0 0; 1 0; 0 0; 0 1];
 
-Hf = [.5*Yga(2,t) 0 .5*Yga(1,t) 0];
-
-Hs = [.5*Yga(2,t) 0 .5*Yga(1,t) 0; 1 0 0 0];
-
-Q = eye(4);
+Q = 1*eye(4);
 Rf = 1;
 Rs = eye(2);
 
+
 X_est = zeros( 4, 1 );
 P_est = ones( 4, 4 );
-X_est(1,1) = Yga(1,1);
-X_est(3,1) = Yga(2,1);
+X_est(1,1) = X(1,1);
+X_est(3,1) = X(3,1);
 
-for t=1 : length(Meas(1,:))
+for t=2 : length(Meas(1,:))
+    Hf = [.5*X(3,t-1) 0 .5*X(1,t-1) 0];
+
+    Hs = [.5*X(3,t-1) 0 .5*X(1,t-1) 0; 1 0 0 0];
+    
+    
     if Meas(2,t) == 0
     
         % Predicted state and covariance
@@ -150,6 +161,8 @@ for t=1 : length(Meas(1,:))
         B = Hf * P_prd';
         K= (S\B)';
 
+        %Z = Hf * Meas(1,t)+Rf;   
+        
         % Estimated state and covariance
         X_est = X_prd + K * ( Meas(1,t) - Hf * X_prd );
         P_est = P_prd - K * Hf * P_prd;
@@ -157,7 +170,12 @@ for t=1 : length(Meas(1,:))
         % Compute the estimated measurements
         Yf = Hf * X_est;
         
-        Yga(1,t+1)=Yf;
+        X(:,t) = X_est;
+        
+        H(t,:) = Hf;
+        
+        Yga(1,t)=Yf;
+    
     else
         % Predicted state and covariance
         X_prd = A * X_est;
@@ -175,7 +193,11 @@ for t=1 : length(Meas(1,:))
         % Compute the estimated measurements
         Ys = Hs * X_est;
         
-        Yga(:,t+1)=Ys;
+        X(:,t)=X_est;
+        
+        H(t,:) = Hs(1,:);
+        
+        Yga(:,t)=Ys;
     end
 end
 
@@ -183,8 +205,17 @@ end
 %xlabel('Time [5min]');
 %ylabel('');
 figure(1)
-subplot(1,2,1), plot(Meas(1,:));
-subplot(1,2,2), plot(Yga(1,:));
+hold on
+plot(Meas(1,:),'g.');
+plot(Yga(1,:),'bx');
+
 figure(2)
-subplot(1,2,1), plot(Meas(2,:));
-subplot(1,2,2), plot(Yga(2,:));
+for i=1:length(Meas(1,:))
+    M(i) = Yga(1,i)*H(i,3);
+end
+hold on
+plot(M(:),'g*');
+plot(data(:,3),'rx');
+plot(Meas(2,:),'bs');
+
+

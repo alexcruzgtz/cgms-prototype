@@ -62,7 +62,7 @@ void Initialize_Buttons(void)
 * 	\param 		Sin parametros
 * 	\return 	No devuelve ningun valor							*/
 /********************************************************************/
-void Btn_Debounce (void)	
+void Btn_Debounce (void)
 {
 	ActualButtonState=(PORTC&0x07);
 	ActualButtonState=ActualButtonState|(PORTA&0x10);

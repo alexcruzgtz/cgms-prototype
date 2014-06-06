@@ -14,6 +14,7 @@
 #include <p33fxxxx.h>
 #include <GenericTypeDefs.h>
 #include <PPS.h>
+#include <uart.h>
 #include "Drivers/Interrupts.h"
 #include "Drivers/Oscillator.h"
 #include "Drivers/Reset.h"

@@ -104,12 +104,12 @@
 /*-----------------------------------------------------------------------------------------*/
 void vUART_Init( void );
 void vUART_Put( BYTE c );
-void vUART_PutROMString( char* str);
+void vUART_PutROMString( const char* str );
 BYTE bUART_Get( void );
 void vPrintChar( BYTE );
 void vPrintDec( BYTE );
 
-#define vPrintf(x) vUART_PutROMString( (char*)x )
+#define vPrintf(x) vUART_PutROMString( (const char*)x )
 
 void vUART_Test( void );
 

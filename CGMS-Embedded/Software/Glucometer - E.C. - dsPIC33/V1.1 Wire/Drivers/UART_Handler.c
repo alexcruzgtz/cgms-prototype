@@ -7,19 +7,20 @@
 #include "Drivers/UART_Handler.h"
 #include <p33fxxxx.h>
 #include <GenericTypeDefs.h>
+#include <uart.h>
 #include "Drivers/Oscillator.h"
 #include "Drivers/Interrupts.h"
 //#include "Scheduler/HardwareConfig.h"
 
 
 /*-----------------------------------------------------------------------------------------*/
-unsigned char CharacterArray[]={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+const unsigned char CharacterArray[]={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
 
 /*-----------------------------------------------------------------------------------------*/
 
 void vUART_Init( void )
 {
-	UART1_BaudRateGenerator = 25;//((FCY/BAUD_RATE)/16 ) - 1;
+	/*UART1_BaudRateGenerator = 25;//((FCY/BAUD_RATE)/16 ) - 1;
     UART1_RxIRQ_Flag = 0;
 	UART1_TxIRQ_Flag = 0;
 
@@ -50,10 +51,29 @@ void vUART_Init( void )
 	//... Starting UART
 	UART1_ON
     UART1_TX_ON
+	*/
+	UINT U1MODEvalue, U1STAvalue;
+	
+	CloseUART1();
+/* Configure uart1 receive and transmit interrupt */
+    ConfigIntUART1(UART_RX_INT_EN & UART_RX_INT_PR6 & 
+                   UART_TX_INT_DIS & UART_TX_INT_PR2);
+/* Configure UART1 module to transmit 8 bit data with one stopbit. Also Enable loopback mode  */
+	U1MODEvalue = UART_EN & UART_IDLE_CON & UART_IrDA_DISABLE & UART_MODE_SIMPLEX &
+			UART_UEN_00 & UART_DIS_WAKE &
+			UART_EN_LOOPBACK & UART_DIS_ABAUD &
+			UART_BRGH_SIXTEEN & UART_NO_PAR_8BIT & UART_1STOPBIT;
+ 
+	U1STAvalue = UART_INT_TX_BUF_EMPTY & UART_TX_ENABLE &
+			 UART_INT_RX_CHAR & UART_ADR_DETECT_DIS & UART_RX_OVERRUN_CLEAR &
+			 UART_IrDA_POL_INV_ZERO & UART_SYNC_BREAK_DISABLED;
+ 
+	OpenUART1 (U1MODEvalue, U1STAvalue, 2);
+
 }
 
 /*.........................................................................................*/
-void vUART_PutROMString( char *str )
+void vUART_PutROMString( const char *str )
 {
     BYTE c;
     while( (c = *str++) )
@@ -65,6 +85,7 @@ void vUART_Put( BYTE c )
 {
     while(UART1_TxShiftRegEmpty_Status == 0);
     UART1_TxRegister = c;
+
 }
 
 /*.........................................................................................*/
@@ -100,12 +121,15 @@ void vPrintDec( BYTE toPrint )
 void vUART_Test( void )
 {
 	//vUART_Init();
-	BYTE i;
-	for( i=0 ; i<10 ; i++ )
-	{
-		vUART_Put('A');
-	}
-	vUART_PutROMString("\r\n Hola! \n");
+	//while(UART1_TxShiftRegEmpty_Status == 0);
+    //UART1_TxRegister = 0x55;
+	//BYTE i;
+	//for( i=0 ; i<10 ; i++ )
+	//{
+		//vUART_Put('A');
+	//}
+	/*vUART_PutROMString((const char *)"A");
+	
 	vPrintChar('A');
 	vPrintDec(50);
 	vPrintf("\r ... UART Test OK ... \n");
@@ -113,7 +137,7 @@ void vUART_Test( void )
 	i = bUART_Get();
 	vPrintf("\r Tecla Presionada: ");
 	vUART_Put(i);
-	vPrintf("\r\n Adios! ");
+	vPrintf("\r\n Adios! ");*/
 }
 
 

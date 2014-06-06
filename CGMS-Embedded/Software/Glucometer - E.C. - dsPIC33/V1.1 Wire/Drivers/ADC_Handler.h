@@ -58,7 +58,8 @@
 										For 12-bit operation:
 											11 = Signed fractional (DOUT = sddd dddd dddd 0000, where s = .NOT.d<11>)
 											10 = Fractional (DOUT = dddd dddd dddd 0000)
-											01 = Signed Integer (DOUT = ssss sddd dddd dddd,*/
+											01 = Signed Integer (DOUT = ssss sddd dddd dddd
+											00 = Integer (DOUT = 0000 dddd dddd dddd)*/
 #define ADC_SampleClkSource				AD1CON1bits.SSRC		/*Sample Clock Source Select bits
 										111 = Internal counter ends sampling and starts conversion (auto-convert)
 										110 = Reserved
