@@ -19,6 +19,7 @@ unsigned char CharacterArray[]={'0','1','2','3','4','5','6','7','8','9','A','B',
 
 void vUART_Init( void )
 {
+	/*
 	UART1_BaudRateGenerator = 25;//((FCY/BAUD_RATE)/16 ) - 1;
     UART1_RxIRQ_Flag = 0;
 	UART1_TxIRQ_Flag = 0;
@@ -50,10 +51,17 @@ void vUART_Init( void )
 	//... Starting UART
 	UART1_ON
     UART1_TX_ON
+	*/
+	U1BRG   = (FOSC/2/16)/BAUD_RATE-1;
+    IFS0bits.U1RXIF = 0;
+    U1STA  = 0;
+    U1MODE = 0b0000000010000000;
+    U1MODEbits.UARTEN = 1;
+    U1STAbits.UTXEN = 1;
 }
 
 /*.........................................................................................*/
-void vUART_PutROMString( char *str )
+void vUART_PutROMString( const char* str )
 {
     BYTE c;
     while( (c = *str++) )
@@ -105,15 +113,15 @@ void vUART_Test( void )
 	{
 		vUART_Put('A');
 	}
-	vUART_PutROMString("\r\n Hola! \n");
-	vPrintChar('A');
-	vPrintDec(50);
-	vPrintf("\r ... UART Test OK ... \n");
-	vPrintf("\r Presiona una tecla \n");
-	i = bUART_Get();
-	vPrintf("\r Tecla Presionada: ");
-	vUART_Put(i);
-	vPrintf("\r\n Adios! ");
+	//vUART_PutROMString("hhhhh");
+	//vPrintChar("A");
+	//vPrintDec(50);
+	//vPrintf("\r ... UART Test OK ... \n");
+	//vPrintf("\r Presiona una tecla \n");
+	//i = bUART_Get();
+	//vPrintf("\r Tecla Presionada: ");
+	//vUART_Put(i);
+	//vPrintf("\r\n Adios! ");
 }
 
 

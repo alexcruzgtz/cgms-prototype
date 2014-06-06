@@ -1,68 +1,45 @@
-/**********************************************************************************************/
-/** \file 		Buttons.c
-*	\version 	1.0
-*   \author 	Carlos Díaz  
-*   \mail 		cedg88@gmail.com
-*   \date 		31/Enero/2012
-* 	\brief 		Este archivo pertenece a la capa de aplicación y se encarga de manejar 
-* 				las tareas correspondientes a los botones.
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/**/
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+
+/*-----------------------------------------------------------------------------------------*/
+/*#include "Buttons.h"
+#include <p33fxxxx.h>
+#include <GenericTypeDefs.h>
+
 */
-/**********************************************************************************************/
-
-#include <p18f4550.h>
-#include "Buttons.h"
-#include "LcdHandler.h"
-#include "measurements.h"
-
-/*----------------------------------------------------------------*/
-/*                    Prototipo de funciones                      */
-/*----------------------------------------------------------------*/
-void Btn_Debounce (void);
+/*-----------------------------------------------------------------------------------------*/
+/*void Btn_Debounce (void);
 void CheckUpButton(void);
 void CheckDownButton(void);
 void CheckEnterButton(void);
-
-/*----------------------------------------------------------------*/
-/*                    Definicion de variables                     */
-/*----------------------------------------------------------------*/
-/**********************************************************************************************/
-/** \var 	unsigned char ActualButtonState;
-* 	\brief 	Indica el estado actual en el que se encuentran los botones.
-* 
-* 	Para obtener el valor actual de los botones debe de hacer referencia a los botones que se
-*	encuentren presionados. Los botones se encuentran especificados en el diagrama esquematico 
-*	del dispositivo.
 */
+
+/*-----------------------------------------------------------------------------------------*/
 /**********************************************************************************************/
-unsigned char ActualButtonState;		//Indica el estado actual en el qeu se encuentran los botones
-unsigned char LastButtonState;			//Indica el valor de un estado previo de los botones.
-unsigned char DebounceCntr;				//Esta variable lleva la cuenta de la cantidad de tiempo que ha estado presionado un boton
-unsigned char ButtonState;				//Indica si el boton esta presionado(PRESSED) o si fue liberado(RELEASE)
+/*BYTE ActualButtonState;			//Indica el estado actual en el qeu se encuentran los botones
+BYTE LastButtonState;			//Indica el valor de un estado previo de los botones.
+BYTE DebounceCntr;				//Esta variable lleva la cuenta de la cantidad de tiempo que ha estado presionado un boton
+BYTE ButtonState;				//Indica si el boton esta presionado(PRESSED) o si fue liberado(RELEASE)
 
-unsigned char ActualTimeVar;
-unsigned char GluCal_Flag;
-unsigned char TimeCal_Flag;
+BYTE ActualTimeVar;
+BYTE GluCal_Flag;
+BYTE TimeCal_Flag;
 
-/*----------------------------------------------------------------*/
-/*                    Function Description                        */
-/*----------------------------------------------------------------*/
-
-void Initialize_Buttons(void)
+*/
+/*-----------------------------------------------------------------------------------------*/
+/*void Init_Buttons(void)
 {
 	ButtonState=RELEASE;
 	ActualTimeVar=1;
 	GluCal_Flag=0;
 	TimeCal_Flag=0;
 }
-/********************************************************************/
-/** \fn 		void Btn_Debounce (void)
-* 	\brief 		Esta funcion se encarga de manejar el debounce de los 
-*				botones con el objetivo de evitar la mala presion de 
-*				algun boton.
-* 	\param 		Sin parametros
-* 	\return 	No devuelve ningun valor							*/
-/********************************************************************/
-void Btn_Debounce (void)	
+*/
+
+/*.........................................................................................*/
+/*void Btn_Debounce (void)
 {
 	ActualButtonState=(PORTC&0x07);
 	ActualButtonState=ActualButtonState|(PORTA&0x10);
@@ -79,25 +56,25 @@ void Btn_Debounce (void)
 			{
 				ButtonState=PRESS;
 
-				/***** Up-Right Button *****/
+
 				if(ActualButtonState==1)
 				{
 					CheckUpButton();
 				}
 
-				/***** Down-Left Button *****/
+
 				else if(ActualButtonState==4)
 				{
 					CheckDownButton();
 				}
 
-				/***** "Enter" Button *****/
+
 				else if(ActualButtonState==2)
 				{
 					CheckEnterButton();
 				}	
 
-				/***** BackLight Button *****/
+
 				else if(ActualButtonState==8)
 				{	
 					if(PORTDbits.RD7==0)
@@ -126,8 +103,9 @@ void Btn_Debounce (void)
 	LastButtonState=ActualButtonState;
 }
 
-/*-----------------------------------------------------------------------------------------*/
-void CheckUpButton(void)
+*/
+/*.........................................................................................*/
+/*void CheckUpButton(void)
 {
 	if(GluCal_Flag==1)
 	{
@@ -235,8 +213,9 @@ void CheckUpButton(void)
 	}
 }
 
-/*-----------------------------------------------------------------------------------------*/
-void CheckDownButton(void)
+*/
+/*.........................................................................................*/
+/*void CheckDownButton(void)
 {
 	if(GluCal_Flag==1)
 	{
@@ -340,9 +319,10 @@ void CheckDownButton(void)
 		update_LCD_Values=1;
 	}
 }
+*/
 
-/*-----------------------------------------------------------------------------------------*/
-void CheckEnterButton(void)
+/*.........................................................................................*/
+/*void CheckEnterButton(void)
 {
 	if ((Actual_LCD_page==5)&&(GluCal_Flag==0))
 	{
@@ -410,3 +390,6 @@ void CheckEnterButton(void)
 		update_LCD=0;
 	}
 }
+
+*/
+/*-----------------------------------------------------------------------------------------*/

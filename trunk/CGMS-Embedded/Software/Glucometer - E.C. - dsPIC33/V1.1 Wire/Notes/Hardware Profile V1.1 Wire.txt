@@ -302,7 +302,7 @@ _FGS(GWRP_OFF & GCP_OFF)
 **     IESO_ON              Start-up device with FRC, then automatically switch to user-selected oscillator source when ready
 **
 
-_FOSCSEL(FNOSC_FRC & IESO_ON)
+_FOSCSEL(FNOSC_LPRCDIVN & IESO_OFF)
 
 ................................................................................................
 	..Register FOSC (0xf80008)..
