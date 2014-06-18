@@ -21,7 +21,7 @@ Kgslow = P[k]*Hslow'*(Hslow*P[k]*Hslow' + Rslow)^-1
 %} 
 
 function [X,Y,P] = kF_V_KuurePalermBequette(x,y,A,H,G,P,Q,R)
-
+    %#codegen
     x_ =  A*x;
     
     P1 = A*P*H';
