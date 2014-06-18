@@ -22,7 +22,7 @@ Y[k] = Ha*Xa[k] +v[k]
 
 %} 
 
-function [X,Y,P] = kF_V_Bequette(x,y,A,H,P,Kg,Q)
+function [X,Y] = kF_V_Bequette(x,y,A,H,Kg)
 
     x_ =  A*x;
     

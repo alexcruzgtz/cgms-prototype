@@ -135,7 +135,7 @@ for k=2:n
     end
 end
 for k=2:n
-    [X(:,k),Y(1,k),P] = kF_V_Bequette( X(:,k-1), data(k,4)/m(k), A, H, P, Kg, Q );
+    [X(:,k),Y(1,k)] = kF_V_Bequette( X(:,k-1), data(k,4)/m(k), A, H, Kg);
 end
 %{     
 for i=1:n
