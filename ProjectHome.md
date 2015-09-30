@@ -1,0 +1,5 @@
+The importance of prevention and treatment, as well as the high prevalence of diabetes mellitus suggests the need to develop technologies for continuous glucose monitoring with high precision, accuracy, portability and ease of use. Likewise, the search for automatic control systems, called artificial pancreas -which emulate the behavior of glucose homeostasis and minimize the introduction of human error in the control of blood glucose concentration- exhibit the need to investigate and test methods that improve current continuous glucose monitoring systems.
+
+The aim of this work is to create an electronic instrumentation tool that enables the aplication of signal and data processing techniques to continuously monitor blood glucose using a comercial amperometric enzymatic semi-invasive sensor.
+
+This research project is being worked at the University of Guadalajara, at Guadalajara, México.
